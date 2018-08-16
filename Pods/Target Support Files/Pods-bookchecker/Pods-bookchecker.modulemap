@@ -1,0 +1,6 @@
+framework module Pods_bookchecker {
+  umbrella header "Pods-bookchecker-umbrella.h"
+
+  export *
+  module * { export * }
+}

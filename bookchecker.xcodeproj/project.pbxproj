@@ -20,6 +20,7 @@
 		4E7D25232121091A004FA408 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E7D25212121091A004FA408 /* LaunchScreen.storyboard */; };
 		4E7D252B21210A88004FA408 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D252A21210A88004FA408 /* FeedTableViewController.swift */; };
 		4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */; };
+		4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABBAE62128180000657D33 /* DetailViewController.swift */; };
 		4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		4E7D25242121091A004FA408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E7D252A21210A88004FA408 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		4EABBAE62128180000657D33 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		5B8352BB987EF499395F67C9 /* Pods-bookchecker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookchecker.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookchecker/Pods-bookchecker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,12 +58,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E04F4DC212837C3009B076F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E695BC6212183FE00CFE856 /* Book.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4E5F5C8421259BAF0080A0F6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				4E7794052123212600AF3C25 /* TestTableViewController.swift */,
 				4E7D252A21210A88004FA408 /* FeedTableViewController.swift */,
 				4E5F5C822125871E0080A0F6 /* SearchTableViewController.swift */,
+				4EABBAE62128180000657D33 /* DetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -88,9 +99,9 @@
 			isa = PBXGroup;
 			children = (
 				4E7D251821210919004FA408 /* AppDelegate.swift */,
-				4E695BC6212183FE00CFE856 /* Book.swift */,
 				4E695BC82121CF6B00CFE856 /* URL + helper.swift */,
 				4E695BCE2121E8C100CFE856 /* Services.swift */,
+				4E04F4DC212837C3009B076F /* Model */,
 				4E5F5C8421259BAF0080A0F6 /* View Controllers */,
 				4E7D252E21212468004FA408 /* Views */,
 				4E7D251C21210919004FA408 /* Main.storyboard */,
@@ -206,6 +217,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-bookchecker/Pods-bookchecker-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -215,6 +227,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -250,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */,
 				4E695BC7212183FE00CFE856 /* Book.swift in Sources */,
 				4E5F5C832125871E0080A0F6 /* SearchTableViewController.swift in Sources */,
 				4E695BC92121CF6B00CFE856 /* URL + helper.swift in Sources */,

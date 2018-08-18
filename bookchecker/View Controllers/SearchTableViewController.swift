@@ -22,7 +22,7 @@ class SearchTableViewController: UITableViewController {
 		searchBar.delegate = self
     }
 
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return books.count
 	}
@@ -32,10 +32,17 @@ class SearchTableViewController: UITableViewController {
 		let book = books[indexPath.row]
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
-		Services.shared.getBookImage(from: book.thumbnail!) { (image) in
+		Services.shared.getBookImage(from: book.thumbnail) { (image) in
 			cell.coverImage.image = image
 		}
 		return cell
+	}
+
+	//MARK: - UITableViewDelegate
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
+			vc.book = books[indexPath.row]
+			navigationController?.pushViewController(vc, animated: true)
 	}
 
 }
@@ -54,7 +61,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		//throttle the url requests
 		timer?.invalidate()
-		timer = Timer.scheduledTimer(timeInterval: 0.25, target: self, selector: #selector(getBooksFromSearchbar), userInfo: nil, repeats: false)
+		timer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(getBooksFromSearchbar), userInfo: nil, repeats: false)
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

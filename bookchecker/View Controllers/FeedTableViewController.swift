@@ -83,7 +83,7 @@ extension FeedTableViewController: UICollectionViewDataSource {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! FeedCollectionViewCell
 		cell.textLabel.text = "\(queries[collectionView.tag] ?? "") \(indexPath.row)"
 		if let book = booksArray[collectionView.tag]?[indexPath.item] {
-			Services.shared.getBookImage(from: book.thumbnail ?? "") { (image) in
+			Services.shared.getBookImage(from: book.thumbnail) { (image) in
 				cell.coverImage.image = image
 			}
 		}
@@ -95,7 +95,11 @@ extension FeedTableViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension FeedTableViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		print("Selected cell with category \(queries[collectionView.tag] ?? "") at index \(indexPath.row)")
+		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
+		if let book = booksArray[collectionView.tag]?[indexPath.item] {
+			vc.book = book
+			navigationController?.pushViewController(vc, animated: true)
+		}
 	}
 }
 

@@ -28,7 +28,7 @@ class FeedTableViewController: UITableViewController {
 	]
 
 	var booksArray: [Int : [Book]] = [ : ]
-	var storedOffsets: [CGFloat] = []
+    var storedOffsets = [Int: CGFloat]()
 
 	//MARK: - Life Cycle
     override func viewDidLoad() {
@@ -36,9 +36,6 @@ class FeedTableViewController: UITableViewController {
 		for i in 0..<queries.count {
 			Services.shared.getBooks(from: Services.baseURL, params: ["q" : queries[i]!]) { (books) in
 				self.booksArray[i] = books
-				let bookDict = (self.booksArray)
-				let bookTitles = bookDict[i]?.first?.title
-				print("\(bookDict.keys) : \(bookTitles)")
 				self.tableView.reloadData()
 			}
 		}
@@ -65,20 +62,20 @@ class FeedTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let cell = cell as! FeedTableViewCell
-//		cell.feedCollection.tag = (100 * indexPath.section) + 1
 		cell.feedCollection.tag = indexPath.section
-
 		cell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.section)
+		cell.collectionViewOffset = storedOffsets[indexPath.section] ?? 0
 	}
 
+	override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		let cell = cell as! FeedTableViewCell
+		storedOffsets[indexPath.section] = cell.collectionViewOffset
+	}
 }
 
 //MARK: - UICollectionViewDataSource
 extension FeedTableViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//		guard booksArray.count > collectionView.tag else {
-//			return 0
-//		}
 		return booksArray[collectionView.tag]?.count ?? 0
 	}
 
@@ -97,20 +94,9 @@ extension FeedTableViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 extension FeedTableViewController: UICollectionViewDelegate {
-	
-}
-
-extension Dictionary where Value: Equatable {
-	/// Returns all keys mapped to the specified value.
-	/// ```
-	/// let dict = ["A": 1, "B": 2, "C": 3]
-	/// let keys = dict.keysForValue(2)
-	/// assert(keys == ["B"])
-	/// assert(dict["B"] == 2)
-	/// ```
-	func keyForValue(value: Value) -> Key {
-		return compactMap { (key: Key, val: Value) -> Key? in
-			value == val ? key : nil
-			}.first!
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		print("Selected cell with category \(queries[collectionView.tag] ?? "") at index \(indexPath.row)")
 	}
 }
+
+

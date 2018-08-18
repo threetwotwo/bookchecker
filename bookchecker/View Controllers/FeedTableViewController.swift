@@ -14,29 +14,31 @@ class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 
 	fileprivate var tableViewCellCoordinator: [IndexPath: Int] = [:]
-	let queries = [
-		"potter",
-		"mommy",
-		"john",
-		"dumpster",
-		"bear",
-		"dota",
-		"competition",
-		"hiking",
-		"gentle",
-		"rough"
+	let queries: [Int : String] = [
+		0 :	"potter",
+		1 :	"mommy",
+		2 :	"john",
+		3 :	"dumpster",
+		4 :	"bear",
+		5 :	"dota",
+		6 :	"competition",
+		7 :	"hiking",
+		8 :	"gentle",
+		9 :	"rough"
 	]
 
-	var books: [[Book]] = []
+	var booksArray: [Int : [Book]] = [ : ]
 	var storedOffsets: [CGFloat] = []
 
 	//MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 		for i in 0..<queries.count {
-			Services.shared.getBooks(from: Services.baseURL, params: ["q" : queries[i]]) { (books) in
-				self.books.append(books)
-				print(books.first!.title)
+			Services.shared.getBooks(from: Services.baseURL, params: ["q" : queries[i]!]) { (books) in
+				self.booksArray[i] = books
+				let bookDict = (self.booksArray)
+				let bookTitles = bookDict[i]?.first?.title
+				print("\(bookDict.keys) : \(bookTitles)")
 				self.tableView.reloadData()
 			}
 		}
@@ -74,18 +76,19 @@ class FeedTableViewController: UITableViewController {
 //MARK: - UICollectionViewDataSource
 extension FeedTableViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		guard books.count > collectionView.tag else {
-			return 0
-		}
-		return books[collectionView.tag].count
+//		guard booksArray.count > collectionView.tag else {
+//			return 0
+//		}
+		return booksArray[collectionView.tag]?.count ?? 0
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! FeedCollectionViewCell
-		cell.textLabel.text = "\(queries[collectionView.tag]) \(indexPath.row)"
-		let book = books[collectionView.tag][indexPath.row]
-		Services.shared.getBookImage(from: book.thumbnail ?? "") { (image) in
-			cell.coverImage.image = image
+		cell.textLabel.text = "\(queries[collectionView.tag] ?? "") \(indexPath.row)"
+		if let book = booksArray[collectionView.tag]?[indexPath.item] {
+			Services.shared.getBookImage(from: book.thumbnail ?? "") { (image) in
+				cell.coverImage.image = image
+			}
 		}
 		return cell
 	}

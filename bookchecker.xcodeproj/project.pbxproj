@@ -104,8 +104,8 @@
 		4E7D252E21212468004FA408 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4E695BCC2121E7D100CFE856 /* FeedCollectionViewCell.swift */,
 				4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */,
+				4E695BCC2121E7D100CFE856 /* FeedCollectionViewCell.swift */,
 				4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */,
 			);
 			path = Views;

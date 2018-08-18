@@ -33,6 +33,7 @@ class FeedTableViewController: UITableViewController {
 	//MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+		addNavBarImage()
 		for i in 0..<queries.count {
 			Services.shared.getBooks(from: Services.baseURL, params: ["q" : queries[i]!]) { (books) in
 				self.booksArray[i] = books
@@ -40,6 +41,24 @@ class FeedTableViewController: UITableViewController {
 			}
 		}
     }
+
+	func addNavBarImage() {
+		let navController = navigationController!
+
+		let image = #imageLiteral(resourceName: "booklogo")
+		let imageView = UIImageView(image: image)
+
+		let bannerWidth = navController.navigationBar.frame.size.width
+		let bannerHeight = navController.navigationBar.frame.size.height
+
+		let bannerX = bannerWidth / 2 - image.size.width / 2
+		let bannerY = bannerHeight / 2 - image.size.height / 2
+
+		imageView.frame = CGRect(x: bannerX, y: bannerY, width: 200, height: bannerHeight)
+		imageView.contentMode = .scaleAspectFit
+
+		navigationItem.titleView = imageView
+	}
 
 
 	//MARK: - UITableViewDataSource

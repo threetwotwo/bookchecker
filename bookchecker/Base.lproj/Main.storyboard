@@ -12,7 +12,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Bookchecker-->
+        <!--Feed Table View Controller-->
         <scene sceneID="Iga-l5-kSg">
             <objects>
                 <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="hMG-lO-OjQ" customClass="FeedTableViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
@@ -95,13 +95,20 @@
                             <outlet property="delegate" destination="hMG-lO-OjQ" id="1Gy-LD-Dy3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Bookchecker" id="YNw-SU-s47"/>
+                    <navigationItem key="navigationItem" id="YNw-SU-s47">
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="             " id="rfF-dh-bVj">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="             " id="Sr2-Zl-1Kk">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zho-kx-Qd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1914" y="-260"/>
         </scene>
-        <!--Bookchecker-->
+        <!--Search Table View Controller-->
         <scene sceneID="QbV-Bx-pWh">
             <objects>
                 <tableViewController id="dPo-gQ-WGA" customClass="SearchTableViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
@@ -167,7 +174,7 @@
                             <outlet property="delegate" destination="dPo-gQ-WGA" id="UHi-Sd-fqG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Bookchecker" id="mGt-aJ-xeH"/>
+                    <navigationItem key="navigationItem" id="mGt-aJ-xeH"/>
                     <connections>
                         <outlet property="searchBar" destination="5TN-WS-GMs" id="u2w-LV-Gex"/>
                     </connections>
@@ -399,6 +406,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="T33-C3-A9o">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

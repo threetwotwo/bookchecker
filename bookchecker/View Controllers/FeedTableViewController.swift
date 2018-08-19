@@ -15,7 +15,7 @@ class FeedTableViewController: UITableViewController {
 
 	fileprivate var tableViewCellCoordinator: [IndexPath: Int] = [:]
 	let queries: [Int : String] = [
-		0 :	"potter",
+		0 :	"Potter",
 		1 :	"mommy",
 		2 :	"john",
 		3 :	"dumpster",
@@ -43,10 +43,17 @@ class FeedTableViewController: UITableViewController {
 		}
     }
 
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		let header = view as! UITableViewHeaderFooterView
+		header.textLabel?.font = UIFont(name: "Futura-Medium", size: 15)
+		header.textLabel?.textColor = UIColor.black
+		header.contentView.backgroundColor = UIColor.white
+	}
+
 	func addNavBarImage() {
 		let navController = navigationController!
 
-		let image = #imageLiteral(resourceName: "booklogo")
+		let image = #imageLiteral(resourceName: "bookchecker_logo_happy")
 		let imageView = UIImageView(image: image)
 
 		let bannerWidth = navController.navigationBar.frame.size.width
@@ -72,7 +79,7 @@ class FeedTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return queries[section]
+		return queries[section] ?? "books"
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

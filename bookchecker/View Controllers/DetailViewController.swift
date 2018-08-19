@@ -25,6 +25,12 @@ class DetailViewController: UIViewController {
 
 	//MARK: - IBActions
 	@IBAction func previewButtonPressed(_ sender: UIButton) {
+		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
+		guard let previewURL = URL(string: book.previewLink.replacingOccurrences(of: "gbs_api", with: "kp_read_button")) else {
+			return
+		}
+		vc.previewLink = previewURL
+		navigationController?.pushViewController(vc, animated: true)
 	}
 	
 	//MARK: - variables
@@ -45,7 +51,7 @@ class DetailViewController: UIViewController {
 		print(book)
 		titleLabel.text = book.title
 		authorLabel.text = book.authors
-		publisherLabel.text = book.publisher
+		publisherLabel.text = book.publisher == "" ? "Unknown Publisher" : book.publisher
 		publishedDateLabel.text = book.publishedDate
 		categoryLabel.text = book.categories
 

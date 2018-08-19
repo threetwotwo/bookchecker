@@ -17,6 +17,7 @@ class SearchTableViewController: UITableViewController {
 	var books: [Book] = []
 	var timer: Timer?
 
+	//MARK: - Life cycle
 	override func viewDidLoad() {
         super.viewDidLoad()
 		searchBar.delegate = self

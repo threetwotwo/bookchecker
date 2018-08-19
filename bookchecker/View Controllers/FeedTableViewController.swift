@@ -33,6 +33,7 @@ class FeedTableViewController: UITableViewController {
 	//MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
 		addNavBarImage()
 		for i in 0..<queries.count {
 			Services.shared.getBooks(from: Services.baseURL, params: ["q" : queries[i]!]) { (books) in
@@ -90,6 +91,10 @@ class FeedTableViewController: UITableViewController {
 		let cell = cell as! FeedTableViewCell
 		storedOffsets[indexPath.section] = cell.collectionViewOffset
 	}
+
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return 0
+	}
 }
 
 //MARK: - UICollectionViewDataSource
@@ -108,7 +113,6 @@ extension FeedTableViewController: UICollectionViewDataSource {
 		}
 		return cell
 	}
-
 }
 
 //MARK: - UICollectionViewDelegate
@@ -121,5 +125,6 @@ extension FeedTableViewController: UICollectionViewDelegate {
 		}
 	}
 }
+
 
 

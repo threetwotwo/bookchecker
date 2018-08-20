@@ -11,7 +11,6 @@ import UIKit
 class FeedCollectionViewCell: UICollectionViewCell {
     
 	@IBOutlet weak var coverImage: UIImageView!
-	@IBOutlet weak var textLabel: UILabel!
 
 	var imageURL: String?
 

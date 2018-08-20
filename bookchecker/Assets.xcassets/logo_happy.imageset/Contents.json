@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bookchecker_logo_happy.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "logo_happy.png",
       "scale" : "2x"
     },
     {

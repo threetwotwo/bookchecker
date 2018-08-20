@@ -32,36 +32,34 @@
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UNf-pK-oMQ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="241"/>
                                             <color key="backgroundColor" red="0.29411764705882354" green="0.29411764705882354" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HLt-Tg-jnS">
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="HLt-Tg-jnS">
                                                 <size key="itemSize" width="150" height="240"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="Rca-ZO-WV0" customClass="FeedCollectionViewCell" customModule="bookchecker" customModuleProvider="target">
-                                                    <rect key="frame" x="10" y="0.0" width="150" height="240"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6F9-D8-O8J">
-                                                                <rect key="frame" x="10" y="0.0" width="130" height="206.5"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="6F9-D8-O8J" secondAttribute="height" multiplier="5:8" constant="1" id="0dt-w7-P6U"/>
-                                                                </constraints>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="csb-xc-j9Q">
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
                                                             </imageView>
                                                         </subviews>
                                                     </view>
                                                     <constraints>
-                                                        <constraint firstItem="6F9-D8-O8J" firstAttribute="leading" secondItem="Rca-ZO-WV0" secondAttribute="leading" constant="10" id="8oh-Ib-z67"/>
-                                                        <constraint firstAttribute="trailing" secondItem="6F9-D8-O8J" secondAttribute="trailing" constant="10" id="JOL-3V-IRz"/>
-                                                        <constraint firstItem="6F9-D8-O8J" firstAttribute="top" secondItem="Rca-ZO-WV0" secondAttribute="top" id="c1H-UK-JRs"/>
+                                                        <constraint firstItem="csb-xc-j9Q" firstAttribute="leading" secondItem="Rca-ZO-WV0" secondAttribute="leading" id="JEe-4v-taA"/>
+                                                        <constraint firstAttribute="trailing" secondItem="csb-xc-j9Q" secondAttribute="trailing" id="NDA-DP-oHr"/>
+                                                        <constraint firstItem="csb-xc-j9Q" firstAttribute="top" secondItem="Rca-ZO-WV0" secondAttribute="top" id="edU-Z6-QcJ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="csb-xc-j9Q" secondAttribute="bottom" id="grX-P0-WXY"/>
                                                     </constraints>
                                                     <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                                     <connections>
-                                                        <outlet property="coverImage" destination="6F9-D8-O8J" id="eiD-Iq-7pm"/>
+                                                        <outlet property="coverImage" destination="csb-xc-j9Q" id="9u0-YB-ynH"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -88,14 +86,7 @@
                             <outlet property="delegate" destination="hMG-lO-OjQ" id="1Gy-LD-Dy3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="YNw-SU-s47">
-                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="             " id="rfF-dh-bVj">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="             " id="Sr2-Zl-1Kk">
-                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="YNw-SU-s47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zho-kx-Qd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -122,7 +113,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4dK-iq-XEg">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4dK-iq-XEg">
                                             <rect key="frame" x="10" y="10" width="112" height="179.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="4dK-iq-XEg" secondAttribute="height" multiplier="5:8" id="Yse-Su-aDp"/>

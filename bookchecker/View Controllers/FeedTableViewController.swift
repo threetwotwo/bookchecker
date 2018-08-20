@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import Alamofire
-import SwiftyJSON
 
 class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
+	var networkManager: NetworkManager!
 	let queries: [Int : String] = [
 		0 :	"Potter",
 		1 :	"mommy",
@@ -31,6 +30,7 @@ class FeedTableViewController: UITableViewController {
 	//MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+		networkManager = NetworkManager()
 		addNavBarImage()
 		for i in 0..<queries.count {
 			Services.shared.getBooks(from: Services.baseURL, params: ["q" : queries[i]!]) { (books) in
@@ -38,6 +38,7 @@ class FeedTableViewController: UITableViewController {
 				self.tableView.reloadData()
 			}
 		}
+		
     }
 
 	//MARK: - UITableViewDataSource
@@ -104,7 +105,7 @@ extension FeedTableViewController {
 	func addNavBarImage() {
 		let navController = navigationController!
 
-		let image = #imageLiteral(resourceName: "bookchecker_logo_happy")
+		let image = #imageLiteral(resourceName: "logo_happy")
 		let imageView = UIImageView(image: image)
 
 		let bannerWidth = navController.navigationBar.frame.size.width

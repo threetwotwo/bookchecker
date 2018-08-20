@@ -22,6 +22,7 @@
 		4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */; };
 		4E99956621290DF9007A7E09 /* UIColor + hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956521290DF9007A7E09 /* UIColor + hex.swift */; };
 		4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956821297C72007A7E09 /* WebReaderViewController.swift */; };
+		4EA35ABA212A705600B7DC3F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA35AB9212A705600B7DC3F /* NetworkManager.swift */; };
 		4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABBAE62128180000657D33 /* DetailViewController.swift */; };
 		4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		4E99956521290DF9007A7E09 /* UIColor + hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + hex.swift"; sourceTree = "<group>"; };
 		4E99956821297C72007A7E09 /* WebReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebReaderViewController.swift; sourceTree = "<group>"; };
+		4EA35AB9212A705600B7DC3F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4EABBAE62128180000657D33 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		5B8352BB987EF499395F67C9 /* Pods-bookchecker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookchecker.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookchecker/Pods-bookchecker.release.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				4E7D251821210919004FA408 /* AppDelegate.swift */,
+				4EA35AB9212A705600B7DC3F /* NetworkManager.swift */,
 				4E695BC82121CF6B00CFE856 /* URL + helper.swift */,
 				4E695BCE2121E8C100CFE856 /* Services.swift */,
 				4E99956721290E13007A7E09 /* Helpers */,
@@ -286,6 +289,7 @@
 				4E7D251921210919004FA408 /* AppDelegate.swift in Sources */,
 				4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */,
 				4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */,
+				4EA35ABA212A705600B7DC3F /* NetworkManager.swift in Sources */,
 				4E7D252B21210A88004FA408 /* FeedTableViewController.swift in Sources */,
 				4E7794062123212600AF3C25 /* TestTableViewController.swift in Sources */,
 				4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */,

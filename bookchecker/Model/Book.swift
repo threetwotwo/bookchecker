@@ -7,19 +7,20 @@
 //
 import UIKit
 import Foundation
+import RealmSwift
 
-struct Book {
-	var authors = ""
-	var title = ""
-	var subtitle = ""
-	var publisher = ""
-	var publishedDate = ""
-	var description = ""
-	var averageRating = ""
-	var ratingsCount = ""
-	var previewLink = ""
-	var thumbnail = ""
-	var categories = ""
+class Book: Object {
+	@objc dynamic var authors = ""
+	@objc dynamic var title = ""
+	@objc dynamic var subtitle = ""
+	@objc dynamic var publisher = ""
+	@objc dynamic var publishedDate = ""
+	@objc dynamic var about = ""
+	@objc dynamic var averageRating = ""
+	@objc dynamic var ratingsCount = ""
+	@objc dynamic var previewLink = ""
+	@objc dynamic var thumbnail = ""
+	@objc dynamic var categories = ""
 }
 
 struct BookImage {

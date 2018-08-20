@@ -16,31 +16,11 @@ class Services {
 	static let baseURL = "https://www.googleapis.com/books/v1/volumes"
 	static let shared = Services()
 
-	func getBooksData(from url: String, params: [String : String], completion: @escaping ([UIImage]) -> ()) {
-		Alamofire.request(url, parameters: params).responseJSON { (response) in
-			guard response.result.isSuccess else {
-				print(response.result.error?.localizedDescription ?? "Error fetching books")
-				return
-			}
-			let bookJSON = JSON(response.result.value!)
-			let totalItems = bookJSON["items"].arrayValue
-			var images: [UIImage] = []
-
-			for item in totalItems {
-				let imageUrl = item["volumeInfo"]["imageLinks"]["thumbnail"].stringValue
-				Alamofire.request(imageUrl).responseData { (response) in
-					if let data = response.result.value,
-					let	image = UIImage(data: data) {
-						images.append(image)
-					}
-					completion(images)
-				}
-			}
-		}
-	}
-
 	func getBooks(from url: String, params: [String : String], completion: @escaping ([Book]) -> ()) {
-		Alamofire.request(url, parameters: params).responseJSON { (response) in
+		var parameters = params
+		//only return books that have preview
+		parameters["filter"] = "partial"
+		Alamofire.request(url, parameters: parameters).responseJSON { (response) in
 			guard response.result.isSuccess else {
 				print(response.result.error?.localizedDescription ?? "Error fetching books")
 				return
@@ -53,11 +33,11 @@ class Services {
 			for item in totalItems {
 				let volumeInfo = item["volumeInfo"]
 
-				var book = Book()
+				let book = Book()
 				book.title = volumeInfo["title"].stringValue
 				book.subtitle = volumeInfo["subtitle"].stringValue
 				book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-				book.description = volumeInfo["description"].stringValue
+				book.about = volumeInfo["description"].stringValue
 				book.publisher = volumeInfo["publisher"].stringValue
 				book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
 				book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")

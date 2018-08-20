@@ -20,4 +20,21 @@ extension URL {
 		components?.scheme = "https"
 		return components?.url
 	}
+
+	mutating func setValue(forKey key: String, to newValue: String) {
+		guard var components = URLComponents(url: self, resolvingAgainstBaseURL: true), let queryItems = components.queryItems else {
+			return
+		}
+
+		var parameters = [String: String]()
+		for item in queryItems {
+			parameters[item.name] = item.value
+		}
+
+		parameters[key] = newValue
+
+		components.queryItems = parameters.compactMap{URLQueryItem(name: $0.key, value: $0.value)}
+
+		self = components.url!
+	}
 }

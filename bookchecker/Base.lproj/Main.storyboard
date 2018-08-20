@@ -273,7 +273,7 @@
                                                                                 <rect key="frame" x="15" y="154" width="149" height="32"/>
                                                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
-                                                                                <state key="normal" title="Online Preview">
+                                                                                <state key="normal" title="Preview Online">
                                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <variation key="heightClass=regular-widthClass=compact">

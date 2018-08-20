@@ -30,6 +30,7 @@ class DetailViewController: UIViewController {
 			return
 		}
 		vc.previewLink = previewURL
+		vc.previewLink.setValue(forKey: "pg", to: "PA1")
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	
@@ -63,9 +64,9 @@ class DetailViewController: UIViewController {
 			ratingCountLabel.text = "(\(book.ratingsCount))"
 		}
 
-		descriptionHeaderLabel.text = book.description == "" ? "No description" : "Description"
+		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
 
-		descriptionLabel.text = book.description
+		descriptionLabel.text = book.about
 		categoryLabel.text =  book.categories
 
 		Services.shared.getBookImage(from: book.thumbnail) { (image) in

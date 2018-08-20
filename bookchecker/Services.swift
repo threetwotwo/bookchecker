@@ -59,7 +59,7 @@ class Services {
 				book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
 				book.description = volumeInfo["description"].stringValue
 				book.publisher = volumeInfo["publisher"].stringValue
-				book.publishedDate = volumeInfo["publishedDate"].stringValue
+				book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
 				book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
 				book.averageRating = volumeInfo["averageRating"].stringValue
 				book.ratingsCount = volumeInfo["ratingsCount"].stringValue

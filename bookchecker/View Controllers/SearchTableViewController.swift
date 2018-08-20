@@ -20,6 +20,8 @@ class SearchTableViewController: UITableViewController {
 	//MARK: - Life cycle
 	override func viewDidLoad() {
         super.viewDidLoad()
+		removeSearchbarBorders()
+		Navbar.addImage(to: self)
 		searchBar.delegate = self
     }
 
@@ -49,8 +51,10 @@ class SearchTableViewController: UITableViewController {
 }
 
 //MARK: - Search bar methods
-
 extension SearchTableViewController: UISearchBarDelegate {
+	fileprivate func removeSearchbarBorders() {
+		searchBar.backgroundImage = UIImage()
+	}
 
 	@objc func getBooksFromSearchbar() {
 		Services.shared.getBooks(from: Services.baseURL, params: ["q" : searchBar.text!]) { (books) in
@@ -62,7 +66,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		//throttle the url requests
 		timer?.invalidate()
-		timer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(getBooksFromSearchbar), userInfo: nil, repeats: false)
+		timer = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(getBooksFromSearchbar), userInfo: nil, repeats: false)
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

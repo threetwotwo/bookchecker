@@ -31,7 +31,7 @@ class FeedTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		networkManager = NetworkManager()
-		addNavBarImage()
+		Navbar.addImage(to: self)
 		for i in 0..<queries.count {
 			Services.shared.getBooks(from: Services.baseURL, params: ["q" : queries[i]!]) { (books) in
 				self.booksArray[i] = books
@@ -102,29 +102,12 @@ extension FeedTableViewController: UICollectionViewDelegate {
 
 //MARK: - UI
 extension FeedTableViewController {
-	func addNavBarImage() {
-		let navController = navigationController!
-
-		let image = #imageLiteral(resourceName: "logo_happy")
-		let imageView = UIImageView(image: image)
-
-		let bannerWidth = navController.navigationBar.frame.size.width
-		let bannerHeight = navController.navigationBar.frame.size.height
-
-		let bannerX = bannerWidth / 2 - image.size.width / 2
-		let bannerY = bannerHeight / 2 - image.size.height / 2
-
-		imageView.frame = CGRect(x: bannerX, y: bannerY, width: 200, height: bannerHeight)
-		imageView.contentMode = .scaleAspectFit
-
-		navigationItem.titleView = imageView
-	}
 
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		let header = view as! UITableViewHeaderFooterView
 		header.textLabel?.font = UIFont(name: "Futura-Medium", size: 13)
 		header.textLabel?.textColor = UIColor.white
-		header.contentView.backgroundColor = UIColor(hexString: "4B4B80")
+		header.contentView.backgroundColor = UIColor(hexString: "70719A")
 	}
 
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

@@ -7,38 +7,67 @@
 //
 
 import UIKit
+import RealmSwift
 
 private let reuseIdentifier = "FavoriteCollectionCell"
 
 class FavoriteCollectionViewController: UICollectionViewController {
+	//MARK: - Variables
+	let realm = try! Realm()
+	var books: Results<Book>?
 
+	//MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 		collectionView?.delegate = self
+		Navbar.addImage(to: self)
     }
+
+	override func viewDidAppear(_ animated: Bool) {
+		loadBooks()
+	}
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 500
+        return books?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FavoriteCollectionViewCell
-    
-        // Configure the cell
+		if let book = books?[indexPath.item]{
+			Services.shared.getBookImage(from: book.thumbnail) { (image) in
+				cell.coverImage.image = image
+			}
+		}
         return cell
     }
-}
 
+	//MARK: - UICollectionViewDelegate
+	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
+		if let book = books?[indexPath.item] {
+			vc.book = book
+			navigationController?.pushViewController(vc, animated: true)
+		}
+	}
+}
+//MARK: - Realm
+extension FavoriteCollectionViewController {
+
+	func loadBooks() {
+		books = realm.objects(Book.self)
+		collectionView?.reloadData()
+	}
+}
 //MARK: - UICollectionViewLayout
 
 extension FavoriteCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		// Number of cells
-		let collectionViewWidth = UIScreen.main.bounds.width/3 - 20
+		let collectionViewWidth = UIScreen.main.bounds.width/3 - 25
 		let collectionViewHeight = collectionViewWidth
 
 		return CGSize(width: collectionViewWidth, height: collectionViewHeight/5*8)
@@ -49,10 +78,10 @@ extension FavoriteCollectionViewController: UICollectionViewDelegateFlowLayout {
 	}
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-		return 10
+		return 15
 	}
 
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-		return 10
+		return 15
 	}
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Cosmos
+import RealmSwift
 
 class DetailViewController: UIViewController {
 	//MARK: - IBOutlets
@@ -22,6 +23,7 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var ratingCountLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var descriptionHeaderLabel: UILabel!
+	@IBOutlet weak var favoriteButton: UIButton!
 
 	//MARK: - IBActions
 	@IBAction func previewButtonPressed(_ sender: UIButton) {
@@ -30,11 +32,20 @@ class DetailViewController: UIViewController {
 			return
 		}
 		vc.previewLink = previewURL
+		//Turn to page 1
 		vc.previewLink.setValue(forKey: "pg", to: "PA1")
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	
+	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
+		saveToFavorites(book: book)
+		let ac = UIAlertController(title: "Book added", message: nil, preferredStyle: .alert)
+		ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+		present(ac, animated: true)
+	}
+
 	//MARK: - variables
+	let realm = try! Realm()
 	var book: Book!
 
 	//MARK: - Life cycle
@@ -68,9 +79,25 @@ class DetailViewController: UIViewController {
 
 		descriptionLabel.text = book.about
 		categoryLabel.text =  book.categories
+		if let image = book.image {
+			coverImage.image = UIImage(data: image)
+		}
+//		Services.shared.getBookImage(from: book.thumbnail) { (image) in
+//			self.coverImage.image = image
+//		}
+	}
+}
 
-		Services.shared.getBookImage(from: book.thumbnail) { (image) in
-			self.coverImage.image = image
+//MARK: - Realm
+extension DetailViewController {
+
+	func saveToFavorites(book: Book) {
+		do {
+			try realm.write {
+				realm.add(book)
+			}
+		} catch {
+			print(error.localizedDescription)
 		}
 	}
 }

@@ -11,4 +11,9 @@ import UIKit
 class FavoriteCollectionViewCell: UICollectionViewCell {
     
 	@IBOutlet weak var coverImage: UIImageView!
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		coverImage.image = nil
+	}
 }

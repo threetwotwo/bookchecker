@@ -173,19 +173,19 @@
         <scene sceneID="VfO-Ga-xGz">
             <objects>
                 <collectionViewController id="5dZ-Wg-4D6" customClass="FavoriteCollectionViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="VGk-aw-cJP">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="VGk-aw-cJP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xGG-hc-eHa">
                             <size key="itemSize" width="160" height="160"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FavoriteCollectionCell" id="evl-ez-0j4" customClass="FavoriteCollectionViewCell" customModule="bookchecker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                <rect key="frame" x="0.0" y="50" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
@@ -203,8 +203,15 @@
                                     <constraint firstAttribute="trailing" secondItem="mPM-BU-eMa" secondAttribute="trailing" id="jVV-Bq-fhy"/>
                                     <constraint firstAttribute="bottom" secondItem="mPM-BU-eMa" secondAttribute="bottom" id="kzI-pV-a97"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="coverImage" destination="mPM-BU-eMa" id="MXc-OL-DLD"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ob1-KA-J14">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </collectionReusableView>
                         <connections>
                             <outlet property="dataSource" destination="5dZ-Wg-4D6" id="muM-7U-JiH"/>
                             <outlet property="delegate" destination="5dZ-Wg-4D6" id="EAg-ES-FBf"/>
@@ -343,13 +350,13 @@
                                                                             </button>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZV6-3v-Fv2">
                                                                                 <rect key="frame" x="15" y="239" width="149" height="33"/>
-                                                                                <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
-                                                                                <state key="normal" title="Anothertest">
+                                                                                <state key="normal" title="Add to Favorites">
                                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
-                                                                                    <action selector="previewButtonPressed:" destination="9QJ-1z-xjw" eventType="touchUpInside" id="1mP-v2-zu4"/>
+                                                                                    <action selector="favoriteButtonPressed:" destination="9QJ-1z-xjw" eventType="touchUpInside" id="Piu-kZ-lq7"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
@@ -452,6 +459,7 @@
                         <outlet property="coverImage" destination="OJG-2V-0GA" id="Mjt-iE-Jae"/>
                         <outlet property="descriptionHeaderLabel" destination="QaV-us-kR3" id="wiO-p2-pnB"/>
                         <outlet property="descriptionLabel" destination="FLo-xi-7D6" id="a1s-SJ-vMp"/>
+                        <outlet property="favoriteButton" destination="ZV6-3v-Fv2" id="Aoo-8o-OQq"/>
                         <outlet property="previewButton" destination="GnK-Kj-uYT" id="B6o-2l-8wn"/>
                         <outlet property="publishedDateLabel" destination="EPt-5Y-h8D" id="yFy-rf-YgL"/>
                         <outlet property="publisherLabel" destination="3gu-YY-JTi" id="M9D-4S-MM6"/>
@@ -523,11 +531,11 @@
             </objects>
             <point key="canvasLocation" x="148" y="21.139430284857571"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="CWl-qn-Yas">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E3a-cj-Ien" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="t9R-99-6mS"/>
+                    <tabBarItem key="tabBarItem" title="" image="home-7" id="t9R-99-6mS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="T33-C3-A9o">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -542,11 +550,11 @@
             </objects>
             <point key="canvasLocation" x="1093.5999999999999" y="-260.41979010494754"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="yeo-SU-G32">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XXP-8z-Cj4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="pI0-A3-6Di"/>
+                    <tabBarItem key="tabBarItem" title="" image="search-7" id="pI0-A3-6Di"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aXD-Dh-Alp">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -561,11 +569,11 @@
             </objects>
             <point key="canvasLocation" x="1093.5999999999999" y="427.73613193403304"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="xdn-jK-Ghl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="R0p-g0-qhK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Ajs-Kg-zon"/>
+                    <tabBarItem key="tabBarItem" title="" image="heart-7" id="Ajs-Kg-zon"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MIF-u6-Omr">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -583,5 +591,8 @@
     </scenes>
     <resources>
         <image name="bookcover" width="350" height="350"/>
+        <image name="heart-7" width="30" height="30"/>
+        <image name="home-7" width="30" height="30"/>
+        <image name="search-7" width="30" height="30"/>
     </resources>
 </document>

@@ -34,6 +34,7 @@ class Services {
 				let volumeInfo = item["volumeInfo"]
 
 				let book = Book()
+				book.id = volumeInfo["id"].stringValue
 				book.title = volumeInfo["title"].stringValue
 				book.subtitle = volumeInfo["subtitle"].stringValue
 				book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
@@ -45,7 +46,7 @@ class Services {
 				book.ratingsCount = volumeInfo["ratingsCount"].stringValue
 				book.previewLink = volumeInfo["previewLink"].stringValue
 				book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
-
+				
 				books.append(book)
 			}
 			completion(books)

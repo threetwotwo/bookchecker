@@ -6,6 +6,7 @@
 //  Copyright © 2018 Gary. All rights reserved.
 //
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,8 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-		// Override point for customization after application launch.
+		// listener for network reachability
 		NetworkManager.shared.startNetworkReachabilityObserver()
+
+		//Initialize realm
+		do {
+			_ = try Realm()
+		} catch {
+			print("Error initialising realm \(error)")
+		}
+
+		print(Realm.Configuration.defaultConfiguration.fileURL)
 		return true
 	}
 

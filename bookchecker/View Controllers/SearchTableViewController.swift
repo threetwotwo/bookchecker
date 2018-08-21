@@ -35,8 +35,12 @@ class SearchTableViewController: UITableViewController {
 		let book = books[indexPath.row]
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
-		Services.shared.getBookImage(from: book.thumbnail) { (image) in
+		Services.shared.getBookImage(from: book.thumbnail ) { (image) in
 			cell.coverImage.image = image
+			//save image into data model
+			if let image = UIImagePNGRepresentation(image) {
+				book.image = image
+			}
 		}
 		return cell
 	}
@@ -45,6 +49,7 @@ class SearchTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 			vc.book = books[indexPath.row]
+
 			navigationController?.pushViewController(vc, animated: true)
 	}
 

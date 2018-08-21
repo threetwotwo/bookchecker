@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class Book: Object {
+	@objc dynamic var id = ""
 	@objc dynamic var authors = ""
 	@objc dynamic var title = ""
 	@objc dynamic var subtitle = ""
@@ -21,6 +22,7 @@ class Book: Object {
 	@objc dynamic var previewLink = ""
 	@objc dynamic var thumbnail = ""
 	@objc dynamic var categories = ""
+	@objc dynamic var image: Data? = nil
 }
 
 struct BookImage {

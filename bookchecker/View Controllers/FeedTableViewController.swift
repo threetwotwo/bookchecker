@@ -83,6 +83,9 @@ extension FeedTableViewController: UICollectionViewDataSource {
 		if let book = booksArray[collectionView.tag]?[indexPath.item] {
 			Services.shared.getBookImage(from: book.thumbnail) { (image) in
 				cell.coverImage.image = image
+				if let image = UIImagePNGRepresentation(image) {
+					book.image = image
+				}
 			}
 		}
 		return cell

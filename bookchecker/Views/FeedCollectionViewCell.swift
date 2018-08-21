@@ -14,7 +14,7 @@ class FeedCollectionViewCell: UICollectionViewCell {
 
 	var imageURL: String?
 
-//	override func prepareForReuse() {
-//		coverImage.af_cancelImageRequest()
-//	}
+	override func prepareForReuse() {
+		coverImage.image = nil
+	}
 }

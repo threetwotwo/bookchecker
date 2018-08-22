@@ -13,9 +13,9 @@ class FeedCollectionViewCell: UICollectionViewCell {
 	@IBOutlet weak var coverImage: UIImageView!
 
 	var imageURL: String?
-
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		coverImage.image = nil
+	
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		// Initialization code
 	}
 }

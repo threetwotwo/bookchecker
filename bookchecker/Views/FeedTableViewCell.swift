@@ -9,8 +9,13 @@
 import UIKit
 
 class FeedTableViewCell: UITableViewCell {
-	//MARK: - IBActions and Outlets
+	//MARK: - IBOutlet
 	@IBOutlet weak var feedCollection: UICollectionView!
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		// Initialization code
+	}
 }
 
 extension FeedTableViewCell {

@@ -36,6 +36,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FavoriteCollectionViewCell
+		cell.coverImage.image = nil
 		if let book = books?[indexPath.item]{
 			Services.shared.getBookImage(from: book.thumbnail) { (image) in
 				cell.coverImage.image = image

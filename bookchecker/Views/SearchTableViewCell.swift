@@ -21,10 +21,4 @@ class SearchTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-	override func prepareForReuse() {
-		super.prepareForReuse()
-		coverImage.image = nil
-	}
-
 }

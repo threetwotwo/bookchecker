@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B83F075D69B4FDB7F28C329 /* Pods_bookchecker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEC06E3514225794F98B506 /* Pods_bookchecker.framework */; };
 		4E558D5C212BE5A5007E7310 /* FavoriteCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E558D5B212BE5A5007E7310 /* FavoriteCollectionViewController.swift */; };
 		4E558D5E212BE648007E7310 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E558D5D212BE648007E7310 /* FavoriteCollectionViewCell.swift */; };
 		4E5F5C832125871E0080A0F6 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F5C822125871E0080A0F6 /* SearchTableViewController.swift */; };
@@ -22,12 +21,15 @@
 		4E7D25232121091A004FA408 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E7D25212121091A004FA408 /* LaunchScreen.storyboard */; };
 		4E7D252B21210A88004FA408 /* FeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D252A21210A88004FA408 /* FeedTableViewController.swift */; };
 		4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */; };
+		4E892BB2212FF59800FBB739 /* RealmBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E892BB1212FF59800FBB739 /* RealmBook.swift */; };
+		4E892BB4212FF60900FBB739 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E892BB3212FF60900FBB739 /* DBManager.swift */; };
 		4E99956621290DF9007A7E09 /* UIColor + hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956521290DF9007A7E09 /* UIColor + hex.swift */; };
 		4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956821297C72007A7E09 /* WebReaderViewController.swift */; };
 		4EA08773212AC8F60033A1B2 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA08772212AC8F60033A1B2 /* Navbar.swift */; };
 		4EA35ABA212A705600B7DC3F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA35AB9212A705600B7DC3F /* NetworkManager.swift */; };
 		4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABBAE62128180000657D33 /* DetailViewController.swift */; };
 		4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */; };
+		9FC6D242152B7B2A5495EC3F /* Pods_bookchecker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEC06E3514225794F98B506 /* Pods_bookchecker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		4E7D25242121091A004FA408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E7D252A21210A88004FA408 /* FeedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewController.swift; sourceTree = "<group>"; };
 		4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
+		4E892BB1212FF59800FBB739 /* RealmBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBook.swift; sourceTree = "<group>"; };
+		4E892BB3212FF60900FBB739 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		4E99956521290DF9007A7E09 /* UIColor + hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + hex.swift"; sourceTree = "<group>"; };
 		4E99956821297C72007A7E09 /* WebReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebReaderViewController.swift; sourceTree = "<group>"; };
 		4EA08772212AC8F60033A1B2 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
@@ -63,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B83F075D69B4FDB7F28C329 /* Pods_bookchecker.framework in Frameworks */,
+				9FC6D242152B7B2A5495EC3F /* Pods_bookchecker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				4E695BC6212183FE00CFE856 /* Book.swift */,
+				4E892BB1212FF59800FBB739 /* RealmBook.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -116,6 +121,7 @@
 				4EA35AB9212A705600B7DC3F /* NetworkManager.swift */,
 				4E695BC82121CF6B00CFE856 /* URL + helper.swift */,
 				4E695BCE2121E8C100CFE856 /* Services.swift */,
+				4E892BB3212FF60900FBB739 /* DBManager.swift */,
 				4E99956721290E13007A7E09 /* Helpers */,
 				4E04F4DC212837C3009B076F /* Model */,
 				4E5F5C8421259BAF0080A0F6 /* View Controllers */,
@@ -299,12 +305,14 @@
 				4E558D5E212BE648007E7310 /* FavoriteCollectionViewCell.swift in Sources */,
 				4E7D251921210919004FA408 /* AppDelegate.swift in Sources */,
 				4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */,
+				4E892BB2212FF59800FBB739 /* RealmBook.swift in Sources */,
 				4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */,
 				4EA35ABA212A705600B7DC3F /* NetworkManager.swift in Sources */,
 				4E7D252B21210A88004FA408 /* FeedTableViewController.swift in Sources */,
 				4E558D5C212BE5A5007E7310 /* FavoriteCollectionViewController.swift in Sources */,
 				4E7794062123212600AF3C25 /* TestTableViewController.swift in Sources */,
 				4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */,
+				4E892BB4212FF60900FBB739 /* DBManager.swift in Sources */,
 				4E99956621290DF9007A7E09 /* UIColor + hex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

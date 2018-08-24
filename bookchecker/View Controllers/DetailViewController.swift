@@ -39,14 +39,13 @@ class DetailViewController: UIViewController {
 	
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
 		saveToFavorites(book: book)
-		let ac = UIAlertController(title: "Book added", message: nil, preferredStyle: .alert)
-		ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-		present(ac, animated: true)
+		Alert.createAlert(self, title: "Book added!", message: nil)
 	}
 
 	//MARK: - variables
 	let realm = try! Realm()
 	var book: Book!
+	lazy var bookIDs: [String] = []
 
 	//MARK: - Life cycle
     override func viewDidLoad() {
@@ -82,9 +81,6 @@ class DetailViewController: UIViewController {
 		if let image = book.image {
 			coverImage.image = UIImage(data: image)
 		}
-//		Services.shared.getBookImage(from: book.thumbnail) { (image) in
-//			self.coverImage.image = image
-//		}
 	}
 }
 
@@ -92,9 +88,16 @@ class DetailViewController: UIViewController {
 extension DetailViewController {
 
 	func saveToFavorites(book: Book) {
+		bookIDs = DBManager.shared.getBooks().map{$0.id}
+		guard !bookIDs.contains(book.id) else {
+			Alert.createAlert(self, title: "Book already added!", message: nil)
+			return
+		}
+		let realmBook = RealmBook(book: book)
+
 		do {
 			try realm.write {
-				realm.add(book)
+				realm.add(realmBook)
 			}
 		} catch {
 			print(error.localizedDescription)

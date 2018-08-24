@@ -14,7 +14,7 @@ private let reuseIdentifier = "FavoriteCollectionCell"
 class FavoriteCollectionViewController: UICollectionViewController {
 	//MARK: - Variables
 	let realm = try! Realm()
-	var books: Results<Book>?
+	var books: Results<RealmBook>?
 
 	//MARK: - Life Cycle
     override func viewDidLoad() {
@@ -48,8 +48,8 @@ class FavoriteCollectionViewController: UICollectionViewController {
 	//MARK: - UICollectionViewDelegate
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
-		if let book = books?[indexPath.item] {
-			vc.book = book
+		if let realmBook = books?[indexPath.item] {
+			vc.book = Book(realmBook: realmBook)
 			navigationController?.pushViewController(vc, animated: true)
 		}
 	}
@@ -58,7 +58,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
 extension FavoriteCollectionViewController {
 
 	func loadBooks() {
-		books = realm.objects(Book.self)
+		books = realm.objects(RealmBook.self)
 		collectionView?.reloadData()
 	}
 }

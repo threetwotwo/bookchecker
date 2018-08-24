@@ -33,8 +33,8 @@ class Services {
 			for item in totalItems {
 				let volumeInfo = item["volumeInfo"]
 
-				let book = Book()
-				book.id = volumeInfo["id"].stringValue
+				var book = Book()
+				book.id = item["id"].stringValue
 				book.title = volumeInfo["title"].stringValue
 				book.subtitle = volumeInfo["subtitle"].stringValue
 				book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")

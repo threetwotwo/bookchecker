@@ -23,6 +23,7 @@
 		4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */; };
 		4E892BB2212FF59800FBB739 /* RealmBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E892BB1212FF59800FBB739 /* RealmBook.swift */; };
 		4E892BB4212FF60900FBB739 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E892BB3212FF60900FBB739 /* DBManager.swift */; };
+		4E892BB6212FFE4C00FBB739 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E892BB5212FFE4C00FBB739 /* Alert.swift */; };
 		4E99956621290DF9007A7E09 /* UIColor + hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956521290DF9007A7E09 /* UIColor + hex.swift */; };
 		4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956821297C72007A7E09 /* WebReaderViewController.swift */; };
 		4EA08773212AC8F60033A1B2 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA08772212AC8F60033A1B2 /* Navbar.swift */; };
@@ -53,6 +54,7 @@
 		4E7D252C2121245F004FA408 /* FeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedTableViewCell.swift; sourceTree = "<group>"; };
 		4E892BB1212FF59800FBB739 /* RealmBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmBook.swift; sourceTree = "<group>"; };
 		4E892BB3212FF60900FBB739 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		4E892BB5212FFE4C00FBB739 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		4E99956521290DF9007A7E09 /* UIColor + hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + hex.swift"; sourceTree = "<group>"; };
 		4E99956821297C72007A7E09 /* WebReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebReaderViewController.swift; sourceTree = "<group>"; };
 		4EA08772212AC8F60033A1B2 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				4EA35AB9212A705600B7DC3F /* NetworkManager.swift */,
 				4E695BC82121CF6B00CFE856 /* URL + helper.swift */,
 				4E695BCE2121E8C100CFE856 /* Services.swift */,
+				4E892BB5212FFE4C00FBB739 /* Alert.swift */,
 				4E892BB3212FF60900FBB739 /* DBManager.swift */,
 				4E99956721290E13007A7E09 /* Helpers */,
 				4E04F4DC212837C3009B076F /* Model */,
@@ -313,6 +316,7 @@
 				4E7794062123212600AF3C25 /* TestTableViewController.swift in Sources */,
 				4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */,
 				4E892BB4212FF60900FBB739 /* DBManager.swift in Sources */,
+				4E892BB6212FFE4C00FBB739 /* Alert.swift in Sources */,
 				4E99956621290DF9007A7E09 /* UIColor + hex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

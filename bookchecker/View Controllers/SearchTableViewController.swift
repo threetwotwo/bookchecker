@@ -33,7 +33,7 @@ class SearchTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
 		cell.coverImage.image = nil
-		let book = books[indexPath.row]
+		var book = books[indexPath.row]
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
 		Services.shared.getBookImage(from: book.thumbnail ) { (image) in

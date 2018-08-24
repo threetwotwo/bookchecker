@@ -10,6 +10,24 @@ import Foundation
 import RealmSwift
 
 class RealmBook: Object {
+
+	convenience required init(book: Book) {
+		self.init()
+		id = book.id
+		authors = book.authors
+		title = book.title
+		subtitle = book.subtitle
+		publisher = book.publisher
+		publishedDate = book.publishedDate
+		about = book.about
+		averageRating = book.averageRating
+		ratingsCount = book.ratingsCount
+		previewLink = book.previewLink
+		thumbnail = book.thumbnail
+		categories = book.categories
+		image = book.image
+	}
+
 	@objc dynamic var id = ""
 	@objc dynamic var authors = ""
 	@objc dynamic var title = ""

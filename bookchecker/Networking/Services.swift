@@ -77,6 +77,6 @@ class Services {
 	}
 
 	func highResImageURL(bookID: String) -> String {
-		return "https://books.google.com/books/content/images/frontcover/\(bookID)?fife=w400-h600"
+		return "https://books.google.com/books/content/images/frontcover/\(bookID)?fife=w200-h300"
 	}
 }

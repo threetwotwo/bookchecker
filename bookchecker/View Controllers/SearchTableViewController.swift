@@ -36,7 +36,8 @@ class SearchTableViewController: UITableViewController {
 		var book = books[indexPath.row]
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
-		Services.shared.getBookImage(from: book.thumbnail ) { (image) in
+		let url = Services.shared.highResImageURL(bookID: book.id)
+		Services.shared.getBookImage(from: url) { (image) in
 			cell.coverImage.image = image
 			//save image into data model
 			if let image = UIImagePNGRepresentation(image) {

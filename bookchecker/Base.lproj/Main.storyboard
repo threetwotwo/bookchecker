@@ -481,7 +481,7 @@
         <!--Web Reader View Controller-->
         <scene sceneID="pvs-qS-22s">
             <objects>
-                <viewController storyboardIdentifier="WebReaderVC" id="ccc-IO-QUF" customClass="WebReaderViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebReaderVC" hidesBottomBarWhenPushed="YES" id="ccc-IO-QUF" customClass="WebReaderViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DgT-DT-1No">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

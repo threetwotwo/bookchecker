@@ -1,5 +1,5 @@
 //
-//  URL + helper.swift
+//  URL + components.swift
 //  bookchecker
 //
 //  Created by Gary on 8/13/18.

@@ -217,7 +217,13 @@
                             <outlet property="delegate" destination="5dZ-Wg-4D6" id="EAg-ES-FBf"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="LhQ-aN-h1Q"/>
+                    <navigationItem key="navigationItem" id="LhQ-aN-h1Q">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="4C2-EV-VNX">
+                            <connections>
+                                <action selector="deleteAll:" destination="5dZ-Wg-4D6" id="Pwv-kf-VfU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jb8-ig-y1e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

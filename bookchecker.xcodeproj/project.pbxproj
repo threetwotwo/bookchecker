@@ -11,7 +11,7 @@
 		4E558D5E212BE648007E7310 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E558D5D212BE648007E7310 /* FavoriteCollectionViewCell.swift */; };
 		4E5F5C832125871E0080A0F6 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F5C822125871E0080A0F6 /* SearchTableViewController.swift */; };
 		4E695BC7212183FE00CFE856 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E695BC6212183FE00CFE856 /* Book.swift */; };
-		4E695BC92121CF6B00CFE856 /* URL + helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E695BC82121CF6B00CFE856 /* URL + helper.swift */; };
+		4E695BC92121CF6B00CFE856 /* URL + components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E695BC82121CF6B00CFE856 /* URL + components.swift */; };
 		4E695BCD2121E7D100CFE856 /* FeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E695BCC2121E7D100CFE856 /* FeedCollectionViewCell.swift */; };
 		4E695BCF2121E8C200CFE856 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E695BCE2121E8C100CFE856 /* Services.swift */; };
 		4E7794062123212600AF3C25 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7794052123212600AF3C25 /* TestTableViewController.swift */; };
@@ -30,6 +30,7 @@
 		4EA35ABA212A705600B7DC3F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA35AB9212A705600B7DC3F /* NetworkManager.swift */; };
 		4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABBAE62128180000657D33 /* DetailViewController.swift */; };
 		4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */; };
+		4ED3DC9D21311BBA009EC21A /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3DC9C21311BBA009EC21A /* Parameters.swift */; };
 		9FC6D242152B7B2A5495EC3F /* Pods_bookchecker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEC06E3514225794F98B506 /* Pods_bookchecker.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +41,7 @@
 		4E558D5D212BE648007E7310 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E5F5C822125871E0080A0F6 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		4E695BC6212183FE00CFE856 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		4E695BC82121CF6B00CFE856 /* URL + helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL + helper.swift"; sourceTree = "<group>"; };
+		4E695BC82121CF6B00CFE856 /* URL + components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL + components.swift"; sourceTree = "<group>"; };
 		4E695BCC2121E7D100CFE856 /* FeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E695BCE2121E8C100CFE856 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		4E7794052123212600AF3C25 /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		4EA35AB9212A705600B7DC3F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4EABBAE62128180000657D33 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		4ED3DC9C21311BBA009EC21A /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		5B8352BB987EF499395F67C9 /* Pods-bookchecker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookchecker.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookchecker/Pods-bookchecker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,15 +122,12 @@
 			isa = PBXGroup;
 			children = (
 				4E7D251821210919004FA408 /* AppDelegate.swift */,
-				4EA35AB9212A705600B7DC3F /* NetworkManager.swift */,
-				4E695BC82121CF6B00CFE856 /* URL + helper.swift */,
-				4E695BCE2121E8C100CFE856 /* Services.swift */,
-				4E892BB5212FFE4C00FBB739 /* Alert.swift */,
-				4E892BB3212FF60900FBB739 /* DBManager.swift */,
-				4E99956721290E13007A7E09 /* Helpers */,
+				4ED3DC9921311A33009EC21A /* Networking */,
+				4ED3DC9A21311A6A009EC21A /* Realm */,
 				4E04F4DC212837C3009B076F /* Model */,
-				4E5F5C8421259BAF0080A0F6 /* View Controllers */,
 				4E7D252E21212468004FA408 /* Views */,
+				4E5F5C8421259BAF0080A0F6 /* View Controllers */,
+				4E99956721290E13007A7E09 /* Helpers */,
 				4E7D251C21210919004FA408 /* Main.storyboard */,
 				4E7D251F2121091A004FA408 /* Assets.xcassets */,
 				4E7D25212121091A004FA408 /* LaunchScreen.storyboard */,
@@ -151,10 +150,30 @@
 		4E99956721290E13007A7E09 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4E695BC82121CF6B00CFE856 /* URL + components.swift */,
 				4E99956521290DF9007A7E09 /* UIColor + hex.swift */,
 				4EA08772212AC8F60033A1B2 /* Navbar.swift */,
+				4E892BB5212FFE4C00FBB739 /* Alert.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4ED3DC9921311A33009EC21A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				4EA35AB9212A705600B7DC3F /* NetworkManager.swift */,
+				4E695BCE2121E8C100CFE856 /* Services.swift */,
+				4ED3DC9C21311BBA009EC21A /* Parameters.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		4ED3DC9A21311A6A009EC21A /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				4E892BB3212FF60900FBB739 /* DBManager.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 		5C4D03CAFB4B522D1A15BB03 /* Pods */ = {
@@ -302,10 +321,11 @@
 				4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */,
 				4E695BC7212183FE00CFE856 /* Book.swift in Sources */,
 				4E5F5C832125871E0080A0F6 /* SearchTableViewController.swift in Sources */,
-				4E695BC92121CF6B00CFE856 /* URL + helper.swift in Sources */,
+				4E695BC92121CF6B00CFE856 /* URL + components.swift in Sources */,
 				4E695BCD2121E7D100CFE856 /* FeedCollectionViewCell.swift in Sources */,
 				4E695BCF2121E8C200CFE856 /* Services.swift in Sources */,
 				4E558D5E212BE648007E7310 /* FavoriteCollectionViewCell.swift in Sources */,
+				4ED3DC9D21311BBA009EC21A /* Parameters.swift in Sources */,
 				4E7D251921210919004FA408 /* AppDelegate.swift in Sources */,
 				4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */,
 				4E892BB2212FF59800FBB739 /* RealmBook.swift in Sources */,

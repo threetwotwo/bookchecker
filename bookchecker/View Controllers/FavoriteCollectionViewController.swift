@@ -12,6 +12,12 @@ import RealmSwift
 private let reuseIdentifier = "FavoriteCollectionCell"
 
 class FavoriteCollectionViewController: UICollectionViewController {
+	//MARK: - IBAction
+	@IBAction func deleteAll(_ sender: Any) {
+		DBManager.shared.deleteAll()
+		collectionView?.reloadData()
+	}
+
 	//MARK: - Variables
 	let realm = try! Realm()
 	var books: Results<RealmBook>?

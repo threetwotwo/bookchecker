@@ -41,6 +41,7 @@ class SearchTableViewController: UITableViewController {
 			//save image into data model
 			if let image = UIImagePNGRepresentation(image) {
 				book.image = image
+				self.books[indexPath.row].image =  image
 			}
 		}
 		return cell
@@ -50,7 +51,6 @@ class SearchTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 			vc.book = books[indexPath.row]
-
 			navigationController?.pushViewController(vc, animated: true)
 	}
 

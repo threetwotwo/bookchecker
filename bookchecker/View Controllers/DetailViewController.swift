@@ -88,9 +88,10 @@ class DetailViewController: UIViewController {
 extension DetailViewController {
 
 	func saveToFavorites(book: Book) {
+		//Check if book has already been added
 		bookIDs = DBManager.shared.getBooks().map{$0.id}
 		guard !bookIDs.contains(book.id) else {
-			Alert.createAlert(self, title: "Book already added!", message: nil)
+			Alert.createAlert(self, title: "Book has already been added!", message: nil)
 			return
 		}
 		let realmBook = RealmBook(book: book)

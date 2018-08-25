@@ -11,18 +11,7 @@ import UIKit
 class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 	var networkManager: NetworkManager!
-	let queries: [Int : String] = [
-		0 :	"Potter",
-		1 :	"mommy",
-		2 :	"john",
-		3 :	"dumpster",
-		4 :	"bear",
-		5 :	"dota",
-		6 :	"competition",
-		7 :	"hiking",
-		8 :	"gentle",
-		9 :	"rough"
-	]
+	let queries: [Int : Parameters] = Services.createSubjectQueriesWithIndex(queries: .fiction, .historicalFiction, .romance)
 
 	var booksArray: [Int : [Book]] = [ : ]
     var storedOffsets = [Int: CGFloat]()
@@ -33,7 +22,7 @@ class FeedTableViewController: UITableViewController {
 		networkManager = NetworkManager()
 		Navbar.addImage(to: self)
 		for i in 0..<queries.count {
-			Services.shared.getBooks(from: Services.baseURL, params: ["q" : queries[i]!]) { (books) in
+			Services.shared.getBooks(from: Services.baseURL, params: ["q" : "subject:\"\(queries[i]!.parameterValue())\""]) { (books) in
 				self.booksArray[i] = books
 				self.tableView.reloadData()
 			}
@@ -51,7 +40,7 @@ class FeedTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return queries[section] ?? "books"
+		return queries[section]?.headerDescription() ?? "books"
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,7 +71,8 @@ extension FeedTableViewController: UICollectionViewDataSource {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! FeedCollectionViewCell
 		cell.coverImage.image = nil
 		if var book = booksArray[collectionView.tag]?[indexPath.row] {
-			Services.shared.getBookImage(from: book.thumbnail) { (image) in
+			let url = Services.shared.highResImageURL(bookID: book.id)
+			Services.shared.getBookImage(from: url) { (image) in
 				cell.coverImage.image = image
 				if let image = UIImagePNGRepresentation(image) {
 					book.image = image

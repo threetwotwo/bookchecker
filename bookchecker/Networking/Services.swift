@@ -16,10 +16,21 @@ class Services {
 	static let baseURL = "https://www.googleapis.com/books/v1/volumes"
 	static let shared = Services()
 
+	static func createSubjectQueriesWithIndex(queries: Parameters...) -> [Int : Parameters] {
+		var results: [Int : Parameters] = [:]
+		for i in 0..<queries.count {
+			results[i] = queries[i]
+		}
+		print(results)
+		return results
+	}
+
 	func getBooks(from url: String, params: [String : String], completion: @escaping ([Book]) -> ()) {
 		var parameters = params
 		//only return books that have preview
 		parameters["filter"] = "partial"
+		//return english books
+		parameters["langRestrict"] = "en"
 		Alamofire.request(url, parameters: parameters).responseJSON { (response) in
 			guard response.result.isSuccess else {
 				print(response.result.error?.localizedDescription ?? "Error fetching books")
@@ -63,5 +74,9 @@ class Services {
 				completion(image)
 			}
 		}
+	}
+
+	func highResImageURL(bookID: String) -> String {
+		return "https://books.google.com/books/content/images/frontcover/\(bookID)?fife=w400-h600"
 	}
 }

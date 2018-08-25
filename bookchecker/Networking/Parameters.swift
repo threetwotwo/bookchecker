@@ -8,6 +8,31 @@
 
 import Foundation
 
-struct Parameters {
-	
+enum Parameters {
+	case fiction
+	case romance
+	case historicalFiction
+
+
+	func parameterValue() -> String {
+		switch self {
+		case .fiction:
+			return "Fiction"
+		case .romance:
+			return "Romance"
+		case .historicalFiction:
+			return "Fiction Historical"
+		}
+	}
+
+	func headerDescription() -> String {
+		switch self {
+		case .fiction:
+			return "Fiction"
+		case .romance:
+			return "Romance"
+		case .historicalFiction:
+			return "Historical Fiction"
+		}
+	}
 }

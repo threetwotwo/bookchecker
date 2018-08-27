@@ -69,7 +69,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		//throttle the url requests
 		timer?.invalidate()
-		timer = Timer.scheduledTimer(timeInterval: 0.8, target: self, selector: #selector(getBooksFromSearchbar), userInfo: nil, repeats: false)
+		timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(getBooksFromSearchbar), userInfo: nil, repeats: false)
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

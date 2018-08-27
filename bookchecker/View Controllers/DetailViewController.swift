@@ -37,6 +37,18 @@ class DetailViewController: UIViewController {
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	
+	@IBAction func getBookButtonPressed(_ sender: UIButton) {
+		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
+		guard let previewURL = URL(string: book.readerLink.replacingOccurrences(of: "gbs_api", with: "kp_read_button")) else {
+			return
+		}
+		vc.previewLink = previewURL
+		//Turn to page 1
+		vc.previewLink.setValue(forKey: "pg", to: "PA1")
+		vc.isReader = true
+		navigationController?.pushViewController(vc, animated: true)
+	}
+
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
 		saveToFavorites(book: book)
 		Alert.createAlert(self, title: "Book added!", message: nil)

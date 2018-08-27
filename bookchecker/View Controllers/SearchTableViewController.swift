@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SearchTableViewController: UITableViewController {
 
@@ -33,17 +34,12 @@ class SearchTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
 		cell.coverImage.image = nil
-		var book = books[indexPath.row]
+		let book = books[indexPath.row]
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
 		let url = Services.shared.highResImageURL(bookID: book.id)
-		Services.shared.getBookImage(from: url) { (image) in
-			cell.coverImage.image = image
-			//save image into data model
-			if let image = UIImagePNGRepresentation(image) {
-				book.image = image
-				self.books[indexPath.row].image =  image
-			}
+		cell.coverImage.sd_setImage(with: url) { (image, error, cache, url) in
+			self.books[indexPath.row].image = UIImagePNGRepresentation(image!)
 		}
 		return cell
 	}

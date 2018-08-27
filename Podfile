@@ -15,7 +15,7 @@ pod 'Alamofire', '~> 4.7'
 pod 'SVProgressHUD'
 pod 'RealmSwift'
 pod 'SwiftyJSON'
-pod 'AlamofireImage', '~> 3.3'
 pod 'Cosmos', '~> 16.0'
+pod 'SDWebImage', '~> 4.0'
 
 end

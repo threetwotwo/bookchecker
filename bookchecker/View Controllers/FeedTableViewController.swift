@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
@@ -70,14 +71,10 @@ extension FeedTableViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! FeedCollectionViewCell
 		cell.coverImage.image = nil
-		if var book = booksArray[collectionView.tag]?[indexPath.row] {
+		if let book = booksArray[collectionView.tag]?[indexPath.row] {
 			let url = Services.shared.highResImageURL(bookID: book.id)
-			Services.shared.getBookImage(from: url) { (image) in
-				cell.coverImage.image = image
-				if let image = UIImagePNGRepresentation(image) {
-					book.image = image
-					self.booksArray[collectionView.tag]?[indexPath.row].image = image
-				}
+			cell.coverImage.sd_setImage(with: url) { (image, error, cache, url) in
+				self.booksArray[collectionView.tag]?[indexPath.row].image = UIImagePNGRepresentation(image!)
 			}
 		}
 		return cell

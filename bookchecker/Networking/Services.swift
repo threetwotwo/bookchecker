@@ -8,7 +8,6 @@
 import UIKit
 import Foundation
 import Alamofire
-import AlamofireImage
 import SwiftyJSON
 
 class Services {
@@ -56,6 +55,7 @@ class Services {
 				book.averageRating = volumeInfo["averageRating"].stringValue
 				book.ratingsCount = volumeInfo["ratingsCount"].stringValue
 				book.previewLink = volumeInfo["previewLink"].stringValue
+				book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
 				book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
 				
 				books.append(book)
@@ -64,19 +64,20 @@ class Services {
 		}
 	}
 
-	func getBookImage(from url: String, completion: @escaping (UIImage) -> ()) {
-		Alamofire.request(url).responseImage { (response) in
-			guard response.result.isSuccess else {
-				print(response.result.error?.localizedDescription ?? "Error loading image")
-				return
-			}
-			if let image = response.result.value {
-				completion(image)
-			}
-		}
-	}
+//	func getBookImage(from url: String, completion: @escaping (UIImage) -> ()) {
+//		Alamofire.request(url).responseImage { (response) in
+//			guard response.result.isSuccess else {
+//				print(response.result.error?.localizedDescription ?? "Error loading image")
+//				return
+//			}
+//			if let image = response.result.value {
+//				completion(image)
+//			}
+//		}
+//	}
 
-	func highResImageURL(bookID: String) -> String {
-		return "https://books.google.com/books/content/images/frontcover/\(bookID)?fife=w200-h300"
+	func highResImageURL(bookID: String) -> URL? {
+		let url = "https://books.google.com/books/content/images/frontcover/\(bookID)?fife=w200-h300"
+		return URL(string: url)
 	}
 }

@@ -20,6 +20,7 @@ struct Book {
 	var averageRating = ""
 	var ratingsCount = ""
 	var previewLink = ""
+	var readerLink = ""
 	var thumbnail = ""
 	var categories = ""
 	var image: Data? = nil
@@ -37,6 +38,7 @@ extension Book {
 		averageRating = realmBook.averageRating
 		ratingsCount = realmBook.ratingsCount
 		previewLink = realmBook.previewLink
+		readerLink = realmBook.readerLink
 		thumbnail = realmBook.thumbnail
 		categories = realmBook.categories
 		image = realmBook.image

@@ -9,6 +9,7 @@
 import UIKit
 import Cosmos
 import RealmSwift
+import Alamofire
 
 class DetailViewController: UIViewController {
 	//MARK: - IBOutlets
@@ -38,15 +39,25 @@ class DetailViewController: UIViewController {
 	}
 	
 	@IBAction func getBookButtonPressed(_ sender: UIButton) {
-		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
-		guard let previewURL = URL(string: book.readerLink.replacingOccurrences(of: "gbs_api", with: "kp_read_button")) else {
-			return
+		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
+		Alamofire.download("https://archive.org/download/TheLordOfTheRingsTheTwoTowers/The%20Lord%20of%20the%20Rings%20%20The%20Two%20Towers.pdf", to: destination).response { (response) in
+			if let error = response.error {
+				print("Failed with error: \(error)")
+			} else {
+				print("Downloaded file successfully")
+			}
+			if let targetURL = response.destinationURL {
+				self.docController = UIDocumentInteractionController(url: targetURL)
+				let url = URL(string:"itms-books:");
+				if UIApplication.shared.canOpenURL(url!) {
+					self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
+					print("iBooks is installed")
+				}else{
+					print("iBooks is not installed")
+				}
+
+			}
 		}
-		vc.previewLink = previewURL
-		//Turn to page 1
-		vc.previewLink.setValue(forKey: "pg", to: "PA1")
-		vc.isReader = true
-		navigationController?.pushViewController(vc, animated: true)
 	}
 
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
@@ -58,11 +69,17 @@ class DetailViewController: UIViewController {
 	let realm = try! Realm()
 	var book: Book!
 	lazy var bookIDs: [String] = []
+	var docController: UIDocumentInteractionController?
 
 	//MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+		var tableFrame = view.bounds
+		tableFrame.origin.y = -tableFrame.size.height
+		let backgroundView = UIView(frame: tableFrame)
+		backgroundView.backgroundColor = UIColor.black //<-- pick your color there
+		view.addSubview(backgroundView)
     }
 
 	override func viewWillAppear(_ animated: Bool) {

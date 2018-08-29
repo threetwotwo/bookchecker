@@ -16,14 +16,19 @@ class WebReaderViewController: UIViewController {
 	@IBOutlet weak var webReaderView: WKWebView!
 	@IBOutlet weak var topConstraint: NSLayoutConstraint!
 	@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+	@IBAction func testButtonPressed(_ sender: Any) {
+		if let currentURL = webReaderView.url?.absoluteString {
+			print(currentURL)
+		}
+	}
 
 	//MARK: - Variables
 	var previewLink: URL!
 	var isReader = false
 
 	fileprivate func adjustConstraints() {
-		topConstraint.constant = isReader ? 0 : -120
-		bottomConstraint.constant = isReader ? -25 : 0
+		topConstraint.constant = isReader ? -95 : -120
+		bottomConstraint.constant = isReader ? -30 : 0
 	}
 
 	fileprivate func setUpWebReaderView(url: URL) {

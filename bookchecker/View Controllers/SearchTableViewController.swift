@@ -60,7 +60,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 	}
 
 	@objc func getBooksFromSearchbar() {
-		Services.shared.getBooks(from: Services.baseURL, params: ["q" : searchBar.text!]) { (books) in
+		Services.shared.getBooks(from: .google, searchParameter: searchBar.text!) { (books) in
 			self.books = books
 			self.tableView.reloadData()
 		}

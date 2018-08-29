@@ -20,7 +20,7 @@ struct APIRequest {
 		case .google:
 			searchURL = "https://www.googleapis.com/books/v1/volumes"
 		case .archive:
-			searchURL = ""
+			searchURL = "https://archive.org/services/search/v1/scrape?"
 			metadataURL = "https://archive.org/metadata"
 			downloadURL = "https://archive.org/download"
 		}

@@ -61,7 +61,7 @@ class Services {
 			var parameters: [String : String] = [:]
 			switch source {
 			case .google:
-				parameters = ["q" : searchParameter]
+				parameters["q"] = searchParameter
 				//only return books that have preview
 				parameters["filter"] = "partial"
 				//return english books
@@ -97,7 +97,33 @@ class Services {
 					completion(books)
 				}
 			case .archive:
-				break
+				parameters["fields"] = "title,creator,publisher,publicdate,description"
+				parameters["q"] = "\(searchParameter) AND mediatype:texts"
+				parameters["count"] = "100"
+				parameters["sorts"] = "downloads desc"
+
+				Alamofire.request(apiRequest.searchURL, parameters: parameters).responseJSON { (response) in
+					print(response.request)
+					guard response.result.isSuccess else {
+						print(response.result.error?.localizedDescription ?? "Error fetching books")
+						return
+					}
+					let bookJSON = JSON(response.result.value!)
+					let totalItems = bookJSON["items"].arrayValue
+					for i in 0..<10 {
+						let item = totalItems[i]
+						var book = Book()
+						
+						book.title = item["title"].stringValue
+						book.authors = item["creator"].stringValue
+						book.publisher = item["publisher"].stringValue
+						book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
+						book.about = item["description"].stringValue
+
+						books.append(book)
+					}
+					completion(books)
+				}
 			}
 		}
 	}

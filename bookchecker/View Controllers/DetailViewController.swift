@@ -105,6 +105,7 @@ class DetailViewController: UIViewController {
 			ratingCountLabel.text = "(\(book.ratingsCount))"
 		}
 
+		previewButton.isHidden = book.previewLink == "" ? true : false
 		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
 
 		descriptionLabel.text = book.about

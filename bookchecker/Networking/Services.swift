@@ -66,6 +66,8 @@ class Services {
 				parameters["filter"] = "partial"
 				//return english books
 				parameters["langRestrict"] = "en"
+				//number of books
+				parameters["maxResults"] = "3"
 
 				Alamofire.request(apiRequest.searchURL, parameters: parameters).responseJSON { (response) in
 					guard response.result.isSuccess else {
@@ -98,7 +100,7 @@ class Services {
 					completion(books)
 				}
 			case .archive:
-				parameters["fields"] = "title,creator,publisher,publicdate,description"
+				parameters["fields"] = "title,creator,publisher,publicdate,description,rights"
 				parameters["q"] = "\(searchParameter) AND mediatype:texts"
 				parameters["count"] = "100"
 				parameters["sorts"] = "downloads desc"
@@ -109,16 +111,18 @@ class Services {
 						print(response.result.error?.localizedDescription ?? "Error fetching books")
 						return
 					}
+
 					let bookJSON = JSON(response.result.value!)
 					let totalItems = bookJSON["items"].arrayValue
-					for i in 0..<10 {
+					//return at max 10 results
+					for i in 0..<min(10, totalItems.count) {
 						let item = totalItems[i]
 						var book = Book()
 						book.apiSource = "archive.org"
 						book.id = item["identifier"].stringValue
 						book.title = item["title"].stringValue
 						book.authors = item["creator"].stringValue
-						book.publisher = item["publisher"].stringValue
+						book.publisher = item["creator"].stringValue
 						book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
 						book.about = item["description"].stringValue
 

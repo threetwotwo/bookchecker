@@ -78,6 +78,7 @@ class Services {
 						let volumeInfo = item["volumeInfo"]
 
 						var book = Book()
+						book.apiSource = "google books"
 						book.id = item["id"].stringValue
 						book.title = volumeInfo["title"].stringValue
 						book.subtitle = volumeInfo["subtitle"].stringValue
@@ -113,7 +114,8 @@ class Services {
 					for i in 0..<10 {
 						let item = totalItems[i]
 						var book = Book()
-						
+						book.apiSource = "archive.org"
+						book.id = item["identifier"].stringValue
 						book.title = item["title"].stringValue
 						book.authors = item["creator"].stringValue
 						book.publisher = item["publisher"].stringValue
@@ -139,8 +141,16 @@ class Services {
 		}
 	}
 
-	func highResImageURL(bookID: String) -> URL? {
-		let url = "https://books.google.com/books/content/images/frontcover/\(bookID)?fife=w200-h300"
+	static func getBookImageURL(apiSource: String, identifier: String) -> URL? {
+		var url = ""
+		switch apiSource {
+		case "google books":
+			url = "https://books.google.com/books/content/images/frontcover/\(identifier)?fife=w200-h300"
+		case "archive.org":
+			url = "https://archive.org/services/img/\(identifier)"
+		default:
+			break
+		}
 		return URL(string: url)
 	}
 }

@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 struct Book {
+	var apiSource = ""
 	var id = ""
 	var authors = ""
 	var title = ""
@@ -28,6 +29,7 @@ struct Book {
 
 extension Book {
 	init(realmBook: RealmBook) {
+		apiSource = realmBook.apiSource
 		id = realmBook.id
 		authors = realmBook.authors
 		title = realmBook.title

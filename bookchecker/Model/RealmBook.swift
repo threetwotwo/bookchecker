@@ -13,6 +13,7 @@ class RealmBook: Object {
 
 	convenience required init(book: Book) {
 		self.init()
+		apiSource = book.apiSource
 		id = book.id
 		authors = book.authors
 		title = book.title
@@ -28,7 +29,7 @@ class RealmBook: Object {
 		categories = book.categories
 		image = book.image
 	}
-
+	@objc dynamic var apiSource = ""
 	@objc dynamic var id = ""
 	@objc dynamic var authors = ""
 	@objc dynamic var title = ""

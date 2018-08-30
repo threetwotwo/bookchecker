@@ -25,7 +25,8 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var descriptionHeaderLabel: UILabel!
 	@IBOutlet weak var favoriteButton: UIButton!
-
+	@IBOutlet weak var apiSourceButton: DesignableButton!
+	
 	//MARK: - IBActions
 	@IBAction func previewButtonPressed(_ sender: UIButton) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
@@ -89,6 +90,7 @@ class DetailViewController: UIViewController {
 	//MARK: - Update UI
 	func updateUI() {
 		print(book)
+		apiSourceButton.setTitle(book.apiSource, for: [])
 		titleLabel.text = book.title
 		authorLabel.text = book.authors
 		publisherLabel.text = book.publisher == "" ? "Unknown Publisher" : book.publisher

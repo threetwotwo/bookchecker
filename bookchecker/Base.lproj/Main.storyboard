@@ -46,9 +46,23 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="csb-xc-j9Q">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="csb-xc-j9Q" customClass="DesignableImage" customModule="bookchecker" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
                                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                                        <size key="value" width="0.0" height="4"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                                        <real key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                         </subviews>
                                                     </view>
@@ -139,9 +153,36 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0V3-0S-ijc" customClass="DesignableButton" customModule="bookchecker" customModuleProvider="target">
+                                            <rect key="frame" x="142" y="42" width="80" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="L49-ko-I3K"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                            <state key="normal" title="api source">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="previewButtonPressed:" destination="9QJ-1z-xjw" eventType="touchUpInside" id="n6d-Jy-mz5"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="HAP-ej-rzb" firstAttribute="centerY" secondItem="4dK-iq-XEg" secondAttribute="centerY" id="5hW-Cu-bRn"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0V3-0S-ijc" secondAttribute="trailing" constant="20" symbolic="YES" id="5n4-iB-TSs"/>
+                                        <constraint firstItem="0V3-0S-ijc" firstAttribute="leading" secondItem="4dK-iq-XEg" secondAttribute="trailing" constant="20" id="Gyg-Cw-ued"/>
+                                        <constraint firstItem="HAP-ej-rzb" firstAttribute="top" secondItem="0V3-0S-ijc" secondAttribute="bottom" constant="10" id="Mrf-LI-QgJ"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="HAP-ej-rzb" secondAttribute="trailing" constant="10" id="O9x-9p-XtM"/>
                                         <constraint firstItem="4dK-iq-XEg" firstAttribute="leading" secondItem="1pq-GL-0AI" secondAttribute="leading" constant="10" id="fOm-qd-Lc6"/>
                                         <constraint firstItem="4dK-iq-XEg" firstAttribute="top" secondItem="1pq-GL-0AI" secondAttribute="top" constant="10" id="ohf-ci-D8y"/>
@@ -151,6 +192,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
+                                    <outlet property="apiSourceButton" destination="0V3-0S-ijc" id="5as-pa-Hpf"/>
                                     <outlet property="authorLabel" destination="xOY-SD-xDg" id="ESY-5T-G5S"/>
                                     <outlet property="coverImage" destination="4dK-iq-XEg" id="IGN-Ef-81O"/>
                                     <outlet property="titleLabel" destination="w2O-e7-5YC" id="218-Bx-qFu"/>
@@ -169,7 +211,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="feC-oe-DYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1913" y="428"/>
+            <point key="canvasLocation" x="1912.8" y="427.73613193403304"/>
         </scene>
         <!--Favorite Collection View Controller-->
         <scene sceneID="VfO-Ga-xGz">
@@ -272,19 +314,19 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXK-AU-jxm">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="508"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="506"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAL-l2-SuW">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEU-eB-gEh">
-                                                        <rect key="frame" x="16" y="16" width="343" height="26"/>
+                                                        <rect key="frame" x="15.5" y="16" width="343" height="26"/>
                                                         <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="20"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opS-cs-7uT">
-                                                        <rect key="frame" x="16" y="50" width="343" height="21"/>
+                                                        <rect key="frame" x="15.5" y="50" width="343" height="21"/>
                                                         <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -302,12 +344,12 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QaV-us-kR3">
-                                                <rect key="frame" x="16" y="432" width="343" height="22.5"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                                <rect key="frame" x="15.5" y="432" width="343" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLo-xi-7D6">
-                                                <rect key="frame" x="16" y="474" width="343" height="18"/>
+                                                <rect key="frame" x="15.5" y="472" width="343" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -315,7 +357,7 @@
                                                 <rect key="frame" x="0.0" y="87" width="375" height="325"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hGz-Rb-icr">
-                                                        <rect key="frame" x="16" y="10" width="343" height="305"/>
+                                                        <rect key="frame" x="15.5" y="10" width="343" height="305"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="NeH-1H-YSx">
                                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="280"/>
@@ -341,40 +383,40 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9QP-Xo-3S8">
-                                                                                <rect key="frame" x="15" y="67" width="149" height="77"/>
+                                                                                <rect key="frame" x="15" y="67" width="149" height="82"/>
                                                                                 <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="15"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnK-Kj-uYT">
-                                                                                <rect key="frame" x="15" y="154" width="149" height="32"/>
-                                                                                <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
-                                                                                <state key="normal" title="Preview Online">
-                                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <rect key="frame" x="15" y="159" width="149" height="31"/>
+                                                                                <color key="backgroundColor" red="1" green="0.98431372549999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                                                <state key="normal" title="READ ONLINE">
+                                                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                                 </state>
                                                                                 <variation key="heightClass=regular-widthClass=compact">
-                                                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                                 </variation>
                                                                                 <connections>
                                                                                     <action selector="previewButtonPressed:" destination="9QJ-1z-xjw" eventType="touchUpInside" id="VFj-vC-eo9"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TmO-vK-P5z">
-                                                                                <rect key="frame" x="15" y="196" width="149" height="33"/>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TmO-vK-P5z" customClass="DesignableButton" customModule="bookchecker" customModuleProvider="target">
+                                                                                <rect key="frame" x="15" y="200" width="149" height="31"/>
                                                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
-                                                                                <state key="normal" title="Get book">
+                                                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                                                <state key="normal" title="DOWNLOAD">
                                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
                                                                                     <action selector="getBookButtonPressed:" destination="9QJ-1z-xjw" eventType="touchUpInside" id="QWl-Tb-Lio"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZV6-3v-Fv2">
-                                                                                <rect key="frame" x="15" y="239" width="149" height="33"/>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZV6-3v-Fv2" customClass="DesignableButton" customModule="bookchecker" customModuleProvider="target">
+                                                                                <rect key="frame" x="15" y="241" width="149" height="31"/>
                                                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
-                                                                                <state key="normal" title="Add to Favorites">
+                                                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                                                <state key="normal" title="ADD TO FAVORITES">
                                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </state>
                                                                                 <connections>
@@ -392,7 +434,7 @@
                                                                 </constraints>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="QAh-4D-ma3">
-                                                                <rect key="frame" x="0.0" y="285" width="157" height="20"/>
+                                                                <rect key="frame" x="0.0" y="285" width="242" height="20"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rty-AN-s7S" customClass="CosmosView" customModule="Cosmos">
                                                                         <rect key="frame" x="0.0" y="0.0" width="120" height="20"/>
@@ -410,6 +452,30 @@
                                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SyP-kU-m24" customClass="DesignableButton" customModule="bookchecker" customModuleProvider="target">
+                                                                        <rect key="frame" x="162" y="0.0" width="80" height="20"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="pX1-mE-yx2"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                                                        <state key="normal" title="api source">
+                                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </state>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="10"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="1"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="previewButtonPressed:" destination="9QJ-1z-xjw" eventType="touchUpInside" id="xBe-eF-Gw9"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="vfG-Tb-dJS"/>
@@ -473,6 +539,7 @@
                         <viewLayoutGuide key="safeArea" id="t9T-Hg-b8W"/>
                     </view>
                     <connections>
+                        <outlet property="apiSourceButton" destination="SyP-kU-m24" id="yAU-5Z-Ko2"/>
                         <outlet property="authorLabel" destination="opS-cs-7uT" id="JCr-Qp-hvb"/>
                         <outlet property="categoryLabel" destination="9QP-Xo-3S8" id="bY0-QR-Tlw"/>
                         <outlet property="coverImage" destination="OJG-2V-0GA" id="Mjt-iE-Jae"/>

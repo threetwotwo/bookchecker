@@ -12,6 +12,7 @@ struct APIRequest {
 	var source: APISource
 	var searchURL = ""
 	var metadataURL = ""
+	var imageURL = ""
 	var downloadURL = ""
 
 	init(source: APISource) {
@@ -19,9 +20,11 @@ struct APIRequest {
 		switch source {
 		case .google:
 			searchURL = "https://www.googleapis.com/books/v1/volumes"
+			imageURL = "https://books.google.com/books/content/images/frontcover/"
 		case .archive:
 			searchURL = "https://archive.org/services/search/v1/scrape?"
-			metadataURL = "https://archive.org/metadata"
+			metadataURL = "https://archive.org/metadata/"
+			imageURL = "https://archive.org/services/img/"
 			downloadURL = "https://archive.org/download"
 		}
 	}

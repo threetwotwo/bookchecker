@@ -35,9 +35,10 @@ class SearchTableViewController: UITableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
 		cell.coverImage.image = nil
 		let book = books[indexPath.row]
+		cell.apiSourceButton.setTitle(book.apiSource, for: [])
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
-		let url = Services.shared.highResImageURL(bookID: book.id)
+		let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
 		cell.coverImage.sd_setImage(with: url) { (image, error, cache, url) in
 			self.books[indexPath.row].image = UIImagePNGRepresentation(image!)
 		}
@@ -60,7 +61,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 	}
 
 	@objc func getBooksFromSearchbar() {
-		Services.shared.getBooks(from: .archive, searchParameter: searchBar.text!) { (books) in
+		Services.shared.getBooks(from: .archive, .google, searchParameter: searchBar.text!) { (books) in
 			self.books = books
 			self.tableView.reloadData()
 		}

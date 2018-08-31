@@ -40,7 +40,7 @@ class SearchTableViewController: UITableViewController {
 		cell.authorLabel.text = book.authors
 		let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
 		cell.coverImage.sd_setImage(with: url) { (image, error, cache, url) in
-			self.books[indexPath.row].image = UIImagePNGRepresentation(image!)
+			self.books[indexPath.row].image = UIImagePNGRepresentation(image ?? UIImage())
 		}
 		return cell
 	}
@@ -69,8 +69,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		//throttle the url requests
-		timer?.invalidate()
-		timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(getBooksFromSearchbar), userInfo: nil, repeats: false)
+		perform(#selector(getBooksFromSearchbar), with: nil, afterDelay: 2)
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

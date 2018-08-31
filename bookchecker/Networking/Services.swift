@@ -20,6 +20,7 @@ class Services {
 
 	static let shared = Services()
 	var docController: UIDocumentInteractionController?
+	let dispatchGroup = DispatchGroup()
 
 	static func createSubjectQueriesWithIndex(queries: Categories...) -> [Int : Categories] {
 		var results: [Int : Categories] = [:]
@@ -61,6 +62,8 @@ class Services {
 			var parameters: [String : String] = [:]
 			switch source {
 			case .google:
+				dispatchGroup.enter()
+
 				parameters["q"] = searchParameter
 				//only return books that have preview
 				parameters["filter"] = "ebooks"
@@ -97,9 +100,11 @@ class Services {
 
 						books.append(book)
 					}
-					completion(books)
+					self.dispatchGroup.leave()
 				}
 			case .archive:
+				dispatchGroup.enter()
+
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights"
 				parameters["q"] = "\(searchParameter) AND mediatype:texts"
 				parameters["count"] = "100"
@@ -128,9 +133,12 @@ class Services {
 
 						books.append(book)
 					}
-					completion(books)
+					self.dispatchGroup.leave()
 				}
 			}
+		}
+		dispatchGroup.notify(queue: .main) {
+			completion(books)
 		}
 	}
 

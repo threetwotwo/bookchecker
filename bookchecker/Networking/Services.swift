@@ -70,9 +70,11 @@ class Services {
 				//return english books
 				parameters["langRestrict"] = "en"
 				//number of books
-				parameters["maxResults"] = "9"
+				parameters["maxResults"] = "3"
+				parameters["download"] = "epub"
 
 				Alamofire.request(apiRequest.searchURL, parameters: parameters).responseJSON { (response) in
+					print(response.request)
 					guard response.result.isSuccess else {
 						print(response.result.error?.localizedDescription ?? "Error fetching books")
 						return
@@ -106,7 +108,7 @@ class Services {
 				dispatchGroup.enter()
 
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights"
-				parameters["q"] = "\(searchParameter) AND mediatype:texts"
+				parameters["q"] = "\(searchParameter) AND mediatype:texts AND collection:opensource"
 				parameters["count"] = "100"
 				parameters["sorts"] = "downloads desc"
 
@@ -120,7 +122,7 @@ class Services {
 					let bookJSON = JSON(response.result.value!)
 					let totalItems = bookJSON["items"].arrayValue
 					//return at max 10 results
-					for i in 0..<min(10, totalItems.count) {
+					for i in 0..<min(3, totalItems.count) {
 						let item = totalItems[i]
 						var book = Book()
 						book.apiSource = "archive.org"
@@ -136,9 +138,9 @@ class Services {
 					self.dispatchGroup.leave()
 				}
 			}
-		}
-		dispatchGroup.notify(queue: .main) {
-			completion(books)
+			dispatchGroup.notify(queue: .main) {
+				completion(books)
+			}
 		}
 	}
 

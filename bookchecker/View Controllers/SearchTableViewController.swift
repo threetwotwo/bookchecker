@@ -69,7 +69,6 @@ extension SearchTableViewController: UISearchBarDelegate {
 
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		//throttle the url requests
-		perform(#selector(getBooksFromSearchbar), with: nil, afterDelay: 2)
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

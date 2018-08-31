@@ -582,22 +582,13 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sho-YE-em7">
                                 <rect key="frame" x="0.0" y="20" width="375" height="2"/>
                             </progressView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLQ-dg-fSR">
-                                <rect key="frame" x="164" y="328.5" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="testButtonPressed:" destination="ccc-IO-QUF" eventType="touchUpInside" id="cSi-v3-KsK"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Sho-YE-em7" firstAttribute="top" secondItem="8zM-tz-eB5" secondAttribute="top" id="2ac-Ve-cbW"/>
-                            <constraint firstItem="zLQ-dg-fSR" firstAttribute="centerY" secondItem="8zM-tz-eB5" secondAttribute="centerY" id="9GQ-dH-Cks"/>
                             <constraint firstItem="Pwm-rP-tJt" firstAttribute="top" secondItem="8zM-tz-eB5" secondAttribute="top" id="He8-8y-9CE"/>
                             <constraint firstItem="Sho-YE-em7" firstAttribute="leading" secondItem="DgT-DT-1No" secondAttribute="leading" id="Q1t-a4-mIq"/>
                             <constraint firstItem="8zM-tz-eB5" firstAttribute="bottom" secondItem="Pwm-rP-tJt" secondAttribute="bottom" id="UQy-OC-Ots"/>
-                            <constraint firstItem="zLQ-dg-fSR" firstAttribute="centerX" secondItem="8zM-tz-eB5" secondAttribute="centerX" id="nDE-ed-wTL"/>
                             <constraint firstItem="8zM-tz-eB5" firstAttribute="trailing" secondItem="Pwm-rP-tJt" secondAttribute="trailing" id="rPg-cj-YGh"/>
                             <constraint firstItem="Pwm-rP-tJt" firstAttribute="leading" secondItem="8zM-tz-eB5" secondAttribute="leading" id="tXT-fd-DTk"/>
                             <constraint firstAttribute="trailing" secondItem="Sho-YE-em7" secondAttribute="trailing" id="ubz-qf-10P"/>

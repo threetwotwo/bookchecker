@@ -30,7 +30,7 @@ class DetailViewController: UIViewController {
 	//MARK: - IBActions
 	@IBAction func previewButtonPressed(_ sender: UIButton) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
-		guard let previewURL = URL(string: book.previewLink.replacingOccurrences(of: "gbs_api", with: "kp_read_button")) else {
+		guard let previewURL = URL(string: book.readerLink.replacingOccurrences(of: "gbs_api", with: "kp_read_button")) else {
 			return
 		}
 		vc.previewLink = previewURL

@@ -63,11 +63,11 @@ class Services {
 			case .google:
 				parameters["q"] = searchParameter
 				//only return books that have preview
-				parameters["filter"] = "partial"
+				parameters["filter"] = "ebooks"
 				//return english books
 				parameters["langRestrict"] = "en"
 				//number of books
-				parameters["maxResults"] = "3"
+				parameters["maxResults"] = "9"
 
 				Alamofire.request(apiRequest.searchURL, parameters: parameters).responseJSON { (response) in
 					guard response.result.isSuccess else {

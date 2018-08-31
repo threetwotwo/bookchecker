@@ -16,11 +16,6 @@ class WebReaderViewController: UIViewController {
 	@IBOutlet weak var webReaderView: WKWebView!
 	@IBOutlet weak var topConstraint: NSLayoutConstraint!
 	@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-	@IBAction func testButtonPressed(_ sender: Any) {
-		if let currentURL = webReaderView.url?.absoluteString {
-			print(currentURL)
-		}
-	}
 
 	//MARK: - Variables
 	var previewLink: URL!
@@ -36,11 +31,11 @@ class WebReaderViewController: UIViewController {
 		webReaderView.navigationDelegate = self
 		let urlRequest = URLRequest(url: url)
 		webReaderView.load(urlRequest)
+
 	}
 
 	override func viewDidLoad() {
         super.viewDidLoad()
-		adjustConstraints()
 		setUpWebReaderView(url: previewLink)
     }
 
@@ -63,6 +58,9 @@ extension WebReaderViewController: WKNavigationDelegate {
 	}
 
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+		//Hides header and footer
+		webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-topbar-table')[0].style.visibility = 'hidden';", completionHandler: nil)
+		webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-statusbar-controls-table')[0].style.visibility = 'hidden';", completionHandler: nil)
 		UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
 		progressBar.alpha = 1.0

@@ -23,7 +23,6 @@ class RealmBook: Object {
 		about = book.about
 		averageRating = book.averageRating
 		ratingsCount = book.ratingsCount
-		previewLink = book.previewLink
 		readerLink = book.readerLink
 		thumbnail = book.thumbnail
 		categories = book.categories
@@ -39,8 +38,8 @@ class RealmBook: Object {
 	@objc dynamic var about = ""
 	@objc dynamic var averageRating = ""
 	@objc dynamic var ratingsCount = ""
-	@objc dynamic var previewLink = ""
 	@objc dynamic var readerLink = ""
+	let downloadLinks = List<String>()
 	@objc dynamic var thumbnail = ""
 	@objc dynamic var categories = ""
 	@objc dynamic var image: Data? = nil

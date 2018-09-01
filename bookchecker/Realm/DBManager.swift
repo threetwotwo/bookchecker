@@ -22,19 +22,32 @@ class DBManager {
 		return results
 	}
 	func addBook(object: RealmBook)   {
-		try! realm.write {
-			realm.add(object, update: true)
-			print("Added new book")
+		do {
+			try realm.write {
+				realm.add(object)
+			}
+		} catch {
+			print(error.localizedDescription)
 		}
 	}
+
 	func deleteAll()  {
-		try! realm.write {
-			realm.deleteAll()
+		do {
+			try realm.write {
+				realm.deleteAll()
+			}
+		} catch {
+			print(error.localizedDescription)
 		}
 	}
+
 	func deleteFromDb(object: RealmBook)   {
-		try! realm.write {
-			realm.delete(object)
+		do {
+			try realm.write {
+				realm.delete(object)
+			}
+		} catch {
+			print(error.localizedDescription)
 		}
 	}
 }

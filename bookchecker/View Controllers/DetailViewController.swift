@@ -19,11 +19,12 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var publisherLabel: UILabel!
 	@IBOutlet weak var publishedDateLabel: UILabel!
 	@IBOutlet weak var categoryLabel: UILabel!
-	@IBOutlet weak var previewButton: UIButton!
 	@IBOutlet weak var ratingBar: CosmosView!
 	@IBOutlet weak var ratingCountLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var descriptionHeaderLabel: UILabel!
+	@IBOutlet weak var previewButton: UIButton!
+	@IBOutlet weak var downloadButton: LoadingButton!
 	@IBOutlet weak var favoriteButton: UIButton!
 	@IBOutlet weak var apiSourceButton: DesignableButton!
 	
@@ -34,31 +35,17 @@ class DetailViewController: UIViewController {
 			return
 		}
 		vc.previewLink = previewURL
-		//Turn to page 1
+		//Turn reader to page 1
 		vc.previewLink.setValue(forKey: "pg", to: "PA1")
 		navigationController?.pushViewController(vc, animated: true)
 	}
 	
 	@IBAction func getBookButtonPressed(_ sender: UIButton) {
-		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
-		Alamofire.download("https://archive.org/download/TheLordOfTheRingsTheTwoTowers/The%20Lord%20of%20the%20Rings%20%20The%20Two%20Towers.pdf", to: destination).response { (response) in
-			if let error = response.error {
-				print("Failed with error: \(error)")
-			} else {
-				print("Downloaded file successfully")
-			}
-			if let targetURL = response.destinationURL {
-				self.docController = UIDocumentInteractionController(url: targetURL)
-				let url = URL(string:"itms-books:");
-				if UIApplication.shared.canOpenURL(url!) {
-					self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
-					print("iBooks is installed")
-				}else{
-					print("iBooks is not installed")
-				}
+		let vc = storyboard?.instantiateViewController(withIdentifier: "PopUpVC") as! PopUpViewController
+		vc.bookTitle = book.title
+		vc.fileNames = book.downloadLinks
+		self.present(vc, animated: true)
 
-			}
-		}
 	}
 
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
@@ -75,12 +62,13 @@ class DetailViewController: UIViewController {
 	//MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-		var tableFrame = view.bounds
-		tableFrame.origin.y = -tableFrame.size.height
-		let backgroundView = UIView(frame: tableFrame)
-		backgroundView.backgroundColor = UIColor.black //<-- pick your color there
-		view.addSubview(backgroundView)
+		downloadButton.showLoading()
+		Services.shared.getDownloadLinks(book: book) { (links) in
+			self.downloadButton.hideLoading()
+			self.book.downloadLinks = links
+			self.downloadButton.isHidden = self.book.downloadLinks.isEmpty ? true : false
+			print(links)
+		}
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +77,6 @@ class DetailViewController: UIViewController {
 
 	//MARK: - Update UI
 	func updateUI() {
-		print(book)
 		apiSourceButton.setTitle(book.apiSource, for: [])
 		titleLabel.text = book.title
 		authorLabel.text = book.authors
@@ -105,7 +92,7 @@ class DetailViewController: UIViewController {
 			ratingCountLabel.text = "(\(book.ratingsCount))"
 		}
 
-		previewButton.isHidden = book.previewLink == "" ? true : false
+		previewButton.isHidden = book.readerLink == "" ? true : false
 		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
 
 		descriptionLabel.text = book.about
@@ -128,12 +115,6 @@ extension DetailViewController {
 		}
 		let realmBook = RealmBook(book: book)
 
-		do {
-			try realm.write {
-				realm.add(realmBook)
-			}
-		} catch {
-			print(error.localizedDescription)
-		}
+		DBManager.shared.addBook(object: realmBook)
 	}
 }

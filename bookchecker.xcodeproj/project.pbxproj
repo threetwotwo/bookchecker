@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4E0D8C712136D29C00447AD8 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D8C702136D29C00447AD8 /* APIRequest.swift */; };
 		4E0D8C732136D2B000447AD8 /* APISource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D8C722136D2AF00447AD8 /* APISource.swift */; };
+		4E2E6181213A358200AE6780 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2E6180213A358200AE6780 /* PopUpViewController.swift */; };
+		4E2E6183213A9FE100AE6780 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2E6182213A9FE100AE6780 /* LoadingButton.swift */; };
 		4E558D5C212BE5A5007E7310 /* FavoriteCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E558D5B212BE5A5007E7310 /* FavoriteCollectionViewController.swift */; };
 		4E558D5E212BE648007E7310 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E558D5D212BE648007E7310 /* FavoriteCollectionViewCell.swift */; };
 		4E5F5C832125871E0080A0F6 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F5C822125871E0080A0F6 /* SearchTableViewController.swift */; };
@@ -42,6 +44,8 @@
 		1CA626E4A45CD00F7626A922 /* Pods-bookchecker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookchecker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bookchecker/Pods-bookchecker.debug.xcconfig"; sourceTree = "<group>"; };
 		4E0D8C702136D29C00447AD8 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		4E0D8C722136D2AF00447AD8 /* APISource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISource.swift; sourceTree = "<group>"; };
+		4E2E6180213A358200AE6780 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		4E2E6182213A9FE100AE6780 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 		4E558D5B212BE5A5007E7310 /* FavoriteCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewController.swift; sourceTree = "<group>"; };
 		4E558D5D212BE648007E7310 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E5F5C822125871E0080A0F6 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 				4EABBAE62128180000657D33 /* DetailViewController.swift */,
 				4E99956821297C72007A7E09 /* WebReaderViewController.swift */,
 				4E558D5B212BE5A5007E7310 /* FavoriteCollectionViewController.swift */,
+				4E2E6180213A358200AE6780 /* PopUpViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				4E695BC82121CF6B00CFE856 /* URL + components.swift */,
+				4E2E6182213A9FE100AE6780 /* LoadingButton.swift */,
 				4ED986952137950B0025C766 /* UIView + IBDesignable.swift */,
 				4E99956521290DF9007A7E09 /* UIColor + hex.swift */,
 				4EA08772212AC8F60033A1B2 /* Navbar.swift */,
@@ -326,6 +332,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E2E6183213A9FE100AE6780 /* LoadingButton.swift in Sources */,
 				4EA08773212AC8F60033A1B2 /* Navbar.swift in Sources */,
 				4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */,
 				4E695BC7212183FE00CFE856 /* Book.swift in Sources */,
@@ -336,6 +343,7 @@
 				4E558D5E212BE648007E7310 /* FavoriteCollectionViewCell.swift in Sources */,
 				4ED3DC9D21311BBA009EC21A /* Categories.swift in Sources */,
 				4E7D251921210919004FA408 /* AppDelegate.swift in Sources */,
+				4E2E6181213A358200AE6780 /* PopUpViewController.swift in Sources */,
 				4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */,
 				4E892BB2212FF59800FBB739 /* RealmBook.swift in Sources */,
 				4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */,

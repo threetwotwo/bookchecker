@@ -8,6 +8,7 @@
 
 import Foundation
 
-enum APISource {
-	case google, archive
+enum APISource: String {
+	case google = "google books"
+	case archive = "archive.org"
 }

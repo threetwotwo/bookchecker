@@ -11,7 +11,6 @@ import Foundation
 struct APIRequest {
 	var source: APISource
 	var searchURL = ""
-	var metadataURL = ""
 	var imageURL = ""
 	var downloadURL = ""
 
@@ -23,7 +22,6 @@ struct APIRequest {
 			imageURL = "https://books.google.com/books/content/images/frontcover/"
 		case .archive:
 			searchURL = "https://archive.org/services/search/v1/scrape?"
-			metadataURL = "https://archive.org/metadata/"
 			imageURL = "https://archive.org/services/img/"
 			downloadURL = "https://archive.org/download"
 		}

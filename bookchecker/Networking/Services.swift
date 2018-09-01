@@ -47,7 +47,6 @@ class Services {
 			book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
 			book.averageRating = volumeInfo["averageRating"].stringValue
 			book.ratingsCount = volumeInfo["ratingsCount"].stringValue
-			book.previewLink = volumeInfo["previewLink"].stringValue
 			book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
 			book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
 
@@ -85,7 +84,7 @@ class Services {
 						let volumeInfo = item["volumeInfo"]
 
 						var book = Book()
-						book.apiSource = "google books"
+						book.apiSource = source.rawValue
 						book.id = item["id"].stringValue
 						book.title = volumeInfo["title"].stringValue
 						book.subtitle = volumeInfo["subtitle"].stringValue
@@ -96,7 +95,6 @@ class Services {
 						book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
 						book.averageRating = volumeInfo["averageRating"].stringValue
 						book.ratingsCount = volumeInfo["ratingsCount"].stringValue
-						book.previewLink = volumeInfo["previewLink"].stringValue
 						book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
 						book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
 
@@ -125,8 +123,9 @@ class Services {
 					for i in 0..<min(3, totalItems.count) {
 						let item = totalItems[i]
 						var book = Book()
-						book.apiSource = "archive.org"
-						book.id = item["identifier"].stringValue
+						let identifier = item["identifier"].stringValue
+						book.apiSource = source.rawValue
+						book.id = identifier
 						book.title = item["title"].stringValue
 						book.authors = item["creator"].stringValue
 						book.publisher = item["creator"].stringValue
@@ -144,15 +143,57 @@ class Services {
 		}
 	}
 
-	func downloadBook(url: String) {
-		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
-		Alamofire.download(url, to: destination).response { (response) in
-			if let error = response.error {
-				print("Failed with error: \(error)")
-			} else {
-				print("Downloaded file successfully")
+	func getDownloadLinks(book: Book, completion: @escaping ([String]) -> ()) {
+		var links: [String] = []
+		switch book.apiSource {
+		case APISource.archive.rawValue:
+			let url = "https://archive.org/metadata/" + book.id
+			Alamofire.request(url).responseJSON { (response) in
+				print(response.request)
+				guard response.result.isSuccess else {
+					print(response.result.error?.localizedDescription ?? "Error fetching books")
+					return
+				}
+				let linksJSON = JSON(response.result.value as Any)
+				let files = linksJSON["files"].arrayValue
+				for file in files {
+					let name = file["name"].stringValue
+					links.append(name)
+				}
+				completion(links.filter{$0.hasSuffix(".pdf") || $0.hasSuffix(".epub")}.sorted{$0 < $1})
 			}
+		default:
+			completion(links)
 		}
+	}
+
+	func downloadFile(url: String) {
+//		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
+//		Alamofire.download("https://archive.org/download/TheLordOfTheRingsTheTwoTowers/The%20Lord%20of%20the%20Rings%20%20The%20Two%20Towers.pdf", to: destination).response { (response) in
+//			if let error = response.error {
+//				print("Failed with error: \(error)")
+//			} else {
+//				print("Downloaded file successfully")
+//			}
+//			if let targetURL = response.destinationURL {
+//				self.docController = UIDocumentInteractionController(url: targetURL)
+//				let url = URL(string:"itms-books:");
+//				if UIApplication.shared.canOpenURL(url!) {
+//					self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
+//					print("iBooks is installed")
+//				} else {
+//					print("iBooks is not installed")
+//				}
+//			}
+//		}
+		let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+			let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+			let fileURL = documentsURL.appendingPathComponent(url)
+
+			return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+		}
+
+		
 	}
 
 	static func getBookImageURL(apiSource: String, identifier: String) -> URL? {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class PopUpViewController: UIViewController {
 
@@ -24,8 +25,10 @@ class PopUpViewController: UIViewController {
 	}
 
 	//MARK: - Variables
+	var bookIdentifier: String!
 	var bookTitle: String?
 	var fileNames: [String]!
+	var docController: UIDocumentInteractionController!
 
 	//MARK: - Life Cycle
 	override func viewDidLoad() {
@@ -61,5 +64,28 @@ extension PopUpViewController: UITableViewDataSource {
 
 //MARK: - UITableViewDelegate
 extension PopUpViewController: UITableViewDelegate {
-
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
+		let fileURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
+		//Replace whitespace
+		let encodedFileURL = fileURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+		print(encodedFileURL)
+		Alamofire.download(encodedFileURL!, to: destination).response { (response) in
+			if let error = response.error {
+				print("Failed with error: \(error)")
+			} else {
+				print("Downloaded file successfully")
+			}
+			if let targetURL = response.destinationURL {
+				self.docController = UIDocumentInteractionController(url: targetURL)
+				let url = URL(string:"itms-books:");
+				if UIApplication.shared.canOpenURL(url!) {
+					self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
+					print("iBooks is installed")
+				} else {
+					print("iBooks is not installed")
+				}
+			}
+		}
+	}
 }

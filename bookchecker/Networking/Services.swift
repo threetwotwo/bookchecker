@@ -68,7 +68,7 @@ class Services {
 				//return english books
 				parameters["langRestrict"] = "en"
 				//number of books
-				parameters["maxResults"] = "3"
+				parameters["maxResults"] = "5"
 				parameters["download"] = "epub"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
@@ -104,7 +104,7 @@ class Services {
 				dispatchGroup.enter()
 
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights"
-				parameters["q"] = "\(searchParameter) AND mediatype:texts AND collection:opensource"
+				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf)AND (collection:opensource*)"
 				parameters["count"] = "100"
 				parameters["sorts"] = "downloads desc"
 
@@ -117,7 +117,7 @@ class Services {
 					let bookJSON = JSON(response.result.value!)
 					let totalItems = bookJSON["items"].arrayValue
 					//return at max 10 results
-					for i in 0..<min(3, totalItems.count) {
+					for i in 0..<min(20, totalItems.count) {
 						let item = totalItems[i]
 						var book = Book()
 						let identifier = item["identifier"].stringValue
@@ -154,9 +154,17 @@ class Services {
 				let files = linksJSON["files"].arrayValue
 				for file in files {
 					let name = file["name"].stringValue
-					links.append(name)
+					if name.hasSuffix(".pdf") || name.hasSuffix(".epub") {
+						if let index = (name.range(of: ".")?.upperBound), name.countInstances(of: ".") > 1, name.countInstances(of: "-") == 0 {
+							links.append(String(name.suffix(from: index)))
+						} else if let index = (name.range(of: "-")?.upperBound){
+							links.append(String(name.suffix(from: index)))
+						} else {
+							links.append(name)
+						}
+					}
 				}
-				completion(links.filter{$0.hasSuffix(".pdf") || $0.hasSuffix(".epub")}.sorted{$0 < $1})
+				completion(links)
 			}
 		default:
 			completion(links)

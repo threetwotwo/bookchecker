@@ -42,7 +42,8 @@ class DetailViewController: UIViewController {
 	
 	@IBAction func getBookButtonPressed(_ sender: UIButton) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "PopUpVC") as! PopUpViewController
-		vc.bookTitle = book.title
+		vc.bookIdentifier = book.id
+		vc.title = book.title
 		vc.fileNames = book.downloadLinks
 		self.present(vc, animated: true)
 

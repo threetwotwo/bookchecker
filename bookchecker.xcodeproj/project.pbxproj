@@ -35,6 +35,7 @@
 		4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */; };
 		4ED3DC9D21311BBA009EC21A /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3DC9C21311BBA009EC21A /* Categories.swift */; };
 		4ED986962137950B0025C766 /* UIView + IBDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED986952137950B0025C766 /* UIView + IBDesignable.swift */; };
+		4EED5FC0213AF4FA0019384B /* String + occurences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED5FBF213AF4FA0019384B /* String + occurences.swift */; };
 		9FC6D242152B7B2A5495EC3F /* Pods_bookchecker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEC06E3514225794F98B506 /* Pods_bookchecker.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		4ED3DC9C21311BBA009EC21A /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		4ED986952137950B0025C766 /* UIView + IBDesignable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + IBDesignable.swift"; sourceTree = "<group>"; };
+		4EED5FBF213AF4FA0019384B /* String + occurences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + occurences.swift"; sourceTree = "<group>"; };
 		5B8352BB987EF499395F67C9 /* Pods-bookchecker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookchecker.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookchecker/Pods-bookchecker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				4E695BC82121CF6B00CFE856 /* URL + components.swift */,
+				4EED5FBF213AF4FA0019384B /* String + occurences.swift */,
 				4E2E6182213A9FE100AE6780 /* LoadingButton.swift */,
 				4ED986952137950B0025C766 /* UIView + IBDesignable.swift */,
 				4E99956521290DF9007A7E09 /* UIColor + hex.swift */,
@@ -333,6 +336,7 @@
 				4EA08773212AC8F60033A1B2 /* Navbar.swift in Sources */,
 				4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */,
 				4E695BC7212183FE00CFE856 /* Book.swift in Sources */,
+				4EED5FC0213AF4FA0019384B /* String + occurences.swift in Sources */,
 				4E5F5C832125871E0080A0F6 /* SearchTableViewController.swift in Sources */,
 				4E695BC92121CF6B00CFE856 /* URL + components.swift in Sources */,
 				4E695BCD2121E7D100CFE856 /* FeedCollectionViewCell.swift in Sources */,

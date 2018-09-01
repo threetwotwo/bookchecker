@@ -57,7 +57,6 @@ class Services {
 	func getBooks(from apiSources: APISource..., searchParameter: String, completion: @escaping ([Book]) -> ()) {
 		var books: [Book] = []
 		for source in apiSources {
-			let apiRequest = APIRequest(source: source)
 			var parameters: [String : String] = [:]
 			switch source {
 			case .google:
@@ -72,8 +71,7 @@ class Services {
 				parameters["maxResults"] = "3"
 				parameters["download"] = "epub"
 
-				Alamofire.request(apiRequest.searchURL, parameters: parameters).responseJSON { (response) in
-					print(response.request)
+				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					guard response.result.isSuccess else {
 						print(response.result.error?.localizedDescription ?? "Error fetching books")
 						return
@@ -110,8 +108,7 @@ class Services {
 				parameters["count"] = "100"
 				parameters["sorts"] = "downloads desc"
 
-				Alamofire.request(apiRequest.searchURL, parameters: parameters).responseJSON { (response) in
-					print(response.request)
+				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					guard response.result.isSuccess else {
 						print(response.result.error?.localizedDescription ?? "Error fetching books")
 						return
@@ -149,7 +146,6 @@ class Services {
 		case APISource.archive.rawValue:
 			let url = "https://archive.org/metadata/" + book.id
 			Alamofire.request(url).responseJSON { (response) in
-				print(response.request)
 				guard response.result.isSuccess else {
 					print(response.result.error?.localizedDescription ?? "Error fetching books")
 					return
@@ -167,7 +163,7 @@ class Services {
 		}
 	}
 
-	func downloadFile(url: String) {
+	func downloadFile(book: Book, fileName: String) {
 //		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
 //		Alamofire.download("https://archive.org/download/TheLordOfTheRingsTheTwoTowers/The%20Lord%20of%20the%20Rings%20%20The%20Two%20Towers.pdf", to: destination).response { (response) in
 //			if let error = response.error {
@@ -186,12 +182,6 @@ class Services {
 //				}
 //			}
 //		}
-		let destination: DownloadRequest.DownloadFileDestination = { _, _ in
-			let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-			let fileURL = documentsURL.appendingPathComponent(url)
-
-			return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-		}
 
 		
 	}
@@ -199,10 +189,10 @@ class Services {
 	static func getBookImageURL(apiSource: String, identifier: String) -> URL? {
 		var url = ""
 		switch apiSource {
-		case "google books":
-			url = "https://books.google.com/books/content/images/frontcover/\(identifier)?fife=w200-h300"
-		case "archive.org":
-			url = "https://archive.org/services/img/\(identifier)"
+		case APISource.google.rawValue:
+			url = APISource.google.imageURL + "\(identifier)?fife=w200-h300"
+		case APISource.archive.rawValue:
+			url = APISource.archive.imageURL + identifier
 		default:
 			break
 		}

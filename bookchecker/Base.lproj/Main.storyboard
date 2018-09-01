@@ -562,7 +562,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SyP-kU-m24" customClass="DesignableButton" customModule="bookchecker" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="412" width="80" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="pX1-mE-yx2"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="iOH-Wc-dHv"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
                                                 <state key="normal" title="api source">
@@ -588,6 +588,7 @@
                                         <constraints>
                                             <constraint firstItem="wn1-2X-kv0" firstAttribute="top" secondItem="YAL-l2-SuW" secondAttribute="bottom" id="27c-UP-ffT"/>
                                             <constraint firstItem="QaV-us-kR3" firstAttribute="top" secondItem="SyP-kU-m24" secondAttribute="bottom" constant="20" id="9D5-0U-ut0"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SyP-kU-m24" secondAttribute="trailing" id="9i1-fe-1Da"/>
                                             <constraint firstItem="SyP-kU-m24" firstAttribute="leading" secondItem="SXK-AU-jxm" secondAttribute="leading" constant="16" id="E7h-h1-81F"/>
                                             <constraint firstItem="SyP-kU-m24" firstAttribute="top" secondItem="wn1-2X-kv0" secondAttribute="bottom" id="Ewk-OJ-d9b"/>
                                             <constraint firstAttribute="trailing" secondItem="FLo-xi-7D6" secondAttribute="trailing" constant="16" id="FkS-qi-f54"/>

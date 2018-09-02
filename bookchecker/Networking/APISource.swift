@@ -35,7 +35,7 @@ enum APISource: String {
 		case .google:
 			return ""
 		case .archive:
-			return "https://archive.org/download"
+			return "https://archive.org/download/"
 		}
 	}
 

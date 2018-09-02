@@ -40,7 +40,7 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="Rca-ZO-WV0" customClass="FeedCollectionViewCell" customModule="bookchecker" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.5" width="150" height="240"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
@@ -412,8 +412,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QbY-nm-ttX">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2az-sv-fqG">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="barTintColor" red="0.85882352941176465" green="0.85882352941176465" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <navigationItem id="jjR-uW-q99">
+                                        <barButtonItem key="leftBarButtonItem" title="Close" id="6E2-KN-Nl9">
+                                            <connections>
+                                                <action selector="cancelButtonPressed:" destination="9QJ-1z-xjw" id="7cO-RK-djA"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QbY-nm-ttX">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SXK-AU-jxm">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="530.5"/>
@@ -475,18 +488,18 @@
                                                                         <rect key="frame" x="179" y="0.0" width="164" height="280"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gu-YY-JTi">
-                                                                                <rect key="frame" x="15" y="8" width="149" height="19.5"/>
-                                                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                                                                <rect key="frame" x="15" y="8" width="149" height="18"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPt-5Y-h8D">
-                                                                                <rect key="frame" x="15" y="37.5" width="149" height="19.5"/>
-                                                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                                                                <rect key="frame" x="15" y="36" width="149" height="18"/>
+                                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9QP-Xo-3S8">
-                                                                                <rect key="frame" x="15" y="67" width="149" height="82"/>
-                                                                                <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="15"/>
+                                                                                <rect key="frame" x="15" y="64" width="149" height="85"/>
+                                                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GnK-Kj-uYT">
@@ -622,7 +635,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="SXK-AU-jxm" secondAttribute="trailing" id="3VA-GR-2h7"/>
                                     <constraint firstItem="SXK-AU-jxm" firstAttribute="centerX" secondItem="QbY-nm-ttX" secondAttribute="centerX" id="3Y1-zP-yMQ"/>
@@ -633,11 +645,15 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <color key="backgroundColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="t9T-Hg-b8W" firstAttribute="bottom" secondItem="QbY-nm-ttX" secondAttribute="bottom" id="ENv-Ul-iys"/>
+                            <constraint firstItem="2az-sv-fqG" firstAttribute="leading" secondItem="t9T-Hg-b8W" secondAttribute="leading" id="Ifg-kJ-Mts"/>
+                            <constraint firstItem="2az-sv-fqG" firstAttribute="trailing" secondItem="t9T-Hg-b8W" secondAttribute="trailing" id="JyM-jO-Vbv"/>
                             <constraint firstItem="QbY-nm-ttX" firstAttribute="leading" secondItem="t9T-Hg-b8W" secondAttribute="leading" id="OJV-Rq-EkO"/>
+                            <constraint firstItem="QbY-nm-ttX" firstAttribute="top" secondItem="2az-sv-fqG" secondAttribute="bottom" id="f9e-6U-92f"/>
+                            <constraint firstItem="2az-sv-fqG" firstAttribute="top" secondItem="t9T-Hg-b8W" secondAttribute="top" id="nSR-gV-aIT"/>
                             <constraint firstItem="t9T-Hg-b8W" firstAttribute="trailing" secondItem="QbY-nm-ttX" secondAttribute="trailing" id="sT2-zC-XHs"/>
-                            <constraint firstItem="QbY-nm-ttX" firstAttribute="top" secondItem="t9T-Hg-b8W" secondAttribute="top" id="vLr-SA-nL8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t9T-Hg-b8W"/>
                     </view>
@@ -660,7 +676,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wLw-dY-TP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2638" y="21"/>
+            <point key="canvasLocation" x="2637.5999999999999" y="20.239880059970016"/>
         </scene>
         <!--Web Reader View Controller-->
         <scene sceneID="pvs-qS-22s">
@@ -673,8 +689,21 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pwm-rP-tJt">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
+                                    <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Djh-OL-vTY">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <color key="barTintColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <items>
+                                            <navigationItem id="QNy-ps-5DB">
+                                                <barButtonItem key="leftBarButtonItem" title="Close" id="5Qr-5V-tka">
+                                                    <connections>
+                                                        <action selector="cancelButtonPressed:" destination="ccc-IO-QUF" id="eVl-OE-bcE"/>
+                                                    </connections>
+                                                </barButtonItem>
+                                            </navigationItem>
+                                        </items>
+                                    </navigationBar>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thg-6G-QUA">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="44" width="375" height="603"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -687,7 +716,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="2"/>
                             </progressView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Sho-YE-em7" firstAttribute="top" secondItem="8zM-tz-eB5" secondAttribute="top" id="2ac-Ve-cbW"/>
                             <constraint firstItem="Pwm-rP-tJt" firstAttribute="top" secondItem="8zM-tz-eB5" secondAttribute="top" id="He8-8y-9CE"/>

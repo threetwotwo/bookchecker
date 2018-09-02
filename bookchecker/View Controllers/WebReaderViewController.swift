@@ -17,6 +17,11 @@ class WebReaderViewController: UIViewController {
 	@IBOutlet weak var topConstraint: NSLayoutConstraint!
 	@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
 
+	//MARK: - IBActions
+	@IBAction func cancelButtonPressed(_ sender: Any) {
+		self.dismiss(animated: true, completion: nil)
+	}
+
 	//MARK: - Variables
 	var previewLink: URL!
 	var isReader = false

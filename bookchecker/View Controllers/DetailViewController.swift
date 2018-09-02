@@ -29,6 +29,10 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var apiSourceButton: DesignableButton!
 	
 	//MARK: - IBActions
+	@IBAction func cancelButtonPressed(_ sender: Any) {
+		self.dismiss(animated: true, completion: nil)
+	}
+	
 	@IBAction func previewButtonPressed(_ sender: UIButton) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
 		guard let previewURL = URL(string: book.readerLink.replacingOccurrences(of: "gbs_api", with: "kp_read_button")) else {
@@ -37,7 +41,7 @@ class DetailViewController: UIViewController {
 		vc.previewLink = previewURL
 		//Turn reader to page 1
 		vc.previewLink.setValue(forKey: "pg", to: "PA1")
-		navigationController?.pushViewController(vc, animated: true)
+		present(vc, animated: true)
 	}
 	
 	@IBAction func getBookButtonPressed(_ sender: UIButton) {

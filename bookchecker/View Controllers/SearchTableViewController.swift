@@ -49,7 +49,7 @@ class SearchTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 			vc.book = books[indexPath.row]
-			navigationController?.pushViewController(vc, animated: true)
+			present(vc, animated: true)
 	}
 
 }

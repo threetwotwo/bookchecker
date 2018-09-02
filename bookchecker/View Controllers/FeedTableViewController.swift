@@ -87,7 +87,7 @@ extension FeedTableViewController: UICollectionViewDelegate {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 		if let book = booksArray[collectionView.tag]?[indexPath.item] {
 			vc.book = book
-			navigationController?.pushViewController(vc, animated: true)
+			present(vc, animated: true)
 		}
 	}
 }

@@ -55,7 +55,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 		if let realmBook = books?[indexPath.item] {
 			vc.book = Book(realmBook: realmBook)
-			navigationController?.pushViewController(vc, animated: true)
+			present(vc, animated: true)
 		}
 	}
 }

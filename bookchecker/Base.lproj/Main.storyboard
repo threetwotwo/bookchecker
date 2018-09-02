@@ -635,6 +635,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="SXK-AU-jxm" secondAttribute="trailing" id="3VA-GR-2h7"/>
                                     <constraint firstItem="SXK-AU-jxm" firstAttribute="centerX" secondItem="QbY-nm-ttX" secondAttribute="centerX" id="3Y1-zP-yMQ"/>
@@ -702,8 +703,11 @@
                                             </navigationItem>
                                         </items>
                                     </navigationBar>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sho-YE-em7">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="2"/>
+                                    </progressView>
                                     <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thg-6G-QUA">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="46" width="375" height="601"/>
                                         <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <wkWebViewConfiguration key="configuration">
                                             <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -712,19 +716,13 @@
                                     </wkWebView>
                                 </subviews>
                             </stackView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sho-YE-em7">
-                                <rect key="frame" x="0.0" y="20" width="375" height="2"/>
-                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Sho-YE-em7" firstAttribute="top" secondItem="8zM-tz-eB5" secondAttribute="top" id="2ac-Ve-cbW"/>
                             <constraint firstItem="Pwm-rP-tJt" firstAttribute="top" secondItem="8zM-tz-eB5" secondAttribute="top" id="He8-8y-9CE"/>
-                            <constraint firstItem="Sho-YE-em7" firstAttribute="leading" secondItem="DgT-DT-1No" secondAttribute="leading" id="Q1t-a4-mIq"/>
                             <constraint firstItem="8zM-tz-eB5" firstAttribute="bottom" secondItem="Pwm-rP-tJt" secondAttribute="bottom" id="UQy-OC-Ots"/>
                             <constraint firstItem="8zM-tz-eB5" firstAttribute="trailing" secondItem="Pwm-rP-tJt" secondAttribute="trailing" id="rPg-cj-YGh"/>
                             <constraint firstItem="Pwm-rP-tJt" firstAttribute="leading" secondItem="8zM-tz-eB5" secondAttribute="leading" id="tXT-fd-DTk"/>
-                            <constraint firstAttribute="trailing" secondItem="Sho-YE-em7" secondAttribute="trailing" id="ubz-qf-10P"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8zM-tz-eB5"/>
                     </view>

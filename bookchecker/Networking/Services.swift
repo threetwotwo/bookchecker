@@ -117,7 +117,7 @@ class Services {
 					let bookJSON = JSON(response.result.value!)
 					let totalItems = bookJSON["items"].arrayValue
 					//return at max 10 results
-					for i in 0..<min(20, totalItems.count) {
+					for i in 0..<min(40, totalItems.count) {
 						let item = totalItems[i]
 						var book = Book()
 						let identifier = item["identifier"].stringValue
@@ -155,13 +155,14 @@ class Services {
 				for file in files {
 					let name = file["name"].stringValue
 					if name.hasSuffix(".pdf") || name.hasSuffix(".epub") {
-						if let index = (name.range(of: ".")?.upperBound), name.countInstances(of: ".") > 1, name.countInstances(of: "-") == 0 {
-							links.append(String(name.suffix(from: index)))
-						} else if let index = (name.range(of: "-")?.upperBound){
-							links.append(String(name.suffix(from: index)))
-						} else {
-							links.append(name)
-						}
+//						if let index = (name.range(of: ".")?.upperBound), name.countInstances(of: ".") > 1, name.countInstances(of: "-") == 0 {
+//							links.append(String(name.suffix(from: index)))
+//						} else if let index = (name.range(of: "-")?.upperBound){
+//							links.append(String(name.suffix(from: index)))
+//						} else {
+//							links.append(name)
+//						}
+						links.append(name)
 					}
 				}
 				completion(links)
@@ -169,29 +170,6 @@ class Services {
 		default:
 			completion(links)
 		}
-	}
-
-	func downloadFile(book: Book, fileName: String) {
-//		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
-//		Alamofire.download("https://archive.org/download/TheLordOfTheRingsTheTwoTowers/The%20Lord%20of%20the%20Rings%20%20The%20Two%20Towers.pdf", to: destination).response { (response) in
-//			if let error = response.error {
-//				print("Failed with error: \(error)")
-//			} else {
-//				print("Downloaded file successfully")
-//			}
-//			if let targetURL = response.destinationURL {
-//				self.docController = UIDocumentInteractionController(url: targetURL)
-//				let url = URL(string:"itms-books:");
-//				if UIApplication.shared.canOpenURL(url!) {
-//					self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
-//					print("iBooks is installed")
-//				} else {
-//					print("iBooks is not installed")
-//				}
-//			}
-//		}
-
-		
 	}
 
 	static func getBookImageURL(apiSource: String, identifier: String) -> URL? {

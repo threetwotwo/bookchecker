@@ -12,11 +12,7 @@ import Alamofire
 class PopUpViewController: UIViewController {
 
 	//MARK: - IBOutlets
-	@IBOutlet weak var popupTableView: UITableView! {
-		didSet {
-			popupTableView.reloadData()
-		}
-	}
+	@IBOutlet weak var popupTableView: UITableView!
 	@IBOutlet weak var heightConstraint: NSLayoutConstraint!
 
 	//MARK: - IBActions
@@ -53,9 +49,20 @@ extension PopUpViewController: UITableViewDataSource {
 		return fileNames.count
 	}
 
+	fileprivate func setReadableFileName(at indexPath: IndexPath, _ cell: PopUpTableViewCell) {
+		let name = fileNames[indexPath.row]
+		if let index = (name.range(of: ".")?.upperBound), name.countInstances(of: ".") > 1, name.countInstances(of: "-") == 0 {
+			cell.filenameLabel.text = String(name.suffix(from: index))
+		} else if let index = (name.range(of: "-")?.upperBound){
+			cell.filenameLabel.text = String(name.suffix(from: index))
+		} else {
+			cell.filenameLabel.text = name
+		}
+	}
+
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "PopUpCell", for: indexPath)
-		cell.textLabel?.text = fileNames[indexPath.row]
+		let cell = tableView.dequeueReusableCell(withIdentifier: "PopUpCell", for: indexPath) as! PopUpTableViewCell
+		setReadableFileName(at: indexPath, cell)
 		return cell
 	}
 
@@ -67,6 +74,7 @@ extension PopUpViewController: UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
 		let fileURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
+		print("fileURL: - \(fileURL)")
 		//Replace whitespace
 		let encodedFileURL = fileURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		print(encodedFileURL)

@@ -40,7 +40,7 @@
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="Rca-ZO-WV0" customClass="FeedCollectionViewCell" customModule="bookchecker" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
+                                                    <rect key="frame" x="0.0" y="0.5" width="150" height="240"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
@@ -127,13 +127,30 @@
                                                 <color key="separatorColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PopUpCell" id="9Wd-ZE-Pjt">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PopUpCell" id="9Wd-ZE-Pjt" customClass="PopUpTableViewCell" customModule="bookchecker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="270" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Wd-ZE-Pjt" id="WQ3-GQ-W9I">
                                                             <rect key="frame" x="0.0" y="0.0" width="270" height="43.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ze-Ju-a6G">
+                                                                    <rect key="frame" x="8" y="8" width="254" height="27.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="4Ze-Ju-a6G" firstAttribute="top" secondItem="WQ3-GQ-W9I" secondAttribute="topMargin" id="YDl-Zq-F8A"/>
+                                                                <constraint firstItem="4Ze-Ju-a6G" firstAttribute="bottom" secondItem="WQ3-GQ-W9I" secondAttribute="bottomMargin" id="nUo-kl-4xl"/>
+                                                                <constraint firstAttribute="trailingMargin" secondItem="4Ze-Ju-a6G" secondAttribute="trailing" id="pFI-C5-olF"/>
+                                                                <constraint firstItem="4Ze-Ju-a6G" firstAttribute="leading" secondItem="WQ3-GQ-W9I" secondAttribute="leadingMargin" id="xpR-7y-7OT"/>
+                                                            </constraints>
                                                         </tableViewCellContentView>
+                                                        <connections>
+                                                            <outlet property="filenameLabel" destination="4Ze-Ju-a6G" id="EMy-Qg-ynv"/>
+                                                        </connections>
                                                     </tableViewCell>
                                                 </prototypes>
                                                 <connections>

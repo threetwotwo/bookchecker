@@ -115,17 +115,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYl-Cc-feL">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="HIe-tz-svZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xVD-Uj-uYi">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="ens-r5-Xsc">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="light"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wKD-7O-IC2">
                                 <rect key="frame" x="53" y="134" width="270" height="400"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5UV-3g-gFs">
                                         <rect key="frame" x="0.0" y="0.0" width="270" height="400"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nUV-Xe-2bH">
-                                                <rect key="frame" x="0.0" y="0.0" width="270" height="370"/>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nUV-Xe-2bH">
+                                                <rect key="frame" x="0.0" y="0.0" width="270" height="367"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="separatorColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PopUpCell" id="9Wd-ZE-Pjt" customClass="PopUpTableViewCell" customModule="bookchecker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="270" height="44"/>
@@ -159,9 +179,10 @@
                                                 </connections>
                                             </tableView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-gx-INs">
-                                                <rect key="frame" x="0.0" y="370" width="270" height="30"/>
+                                                <rect key="frame" x="0.0" y="367" width="270" height="33"/>
                                                 <color key="backgroundColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Button">
+                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                                <state key="normal" title="DONE">
                                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
@@ -179,6 +200,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="5UV-3g-gFs" secondAttribute="trailing" id="7fj-Lk-4Ka"/>
                                     <constraint firstAttribute="bottom" secondItem="5UV-3g-gFs" secondAttribute="bottom" id="QVQ-Kj-S0R"/>
@@ -188,14 +210,18 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="16"/>
+                                        <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="0.4843214897260274" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="YYl-Cc-feL" firstAttribute="top" secondItem="SCE-WF-6nR" secondAttribute="top" id="Fv9-YL-U7H"/>
+                            <constraint firstItem="YYl-Cc-feL" firstAttribute="leading" secondItem="aYL-cn-c79" secondAttribute="leading" id="Kes-6e-90S"/>
+                            <constraint firstItem="aYL-cn-c79" firstAttribute="bottom" secondItem="YYl-Cc-feL" secondAttribute="bottom" id="P5Y-ft-7nb"/>
                             <constraint firstItem="wKD-7O-IC2" firstAttribute="centerX" secondItem="SCE-WF-6nR" secondAttribute="centerX" id="odT-Uf-Apc"/>
+                            <constraint firstItem="YYl-Cc-feL" firstAttribute="trailing" secondItem="aYL-cn-c79" secondAttribute="trailing" id="t6F-5A-0ul"/>
                             <constraint firstItem="wKD-7O-IC2" firstAttribute="centerY" secondItem="SCE-WF-6nR" secondAttribute="centerY" id="w4M-WR-6ak"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aYL-cn-c79"/>

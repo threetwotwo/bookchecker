@@ -105,9 +105,9 @@
 				4E7794052123212600AF3C25 /* TestTableViewController.swift */,
 				4E7D252A21210A88004FA408 /* FeedTableViewController.swift */,
 				4E5F5C822125871E0080A0F6 /* SearchTableViewController.swift */,
-				4EABBAE62128180000657D33 /* DetailViewController.swift */,
 				4E99956821297C72007A7E09 /* WebReaderViewController.swift */,
 				4E558D5B212BE5A5007E7310 /* FavoriteCollectionViewController.swift */,
+				4EABBAE62128180000657D33 /* DetailViewController.swift */,
 				4E2E6180213A358200AE6780 /* PopUpViewController.swift */,
 			);
 			path = "View Controllers";

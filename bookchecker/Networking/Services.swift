@@ -72,6 +72,7 @@ class Services {
 						book.ratingsCount = volumeInfo["ratingsCount"].stringValue
 						book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
 						book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
+						book.infoLink = volumeInfo["infoLink"].stringValue
 
 						books.append(book)
 					}
@@ -106,6 +107,7 @@ class Services {
 						book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
 						book.about = item["description"].stringValue
 						book.language = item["language"].stringValue
+						book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
 
 						books.append(book)
 					}

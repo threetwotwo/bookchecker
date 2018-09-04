@@ -39,10 +39,11 @@ class DetailViewController: UIViewController {
 	
 	@IBAction func previewButtonPressed(_ sender: UIButton) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
-		guard let previewURL = URL(string: book.readerLink) else {
+		let link = sender.tag == 101 ? book.infoLink : book.readerLink
+		guard let url = URL(string: link) else {
 			return
 		}
-		vc.previewLink = previewURL
+		vc.previewLink = url
 		//Turn reader to page 1
 		vc.previewLink.setValue(forKey: "pg", to: "PA1")
 		present(vc, animated: true)

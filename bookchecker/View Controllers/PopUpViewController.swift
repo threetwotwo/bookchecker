@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 
+
 class PopUpViewController: UIViewController {
 
 	//MARK: - IBOutlets
@@ -87,11 +88,12 @@ extension PopUpViewController: UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
+		
 		let fileURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
 		print("fileURL: - \(fileURL)")
 		//Replace whitespace
 		let encodedFileURL = fileURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-		print(encodedFileURL)
+
 		Alamofire.download(encodedFileURL!, to: destination).response { (response) in
 			if let error = response.error {
 				print("Failed with error: \(error)")
@@ -99,6 +101,7 @@ extension PopUpViewController: UITableViewDelegate {
 				print("Downloaded file successfully")
 			}
 			if let targetURL = response.destinationURL {
+				print("Target URL: \(targetURL)")
 				self.docController = UIDocumentInteractionController(url: targetURL)
 				let url = URL(string:"itms-books:");
 				if UIApplication.shared.canOpenURL(url!) {

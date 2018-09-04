@@ -19,6 +19,8 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var publisherLabel: UILabel!
 	@IBOutlet weak var publishedDateLabel: UILabel!
 	@IBOutlet weak var categoryLabel: UILabel!
+	@IBOutlet weak var languageLabel: UILabel!
+	@IBOutlet weak var pageCountLabel: UILabel!
 	@IBOutlet weak var ratingBar: CosmosView!
 	@IBOutlet weak var ratingCountLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
@@ -28,6 +30,8 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var favoriteButton: UIButton!
 	@IBOutlet weak var apiSourceButton: DesignableButton!
 	
+	@IBOutlet weak var circleDivider: UIImageView!
+
 	//MARK: - IBActions
 	@IBAction func cancelButtonPressed(_ sender: Any) {
 		self.dismiss(animated: true, completion: nil)
@@ -35,7 +39,7 @@ class DetailViewController: UIViewController {
 	
 	@IBAction func previewButtonPressed(_ sender: UIButton) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
-		guard let previewURL = URL(string: book.readerLink.replacingOccurrences(of: "gbs_api", with: "kp_read_button")) else {
+		guard let previewURL = URL(string: book.readerLink) else {
 			return
 		}
 		vc.previewLink = previewURL
@@ -87,6 +91,11 @@ class DetailViewController: UIViewController {
 		publisherLabel.text = book.publisher == "" ? "Unknown Publisher" : book.publisher
 		publishedDateLabel.text = book.publishedDate
 		categoryLabel.text = book.categories
+
+		languageLabel.text = book.language
+		pageCountLabel.text = book.pageCount == "" ? "" : "\(book.pageCount) pages"
+
+		circleDivider.isHidden = book.pageCount == "" ? true : false
 
 		if book.ratingsCount == "" {
 			ratingBar.isHidden = true

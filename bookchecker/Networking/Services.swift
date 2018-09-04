@@ -5,7 +5,6 @@
 //  Created by Gary on 8/13/18.
 //  Copyright © 2018 Gary. All rights reserved.
 //
-import UIKit
 import Foundation
 import Alamofire
 import SwiftyJSON
@@ -29,29 +28,6 @@ class Services {
 		}
 		print(results)
 		return results
-	}
-
-	fileprivate func getBooks(from bookJSON: JSON, _ books: inout [Book]) {
-		let totalItems = bookJSON["items"].arrayValue
-		for item in totalItems {
-			let volumeInfo = item["volumeInfo"]
-
-			var book = Book()
-			book.id = item["id"].stringValue
-			book.title = volumeInfo["title"].stringValue
-			book.subtitle = volumeInfo["subtitle"].stringValue
-			book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-			book.about = volumeInfo["description"].stringValue
-			book.publisher = volumeInfo["publisher"].stringValue
-			book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
-			book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-			book.averageRating = volumeInfo["averageRating"].stringValue
-			book.ratingsCount = volumeInfo["ratingsCount"].stringValue
-			book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
-			book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
-
-			books.append(book)
-		}
 	}
 
 	func getBooks(from apiSources: APISource..., searchParameter: String, completion: @escaping ([Book]) -> ()) {
@@ -83,10 +59,11 @@ class Services {
 
 						var book = Book()
 						book.apiSource = source.rawValue
+						book.language = volumeInfo["language"].stringValue
 						book.id = item["id"].stringValue
 						book.title = volumeInfo["title"].stringValue
-						book.subtitle = volumeInfo["subtitle"].stringValue
 						book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
+						book.pageCount = volumeInfo["pageCount"].stringValue
 						book.about = volumeInfo["description"].stringValue
 						book.publisher = volumeInfo["publisher"].stringValue
 						book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
@@ -103,7 +80,7 @@ class Services {
 			case .archive:
 				dispatchGroup.enter()
 
-				parameters["fields"] = "title,creator,publisher,publicdate,description,rights"
+				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language"
 				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf)AND (collection:opensource*)"
 				parameters["count"] = "100"
 				parameters["sorts"] = "downloads desc"
@@ -128,6 +105,7 @@ class Services {
 						book.publisher = item["creator"].stringValue
 						book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
 						book.about = item["description"].stringValue
+						book.language = item["language"].stringValue
 
 						books.append(book)
 					}
@@ -155,13 +133,6 @@ class Services {
 				for file in files {
 					let name = file["name"].stringValue
 					if name.hasSuffix(".pdf") || name.hasSuffix(".epub") {
-//						if let index = (name.range(of: ".")?.upperBound), name.countInstances(of: ".") > 1, name.countInstances(of: "-") == 0 {
-//							links.append(String(name.suffix(from: index)))
-//						} else if let index = (name.range(of: "-")?.upperBound){
-//							links.append(String(name.suffix(from: index)))
-//						} else {
-//							links.append(name)
-//						}
 						links.append(name)
 					}
 				}

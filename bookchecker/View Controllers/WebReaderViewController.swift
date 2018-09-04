@@ -24,25 +24,24 @@ class WebReaderViewController: UIViewController {
 
 	//MARK: - Variables
 	var previewLink: URL!
-	var isReader = false
 
-	fileprivate func adjustConstraints() {
-		topConstraint.constant = isReader ? -95 : -120
-		bottomConstraint.constant = isReader ? -30 : 0
-	}
-
+	//MARK: - Life Cycle
 	fileprivate func setUpWebReaderView(url: URL) {
 		webReaderView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webReaderView.navigationDelegate = self
-		let urlRequest = URLRequest(url: url)
-		webReaderView.load(urlRequest)
 
+		let urlRequest = URLRequest(url: previewLink)
+		webReaderView.load(urlRequest)
 	}
 
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpWebReaderView(url: previewLink)
     }
+
+	override func viewWillDisappear(_ animated: Bool) {
+		print(webReaderView.url?.absoluteURL)
+	}
 
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		if keyPath == "estimatedProgress" {

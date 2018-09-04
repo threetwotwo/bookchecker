@@ -14,30 +14,36 @@ class RealmBook: Object {
 	convenience required init(book: Book) {
 		self.init()
 		apiSource = book.apiSource
+		language = book.language
 		id = book.id
 		authors = book.authors
 		title = book.title
-		subtitle = book.subtitle
+		pageCount = book.pageCount
+		currentPage = book.currentPage
 		publisher = book.publisher
 		publishedDate = book.publishedDate
 		about = book.about
 		averageRating = book.averageRating
 		ratingsCount = book.ratingsCount
+		infoLink = book.infoLink
 		readerLink = book.readerLink
 		thumbnail = book.thumbnail
 		categories = book.categories
 		image = book.image
 	}
 	@objc dynamic var apiSource = ""
+	@objc dynamic var language = ""
 	@objc dynamic var id = ""
 	@objc dynamic var authors = ""
 	@objc dynamic var title = ""
-	@objc dynamic var subtitle = ""
+	@objc dynamic var pageCount = ""
+	@objc dynamic var currentPage = ""
 	@objc dynamic var publisher = ""
 	@objc dynamic var publishedDate = ""
 	@objc dynamic var about = ""
 	@objc dynamic var averageRating = ""
 	@objc dynamic var ratingsCount = ""
+	@objc dynamic var infoLink = ""
 	@objc dynamic var readerLink = ""
 	let downloadLinks = List<String>()
 	@objc dynamic var thumbnail = ""

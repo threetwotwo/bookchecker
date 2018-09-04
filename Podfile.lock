@@ -15,10 +15,10 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - Cosmos (~> 16.0)
-  - RealmSwift
+  - RealmSwift (~> 3.7)
   - SDWebImage (~> 4.0)
   - SVProgressHUD
-  - SwiftyJSON
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -39,6 +39,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
 
-PODFILE CHECKSUM: 9c8bde8443cfac815b3d1f3ad50d56249485cf5c
+PODFILE CHECKSUM: 0c0fbda6266548ddd1d104d02f30ddc7533d695a
 
 COCOAPODS: 1.5.3

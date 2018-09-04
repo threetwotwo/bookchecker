@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '10.3'
 
 post_install do |installer|
     installer.pods_project.build_configurations.each do |config|
@@ -13,8 +13,8 @@ target 'bookchecker' do
   # Pods for bookchecker
 pod 'Alamofire', '~> 4.7'
 pod 'SVProgressHUD'
-pod 'RealmSwift'
-pod 'SwiftyJSON'
+pod 'RealmSwift', '~> 3.7'
+pod 'SwiftyJSON', '~> 4.0'
 pod 'Cosmos', '~> 16.0'
 pod 'SDWebImage', '~> 4.0'
 

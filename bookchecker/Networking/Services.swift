@@ -81,7 +81,7 @@ class Services {
 			case .archive:
 				dispatchGroup.enter()
 
-				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language"
+				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
 				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf)AND (collection:opensource*)"
 				parameters["count"] = "100"
 				parameters["sorts"] = "downloads desc"
@@ -108,6 +108,7 @@ class Services {
 						book.about = item["description"].stringValue
 						book.language = item["language"].stringValue
 						book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
+						book.categories = item["collection"].arrayValue[0].stringValue
 
 						books.append(book)
 					}

@@ -69,15 +69,21 @@ class DetailViewController: UIViewController {
 
 		if let savedBook = savedBook {
 			DBManager.shared.delete(object: savedBook)
-			Alert.createAlert(self, title: "Book removed from favorites!", message: nil)
+			Alert.createAlert(self, title: "Book removed from favorites", message: nil)
 		} else {
 			saveToFavorites(book: book)
 			Alert.createAlert(self, title: "Book added!", message: nil)
 		}
+		loadSavedBook()
+		updateButtons()
 	}
 
 	//MARK: - Life cycle
-    override func viewDidLoad() {
+	fileprivate func loadSavedBook() {
+		savedBook = DBManager.shared.getBooks().filter("id == '\(book.id)'").first
+	}
+
+	override func viewDidLoad() {
         super.viewDidLoad()
 		downloadButton.showLoading()
 		Services.shared.getDownloadLinks(book: book) { (links) in
@@ -86,9 +92,7 @@ class DetailViewController: UIViewController {
 			self.downloadButton.isHidden = self.book.downloadLinks.isEmpty ? true : false
 			print(links)
 		}
-		if let book = DBManager.shared.getBooks().filter("id == '\(book.id)'").first {
-			savedBook = book
-		}
+		loadSavedBook()
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -96,6 +100,12 @@ class DetailViewController: UIViewController {
 	}
 
 	//MARK: - Update UI
+	fileprivate func updateButtons() {
+		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE READING", for: [])
+		
+		savedBook == nil ? favoriteButton.setTitle("ADD TO FAVORITES", for: []) : favoriteButton.setTitle("REMOVE FROM FAVORITES", for: [])
+	}
+
 	func updateUI() {
 		apiSourceButton.setTitle(book.apiSource, for: [])
 		titleLabel.text = book.title
@@ -118,9 +128,8 @@ class DetailViewController: UIViewController {
 		}
 
 		previewButton.isHidden = book.readerLink == "" ? true : false
-		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE READING", for: [])
 
-		savedBook == nil ? favoriteButton.setTitle("ADD TO FAVORITES", for: []) : favoriteButton.setTitle("REMOVE FROM FAVORITES", for: [])
+		updateButtons()
 
 		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
 

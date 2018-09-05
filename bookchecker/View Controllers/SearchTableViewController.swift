@@ -24,6 +24,7 @@ class SearchTableViewController: UITableViewController {
 		removeSearchbarBorders()
 		Navbar.addImage(to: self)
 		searchBar.delegate = self
+		self.tabBarController?.delegate = self
     }
 
     // MARK: - UITableViewDataSource
@@ -74,5 +75,17 @@ extension SearchTableViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()
 		getBooksFromSearchbar()
+	}
+}
+
+//MARK: - UITabBarDelegate
+extension SearchTableViewController: UITabBarDelegate, UITabBarControllerDelegate {
+	func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+		print("selected \(item)")
+	}
+
+	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+		print("select \(viewController)")
+		self.tableView.setContentOffset(CGPoint(x: 0, y: -64), animated: true)
 	}
 }

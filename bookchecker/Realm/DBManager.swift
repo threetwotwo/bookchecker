@@ -52,7 +52,7 @@ class DBManager {
 		}
 	}
 
-	func deleteFromDb(object: RealmBook)   {
+	func delete(object: RealmBook)   {
 		do {
 			try realm.write {
 				realm.delete(object)

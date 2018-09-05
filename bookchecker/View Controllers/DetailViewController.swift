@@ -66,8 +66,14 @@ class DetailViewController: UIViewController {
 	}
 
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
-		saveToFavorites(book: book)
-		Alert.createAlert(self, title: "Book added!", message: nil)
+
+		if let savedBook = savedBook {
+			DBManager.shared.delete(object: savedBook)
+			Alert.createAlert(self, title: "Book removed from favorites!", message: nil)
+		} else {
+			saveToFavorites(book: book)
+			Alert.createAlert(self, title: "Book added!", message: nil)
+		}
 	}
 
 	//MARK: - Life cycle
@@ -112,10 +118,9 @@ class DetailViewController: UIViewController {
 		}
 
 		previewButton.isHidden = book.readerLink == "" ? true : false
+		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE READING", for: [])
 
-		if let book = DBManager.shared.getBooks().filter("id == '\(book.id)'").first {
-			book.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE READING", for: [])
-		}
+		savedBook == nil ? favoriteButton.setTitle("ADD TO FAVORITES", for: []) : favoriteButton.setTitle("REMOVE FROM FAVORITES", for: [])
 
 		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
 

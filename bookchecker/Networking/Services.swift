@@ -116,7 +116,25 @@ class Services {
 				}
 			}
 			dispatchGroup.notify(queue: .main) {
-				completion(books)
+				completion(books.sorted {
+					let title1 = $0.title
+					let title2 = $1.title
+
+					let key = searchParameter.lowercased()
+
+					if title1 == key && title2 != key {
+						return true
+					} else if title1.hasPrefix(key) && !title2.hasPrefix(key)  {
+						return true
+					} else if title1.hasPrefix(key) && title2.hasPrefix(key) && title1.count < title2.count  {
+						return true
+					} else if title1.contains(key) && !title2.contains(key) {
+						return true
+					} else if title1.contains(key) && title2.contains(key) && title1.count < title2.count {
+						return true
+					}
+					return false
+				})
 			}
 		}
 	}

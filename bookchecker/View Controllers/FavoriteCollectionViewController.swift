@@ -63,7 +63,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
 extension FavoriteCollectionViewController {
 
 	func loadBooks() {
-		books = realm.objects(RealmBook.self)
+		books = realm.objects(RealmBook.self).sorted(byKeyPath: "dateAdded", ascending: false)
 		collectionView?.reloadData()
 	}
 }

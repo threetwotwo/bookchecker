@@ -30,6 +30,7 @@ class RealmBook: Object {
 		thumbnail = book.thumbnail
 		categories = book.categories
 		image = book.image
+		dateAdded = Date()
 	}
 	@objc dynamic var apiSource = ""
 	@objc dynamic var language = ""
@@ -49,4 +50,5 @@ class RealmBook: Object {
 	@objc dynamic var thumbnail = ""
 	@objc dynamic var categories = ""
 	@objc dynamic var image: Data? = nil
+	@objc dynamic var dateAdded: Date = Date()
 }

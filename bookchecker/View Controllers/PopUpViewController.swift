@@ -95,6 +95,11 @@ extension PopUpViewController: UITableViewDelegate {
 		//Replace whitespace
 		let encodedFileURL = fileURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
+		let cell = tableView.cellForRow(at: indexPath) as! PopUpTableViewCell
+		cell.filenameLabel.isHidden = true
+		cell.progressBar.progress = 0
+		cell.progressBar.isHidden = false
+
 		Alamofire.download(encodedFileURL!, to: destination).response { (response) in
 			if let error = response.error {
 				print("Failed with error: \(error)")
@@ -112,6 +117,8 @@ extension PopUpViewController: UITableViewDelegate {
 					print("iBooks is not installed")
 				}
 			}
+			}.downloadProgress { (progress) in
+				cell.progressBar.progress = Float(progress.fractionCompleted)
 		}
 	}
 }

@@ -80,6 +80,16 @@ extension SearchTableViewController: UISearchBarDelegate {
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()
 		getBooksFromSearchbar()
+		let textField = searchBar.value(forKey: "searchField") as? UITextField
+		let searchIconView = textField?.leftView as? UIImageView
+		let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+
+		if let searchIconView = searchIconView {
+			searchIconView.image = nil
+			indicator.center = CGPoint(x: 7, y: 7)
+			indicator.startAnimating()
+			searchIconView.addSubview(indicator)
+		}
 	}
 }
 

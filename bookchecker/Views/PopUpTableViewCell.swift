@@ -11,7 +11,8 @@ import UIKit
 class PopUpTableViewCell: UITableViewCell {
 	//MARK: - IBOutlets
 	@IBOutlet weak var filenameLabel: UILabel!
-
+	@IBOutlet weak var progressBar: UIProgressView!
+	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -30,7 +30,6 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var favoriteButton: UIButton!
 	@IBOutlet weak var apiSourceButton: DesignableButton!
 	
-	@IBOutlet weak var circleDivider: UIImageView!
 
 	//MARK: - variables
 	let realm = try! Realm()
@@ -104,7 +103,7 @@ class DetailViewController: UIViewController {
 	fileprivate func updateButtons() {
 		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE READING", for: [])
 		
-		savedBook == nil ? favoriteButton.setTitle("ADD TO FAVORITES", for: []) : favoriteButton.setTitle("REMOVE FROM FAVORITES", for: [])
+		savedBook == nil ? favoriteButton.setTitle("ADD BOOK ", for: []) : favoriteButton.setTitle("REMOVE BOOK", for: [])
 	}
 
 	func updateUI() {
@@ -118,14 +117,14 @@ class DetailViewController: UIViewController {
 		languageLabel.text = book.language.count == 2 ? "Language: \(book.language)" : book.language
 		pageCountLabel.text = book.pageCount == "" ? "" : "\(book.pageCount) pages"
 
-		circleDivider.isHidden = book.pageCount == "" ? true : false
+//		circleDivider.isHidden = book.pageCount == "" ? true : false
 
 		if book.ratingsCount == "" {
 			ratingBar.isHidden = true
 			ratingCountLabel.isHidden = true
 		} else {
 			ratingBar.rating = Double(book.averageRating) ?? 0
-			ratingCountLabel.text = "(\(book.ratingsCount))"
+			ratingCountLabel.text = "(Average \(book.ratingsCount) stars)"
 		}
 
 		previewButton.isHidden = book.readerLink == "" ? true : false

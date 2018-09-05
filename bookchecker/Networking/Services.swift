@@ -64,7 +64,7 @@ class Services {
 						book.title = volumeInfo["title"].stringValue
 						book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
 						book.pageCount = volumeInfo["pageCount"].stringValue
-						book.about = volumeInfo["description"].stringValue
+						book.about = String(volumeInfo["description"].stringValue.prefix(2500))
 						book.publisher = volumeInfo["publisher"].stringValue
 						book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
 						book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
@@ -105,7 +105,7 @@ class Services {
 						book.authors = item["creator"].stringValue
 						book.publisher = item["creator"].stringValue
 						book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
-						book.about = item["description"].stringValue
+						book.about = String(item["description"].stringValue.prefix(2500))
 						book.language = item["language"].stringValue
 						book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
 						book.categories = item["collection"].arrayValue[0].stringValue

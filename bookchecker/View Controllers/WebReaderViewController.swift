@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import RealmSwift
 
 class WebReaderViewController: UIViewController {
 
@@ -23,6 +24,7 @@ class WebReaderViewController: UIViewController {
 	}
 
 	//MARK: - Variables
+	var bookID = ""
 	var previewLink: URL!
 
 	//MARK: - Life Cycle
@@ -40,7 +42,12 @@ class WebReaderViewController: UIViewController {
     }
 
 	override func viewWillDisappear(_ animated: Bool) {
-		print(webReaderView.url?.absoluteURL)
+		if let book = DBManager.shared.getBooks().filter("id == '\(bookID)'").first {
+			print(webReaderView.url?.absoluteURL)
+			try! Realm().write {
+				book.currentPage = webReaderView.url?.absoluteURL.valueOf("pg") ?? "PA1"
+			}
+		}
 	}
 
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

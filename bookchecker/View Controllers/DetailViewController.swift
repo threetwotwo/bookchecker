@@ -32,6 +32,13 @@ class DetailViewController: UIViewController {
 	
 	@IBOutlet weak var circleDivider: UIImageView!
 
+	//MARK: - variables
+	let realm = try! Realm()
+	var book: Book!
+	lazy var bookIDs: [String] = []
+	var docController: UIDocumentInteractionController?
+	var savedBook: RealmBook?
+
 	//MARK: - IBActions
 	@IBAction func cancelButtonPressed(_ sender: Any) {
 		self.dismiss(animated: true, completion: nil)
@@ -43,9 +50,10 @@ class DetailViewController: UIViewController {
 		guard let url = URL(string: link) else {
 			return
 		}
+		vc.bookID = book.id
 		vc.previewLink = url
-		//Turn reader to page 1
-		vc.previewLink.setValue(forKey: "pg", to: "PA1")
+		//Turn reader to page 1 or the most current page
+		vc.previewLink.setValue(forKey: "pg", to: savedBook?.currentPage == "" ? "PA1" : savedBook?.currentPage ?? "PA1")
 		present(vc, animated: true)
 	}
 	
@@ -62,12 +70,6 @@ class DetailViewController: UIViewController {
 		Alert.createAlert(self, title: "Book added!", message: nil)
 	}
 
-	//MARK: - variables
-	let realm = try! Realm()
-	var book: Book!
-	lazy var bookIDs: [String] = []
-	var docController: UIDocumentInteractionController?
-
 	//MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +79,9 @@ class DetailViewController: UIViewController {
 			self.book.downloadLinks = links
 			self.downloadButton.isHidden = self.book.downloadLinks.isEmpty ? true : false
 			print(links)
+		}
+		if let book = DBManager.shared.getBooks().filter("id == '\(book.id)'").first {
+			savedBook = book
 		}
     }
 
@@ -107,6 +112,11 @@ class DetailViewController: UIViewController {
 		}
 
 		previewButton.isHidden = book.readerLink == "" ? true : false
+
+		if let book = DBManager.shared.getBooks().filter("id == '\(book.id)'").first {
+			book.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE READING", for: [])
+		}
+
 		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
 
 		descriptionLabel.text = book.about

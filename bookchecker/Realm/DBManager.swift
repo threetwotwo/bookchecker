@@ -21,10 +21,21 @@ class DBManager {
 		let results: Results<RealmBook> =   realm.objects(RealmBook.self)
 		return results
 	}
+	
 	func addBook(object: RealmBook)   {
 		do {
 			try realm.write {
 				realm.add(object)
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func updateBook(object: RealmBook)   {
+		do {
+			try realm.write {
+				realm.add(object, update: true)
 			}
 		} catch {
 			print(error.localizedDescription)

@@ -42,6 +42,7 @@ class WebReaderViewController: UIViewController {
     }
 
 	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(true)
 		if let book = DBManager.shared.getBooks().filter("id == '\(bookID)'").first {
 			print(webReaderView.url?.absoluteURL)
 			try! Realm().write {

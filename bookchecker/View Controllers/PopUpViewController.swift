@@ -33,6 +33,7 @@ class PopUpViewController: UIViewController {
     }
 
 	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
 		//table view content + button height
 		let contentHeight = popupTableView.contentSize.height + 30
 		//set pop up view maximum height to 400

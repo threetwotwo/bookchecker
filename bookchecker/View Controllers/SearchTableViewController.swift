@@ -17,6 +17,7 @@ class SearchTableViewController: UITableViewController {
 	//MARK: - variables
 	var books: [Book] = []
 	var timer: Timer?
+	var contentOffset: CGPoint?
 
 	//MARK: - Life cycle
 	override func viewDidLoad() {
@@ -24,9 +25,13 @@ class SearchTableViewController: UITableViewController {
 		removeSearchbarBorders()
 		Navbar.addImage(to: self)
 		searchBar.delegate = self
-		self.tabBarController?.delegate = self
+		tabBarController?.delegate = self
     }
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(true)
+		contentOffset = tableView.contentOffset
+	}
     // MARK: - UITableViewDataSource
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return books.count
@@ -79,13 +84,15 @@ extension SearchTableViewController: UISearchBarDelegate {
 }
 
 //MARK: - UITabBarDelegate
-extension SearchTableViewController: UITabBarDelegate, UITabBarControllerDelegate {
-	func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-		print("selected \(item)")
-	}
+extension SearchTableViewController: UITabBarControllerDelegate {
 
 	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-		print("select \(viewController)")
-		self.tableView.setContentOffset(CGPoint(x: 0, y: -64), animated: true)
+		print("Selected: \(viewController)!")
+		if let contentOffset = contentOffset {
+			tableView.setContentOffset(contentOffset, animated: true)
+		} else {
+			self.tableView.setContentOffset(CGPoint(x: 0, y: -64), animated: true)
+		}
+		self.contentOffset = nil
 	}
 }

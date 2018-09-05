@@ -31,6 +31,7 @@ class FavoriteCollectionViewController: UICollectionViewController {
     }
 
 	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(true)
 		loadBooks()
 	}
 

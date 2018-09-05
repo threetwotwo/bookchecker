@@ -19,7 +19,6 @@ class RealmBook: Object {
 		authors = book.authors
 		title = book.title
 		pageCount = book.pageCount
-		currentPage = book.currentPage
 		publisher = book.publisher
 		publishedDate = book.publishedDate
 		about = book.about

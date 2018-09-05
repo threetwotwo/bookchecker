@@ -15,7 +15,6 @@ struct Book {
 	var authors = ""
 	var title = ""
 	var pageCount = ""
-	var currentPage = ""
 	var publisher = ""
 	var publishedDate = ""
 	var about = ""
@@ -37,7 +36,6 @@ extension Book {
 		authors = realmBook.authors
 		title = realmBook.title
 		pageCount = realmBook.pageCount
-		currentPage = realmBook.currentPage
 		publisher = realmBook.publisher
 		publishedDate = realmBook.publishedDate
 		about = realmBook.about

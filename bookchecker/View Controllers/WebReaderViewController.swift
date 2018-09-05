@@ -45,7 +45,7 @@ class WebReaderViewController: UIViewController {
 		if let book = DBManager.shared.getBooks().filter("id == '\(bookID)'").first {
 			print(webReaderView.url?.absoluteURL)
 			try! Realm().write {
-				book.currentPage = webReaderView.url?.absoluteURL.valueOf("pg") ?? "PA1"
+				book.currentPage = webReaderView.url?.absoluteURL.valueOf("pg") ?? ""
 			}
 		}
 	}

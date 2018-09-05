@@ -114,7 +114,7 @@ class DetailViewController: UIViewController {
 		publishedDateLabel.text = book.publishedDate
 		categoryLabel.text = book.categories
 
-		languageLabel.text = book.language
+		languageLabel.text = book.language.count == 2 ? "Language: \(book.language)" : book.language
 		pageCountLabel.text = book.pageCount == "" ? "" : "\(book.pageCount) pages"
 
 		circleDivider.isHidden = book.pageCount == "" ? true : false

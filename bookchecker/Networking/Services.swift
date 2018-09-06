@@ -44,7 +44,7 @@ class Services {
 				//return english books
 				parameters["langRestrict"] = "en"
 				//number of books
-				parameters["maxResults"] = "5"
+				parameters["maxResults"] = "15"
 				parameters["download"] = "epub"
 				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 

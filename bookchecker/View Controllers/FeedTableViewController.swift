@@ -23,7 +23,7 @@ class FeedTableViewController: UITableViewController {
 		networkManager = NetworkManager()
 		Navbar.addImage(to: self)
 		for i in 0..<queries.count {
-			Services.shared.getBooks(from: .google, .archive, searchParameter: "subject:\"\(queries[i]!.parameterValue())\"") { (books) in
+			Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(queries[i]!.parameterValue())\"") { (books) in
 				self.booksArray[i] = books
 				self.tableView.reloadData()
 			}

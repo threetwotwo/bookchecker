@@ -26,6 +26,8 @@ class WebReaderViewController: UIViewController {
 	//MARK: - Variables
 	var bookID = ""
 	var previewLink: URL!
+	var timer: Timer?
+
 
 	//MARK: - Life Cycle
 	fileprivate func setUpWebReaderView(url: URL) {
@@ -39,6 +41,7 @@ class WebReaderViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpWebReaderView(url: previewLink)
+		print(previewLink)
     }
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -71,8 +74,20 @@ extension WebReaderViewController: WKNavigationDelegate {
 
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		//Hides header and footer
-		webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-topbar-table')[0].style.visibility = 'hidden';", completionHandler: nil)
-		webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-statusbar-controls-table')[0].style.visibility = 'hidden';", completionHandler: nil)
+
+		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-topbar-table')[0].style.visibility = 'hidden';", completionHandler: nil)
+		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-statusbar-controls-table')[0].style.visibility = 'hidden';", completionHandler: nil)
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingTop = '90px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingTop = '90px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingLeft = '10px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingLeft = '10px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingRight = '10px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingRight = '10px';", completionHandler: nil)
+		}
+
+
 		UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
 		progressBar.alpha = 1.0

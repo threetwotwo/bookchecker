@@ -101,7 +101,7 @@ class DetailViewController: UIViewController {
 
 	//MARK: - Update UI
 	fileprivate func updateButtons() {
-		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE READING", for: [])
+		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE", for: [])
 		
 		savedBook == nil ? favoriteButton.setTitle("ADD BOOK ", for: []) : favoriteButton.setTitle("REMOVE BOOK", for: [])
 	}
@@ -114,17 +114,17 @@ class DetailViewController: UIViewController {
 		publishedDateLabel.text = book.publishedDate
 		categoryLabel.text = book.categories
 
-		languageLabel.text = book.language.count == 2 ? "Language: \(book.language)" : book.language
+		languageLabel.text = book.language.count == 2 ? "\(book.language)" : book.language
 		pageCountLabel.text = book.pageCount == "" ? "" : "\(book.pageCount) pages"
 
-//		circleDivider.isHidden = book.pageCount == "" ? true : false
+		pageCountLabel.isHidden = book.pageCount == "" ? true : false
 
 		if book.ratingsCount == "" {
 			ratingBar.isHidden = true
 			ratingCountLabel.isHidden = true
 		} else {
 			ratingBar.rating = Double(book.averageRating) ?? 0
-			ratingCountLabel.text = "(Average \(book.ratingsCount) stars)"
+			ratingCountLabel.text = book.ratingsCount == "1" ?  "\(book.ratingsCount) review" : "\(book.ratingsCount) reviews"
 		}
 
 		previewButton.isHidden = book.readerLink == "" ? true : false

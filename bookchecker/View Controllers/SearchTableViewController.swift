@@ -18,12 +18,15 @@ class SearchTableViewController: UITableViewController {
 	var books: [Book] = []
 	var timer: Timer?
 	var contentOffset: CGPoint?
+	var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+	var searchImage: UIImage?
 
 	//MARK: - Life cycle
 	override func viewDidLoad() {
         super.viewDidLoad()
 		removeSearchbarBorders()
 		Navbar.addImage(to: self)
+		self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
 		searchBar.delegate = self
 		tabBarController?.delegate = self
     }
@@ -70,6 +73,8 @@ extension SearchTableViewController: UISearchBarDelegate {
 		Services.shared.getBooks(from: .archive, .google, searchParameter: searchBar.text!) { (books) in
 			self.books = books
 			self.tableView.reloadData()
+			self.activityIndicator.stopAnimating()
+			self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
 		}
 	}
 
@@ -82,13 +87,13 @@ extension SearchTableViewController: UISearchBarDelegate {
 		getBooksFromSearchbar()
 		let textField = searchBar.value(forKey: "searchField") as? UITextField
 		let searchIconView = textField?.leftView as? UIImageView
-		let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-
 		if let searchIconView = searchIconView {
+			searchImage = searchIconView.image
 			searchIconView.image = nil
-			indicator.center = CGPoint(x: 7, y: 7)
-			indicator.startAnimating()
-			searchIconView.addSubview(indicator)
+			activityIndicator.hidesWhenStopped = true
+			activityIndicator.center = CGPoint(x: 7, y: 7)
+			activityIndicator.startAnimating()
+			searchIconView.addSubview(activityIndicator)
 		}
 	}
 }

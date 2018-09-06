@@ -46,12 +46,15 @@ class Services {
 				//number of books
 				parameters["maxResults"] = "5"
 				parameters["download"] = "epub"
+				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					guard response.result.isSuccess else {
 						print(response.result.error?.localizedDescription ?? "Error fetching books")
 						return
 					}
+					print(response.request)
+
 					let bookJSON = JSON(response.result.value!)
 					let totalItems = bookJSON["items"].arrayValue
 					for item in totalItems {

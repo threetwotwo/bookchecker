@@ -7,6 +7,7 @@
 //
 import UIKit
 import RealmSwift
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		} catch {
 			print("Error initialising realm \(error)")
 		}
+
+		//Firebase
+		FirebaseApp.configure()
 
 		print(Realm.Configuration.defaultConfiguration.fileURL)
 		return true

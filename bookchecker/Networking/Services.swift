@@ -44,7 +44,7 @@ class Services {
 				//return english books
 				parameters["langRestrict"] = "en"
 				//number of books
-				parameters["maxResults"] = "15"
+				parameters["maxResults"] = "5"
 				parameters["download"] = "epub"
 				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
@@ -85,9 +85,8 @@ class Services {
 				dispatchGroup.enter()
 
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
-				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf)AND (collection:opensource*)"
+				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf) AND (collection:opensource* OR collection:gutenberg OR collection:magazine_rack) AND mediatype:texts"
 				parameters["count"] = "100"
-				parameters["sorts"] = "downloads desc"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					guard response.result.isSuccess else {
@@ -119,6 +118,7 @@ class Services {
 				}
 			}
 			dispatchGroup.notify(queue: .main) {
+//				completion(books)
 				completion(books.sorted {
 					let title1 = $0.title
 					let title2 = $1.title

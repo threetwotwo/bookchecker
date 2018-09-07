@@ -12,7 +12,7 @@ import SDWebImage
 class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 	var networkManager: NetworkManager!
-	let queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .fiction, .fantasy, .scifi, .food, .kids, .mystery, .romance, .crime, .business, .historicalFiction)
+	let queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .fiction, .fantasy, .scifi, .food, .kids, .mystery, .crime, .business, .historicalFiction)
 
 	var booksArray: [Int : [Book]] = [ : ]
     var storedOffsets = [Int: CGFloat]()

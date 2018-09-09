@@ -13,22 +13,24 @@ import Alamofire
 
 class DetailViewController: UIViewController {
 	//MARK: - IBOutlets
-//	@IBOutlet weak var titleLabel: UILabel!
-//	@IBOutlet weak var authorLabel: UILabel!
+	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var authorLabel: UILabel!
+	@IBOutlet weak var backgroundImage: UIImageView!
 	@IBOutlet weak var coverImage: UIImageView!
-//	@IBOutlet weak var publisherLabel: UILabel!
+	@IBOutlet weak var publishedLabel: UILabel!
+	//	@IBOutlet weak var publisherLabel: UILabel!
 //	@IBOutlet weak var publishedDateLabel: UILabel!
-//	@IBOutlet weak var categoryLabel: UILabel!
-//	@IBOutlet weak var languageLabel: UILabel!
-//	@IBOutlet weak var pageCountLabel: UILabel!
-//	@IBOutlet weak var ratingBar: CosmosView!
-//	@IBOutlet weak var ratingCountLabel: UILabel!
+	@IBOutlet weak var categoryLabel: UILabel!
+	@IBOutlet weak var languageLabel: UILabel!
+	@IBOutlet weak var pageCountLabel: UILabel!
+	@IBOutlet weak var ratingBar: CosmosView!
+	@IBOutlet weak var ratingCountLabel: UILabel!
 //	@IBOutlet weak var descriptionLabel: UILabel!
 //	@IBOutlet weak var descriptionHeaderLabel: UILabel!
 //	@IBOutlet weak var previewButton: UIButton!
-//	@IBOutlet weak var downloadButton: LoadingButton!
+	@IBOutlet weak var readOrDownloadButton: LoadingButton!
 	@IBOutlet weak var favoriteButton: UIButton!
-//	@IBOutlet weak var apiSourceButton: DesignableButton!
+	@IBOutlet weak var apiSourceButton: UIButton!
 
 	@IBOutlet weak var imageWidth: NSLayoutConstraint!
 	@IBOutlet weak var imageHeight: NSLayoutConstraint!
@@ -107,49 +109,48 @@ class DetailViewController: UIViewController {
 		imageWidth.constant = AVMakeRect(aspectRatio: (coverImage.image?.size)!, insideRect: coverImage.frame).width
 
 		imageHeight.constant = AVMakeRect(aspectRatio: (coverImage.image?.size)!, insideRect: coverImage.frame).height
-//		updateUI()
+		updateUI()
 	}
 
 	//MARK: - Update UI
-//	fileprivate func updateButtons() {
-//		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? previewButton.setTitle("READ ONLINE", for: []) : previewButton.setTitle("CONTINUE", for: [])
-//
-//		savedBook == nil ? favoriteButton.setTitle("ADD BOOK ", for: []) : favoriteButton.setTitle("REMOVE BOOK", for: [])
-//	}
+	fileprivate func updateButtons() {
+		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? readOrDownloadButton.setTitle("READ ONLINE", for: []) : readOrDownloadButton.setTitle("CONTINUE", for: [])
 
-//	func updateUI() {
-//		apiSourceButton.setTitle(book.apiSource, for: [])
-//		titleLabel.text = book.title
-//		authorLabel.text = book.authors
-//		publisherLabel.text = book.publisher == "" ? "Unknown Publisher" : book.publisher
-//		publishedDateLabel.text = book.publishedDate
-//		categoryLabel.text = book.categories
-//
-//		languageLabel.text = book.language.count == 2 ? "\(book.language)" : book.language
-//		pageCountLabel.text = book.pageCount == "" ? "" : "\(book.pageCount) pages"
-//
-//		pageCountLabel.isHidden = book.pageCount == "" ? true : false
-//
-//		if book.ratingsCount == "" {
-//			ratingBar.isHidden = true
-//			ratingCountLabel.isHidden = true
-//		} else {
-//			ratingBar.rating = Double(book.averageRating) ?? 0
-//			ratingCountLabel.text = book.ratingsCount == "1" ?  "\(book.ratingsCount) review" : "\(book.ratingsCount) reviews"
-//		}
-//
-//		previewButton.isHidden = book.readerLink == "" ? true : false
-//
-//		updateButtons()
-//
+		savedBook == nil ? favoriteButton.setTitle("ADD BOOK ", for: []) : favoriteButton.setTitle("REMOVE BOOK", for: [])
+	}
+
+	func updateUI() {
+		apiSourceButton.setTitle(book.apiSource, for: [])
+		titleLabel.text = book.title
+		authorLabel.text = book.authors
+		let publisher = book.publisher == "" ? "" : "· \(book.publisher)"
+		publishedLabel.text = "\(book.publishedDate) \(publisher)"
+		categoryLabel.text = book.categories
+
+		languageLabel.text = book.language.count == 2 ? "\(book.language)" : book.language
+		pageCountLabel.text = book.pageCount == "" ? "" : "\(book.pageCount) pages"
+
+		pageCountLabel.isHidden = book.pageCount == "" ? true : false
+
+		if book.ratingsCount == "" {
+			ratingBar.isHidden = true
+			ratingCountLabel.isHidden = true
+		} else {
+			ratingBar.rating = Double(book.averageRating) ?? 0
+			ratingCountLabel.text = book.ratingsCount == "1" ?  "\(book.ratingsCount) review" : "\(book.ratingsCount) reviews"
+		}
+
+		updateButtons()
+
 //		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
 //
 //		descriptionLabel.text = book.about
-//		categoryLabel.text =  book.categories
-//		if let image = book.image {
-//			coverImage.image = UIImage(data: image)
-//		}
-//	}
+		categoryLabel.text =  book.categories
+		if let image = book.image {
+			coverImage.image = UIImage(data: image)
+			backgroundImage.image = UIImage(data: image)
+		}
+	}
 }
 
 //MARK: - Realm

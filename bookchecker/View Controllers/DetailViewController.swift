@@ -25,20 +25,26 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var pageCountLabel: UILabel!
 	@IBOutlet weak var ratingBar: CosmosView!
 	@IBOutlet weak var ratingCountLabel: UILabel!
-//	@IBOutlet weak var descriptionLabel: UILabel!
+	@IBOutlet weak var descriptionLabel: UILabel!
 //	@IBOutlet weak var descriptionHeaderLabel: UILabel!
 //	@IBOutlet weak var previewButton: UIButton!
 	@IBOutlet weak var readOrDownloadButton: LoadingButton!
 	@IBOutlet weak var favoriteButton: UIButton!
 	@IBOutlet weak var apiSourceButton: UIButton!
 
-	@IBOutlet weak var imageWidth: NSLayoutConstraint!
 	@IBOutlet weak var imageHeight: NSLayoutConstraint!
 
 
 	//MARK: - variables
 	let realm = try! Realm()
-	var book: Book!
+	var book: Book! {
+		didSet {
+			if let imageData = book.image {
+				image = UIImage(data: imageData)
+			}
+		}
+	}
+	var image: UIImage?
 	lazy var bookIDs: [String] = []
 	var docController: UIDocumentInteractionController?
 	var savedBook: RealmBook?
@@ -90,14 +96,14 @@ class DetailViewController: UIViewController {
 
 	override func viewDidLoad() {
         super.viewDidLoad()
-//		downloadButton.showLoading()
-//		Services.shared.getDownloadLinks(book: book) { (links) in
-//			self.downloadButton.hideLoading()
-//			self.book.downloadLinks = links
-//			self.downloadButton.isHidden = self.book.downloadLinks.isEmpty ? true : false
-//			print(links)
-//		}
-//		loadSavedBook()
+		readOrDownloadButton.showLoading()
+		Services.shared.getDownloadLinks(book: book) { (links) in
+			self.readOrDownloadButton.hideLoading()
+			self.book.downloadLinks = links
+			self.readOrDownloadButton.isHidden = self.book.downloadLinks.isEmpty ? true : false
+			print(links)
+		}
+		loadSavedBook()
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -106,10 +112,29 @@ class DetailViewController: UIViewController {
 		favoriteButton.imageView?.contentMode = .scaleAspectFit
 		favoriteButton.imageEdgeInsets = UIEdgeInsetsMake(8, 7, 7, 7)
 
-		imageWidth.constant = AVMakeRect(aspectRatio: (coverImage.image?.size)!, insideRect: coverImage.frame).width
+		if let image = image {
+			let width = image.size.width
+			let height = image.size.height
+			let scaleFactor = coverImage.frame.width / width
+			let adjustedHeight = height * scaleFactor
+			imageHeight.constant = adjustedHeight
+		}
 
-		imageHeight.constant = AVMakeRect(aspectRatio: (coverImage.image?.size)!, insideRect: coverImage.frame).height
 		updateUI()
+	}
+
+	func resizedImage(sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
+		let oldWidth = sourceImage.size.width
+		let scaleFactor = scaledToWidth / oldWidth
+
+		let newHeight = sourceImage.size.height * scaleFactor
+		let newWidth = oldWidth * scaleFactor
+
+		UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
+		sourceImage.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
+		let newImage = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		return newImage!
 	}
 
 	//MARK: - Update UI
@@ -140,16 +165,14 @@ class DetailViewController: UIViewController {
 			ratingCountLabel.text = book.ratingsCount == "1" ?  "\(book.ratingsCount) review" : "\(book.ratingsCount) reviews"
 		}
 
-		updateButtons()
+//		updateButtons()
 
 //		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
 //
-//		descriptionLabel.text = book.about
+		descriptionLabel.text = book.about == "" ? "No description" : book.about
 		categoryLabel.text =  book.categories
-		if let image = book.image {
-			coverImage.image = UIImage(data: image)
-			backgroundImage.image = UIImage(data: image)
-		}
+		coverImage.image = image
+		backgroundImage.image = image
 	}
 }
 

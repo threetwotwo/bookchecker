@@ -18,20 +18,18 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var backgroundImage: UIImageView!
 	@IBOutlet weak var coverImage: UIImageView!
 	@IBOutlet weak var publishedLabel: UILabel!
-	//	@IBOutlet weak var publisherLabel: UILabel!
-//	@IBOutlet weak var publishedDateLabel: UILabel!
 	@IBOutlet weak var categoryLabel: UILabel!
 	@IBOutlet weak var languageLabel: UILabel!
 	@IBOutlet weak var pageCountLabel: UILabel!
 	@IBOutlet weak var ratingBar: CosmosView!
 	@IBOutlet weak var ratingCountLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
-//	@IBOutlet weak var descriptionHeaderLabel: UILabel!
-//	@IBOutlet weak var previewButton: UIButton!
 	@IBOutlet weak var readOrDownloadButton: LoadingButton!
 	@IBOutlet weak var favoriteButton: UIButton!
 	@IBOutlet weak var apiSourceButton: UIButton!
-
+	@IBOutlet weak var languageStackView: UIStackView!
+	@IBOutlet weak var pagesStackView: UIStackView!
+	
 	@IBOutlet weak var imageHeight: NSLayoutConstraint!
 
 
@@ -75,6 +73,26 @@ class DetailViewController: UIViewController {
 		vc.fileNames = book.downloadLinks
 		self.present(vc, animated: true)
 	}
+	
+	@IBAction func readOrDownloadButtonPressed(_ sender: Any) {
+		if book.readerLink != "" {
+			let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
+			guard let url = URL(string: book.readerLink) else {
+				return
+			}
+			vc.bookID = book.id
+			vc.previewLink = url
+			//Turn reader to page 1 or the most current page
+			vc.previewLink.setValue(forKey: "pg", to: savedBook?.currentPage == "" ? "PA1" : savedBook?.currentPage ?? "PA1")
+			present(vc, animated: true)
+		} else {
+			let vc = storyboard?.instantiateViewController(withIdentifier: "PopUpVC") as! PopUpViewController
+			vc.bookIdentifier = book.id
+			vc.bookTitle = book.title
+			vc.fileNames = book.downloadLinks
+			self.present(vc, animated: true)
+		}
+	}
 
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
 
@@ -86,7 +104,7 @@ class DetailViewController: UIViewController {
 			Alert.createAlert(self, title: "Book added!", message: nil)
 		}
 		loadSavedBook()
-//		updateButtons()
+		updateButtons()
 	}
 
 	//MARK: - Life cycle
@@ -96,13 +114,7 @@ class DetailViewController: UIViewController {
 
 	override func viewDidLoad() {
         super.viewDidLoad()
-		readOrDownloadButton.showLoading()
-		Services.shared.getDownloadLinks(book: book) { (links) in
-			self.readOrDownloadButton.hideLoading()
-			self.book.downloadLinks = links
-			self.readOrDownloadButton.isHidden = self.book.downloadLinks.isEmpty ? true : false
-			print(links)
-		}
+
 		loadSavedBook()
     }
 
@@ -137,11 +149,21 @@ class DetailViewController: UIViewController {
 		return newImage!
 	}
 
-	//MARK: - Update UI
+	//MARK: - UI
 	fileprivate func updateButtons() {
-		savedBook?.currentPage == nil || savedBook?.currentPage == "" ? readOrDownloadButton.setTitle("READ ONLINE", for: []) : readOrDownloadButton.setTitle("CONTINUE", for: [])
+		if book.readerLink != "" {
+			savedBook?.currentPage == nil || savedBook?.currentPage == "" ? readOrDownloadButton.setTitle("READ ONLINE", for: []) : readOrDownloadButton.setTitle("CONTINUE", for: [])
+		} else {
+			readOrDownloadButton.showLoading()
+			Services.shared.getDownloadLinks(book: book) { (links) in
+				self.readOrDownloadButton.hideLoading()
+				self.book.downloadLinks = links
+				self.readOrDownloadButton.setTitle("DOWNLOAD", for: [])
+				print(links)
+			}
+		}
 
-		savedBook == nil ? favoriteButton.setTitle("ADD BOOK ", for: []) : favoriteButton.setTitle("REMOVE BOOK", for: [])
+		savedBook == nil ? favoriteButton.setImage(#imageLiteral(resourceName: "baseline_favorite_border_white_36pt_1x"), for: []) : favoriteButton.setImage(#imageLiteral(resourceName: "baseline_favorite_white_36pt_1x"), for: [])
 	}
 
 	func updateUI() {
@@ -152,10 +174,17 @@ class DetailViewController: UIViewController {
 		publishedLabel.text = "\(book.publishedDate) \(publisher)"
 		categoryLabel.text = book.categories
 
-		languageLabel.text = book.language.count == 2 ? "\(book.language)" : book.language
-		pageCountLabel.text = book.pageCount == "" ? "" : "\(book.pageCount) pages"
+		if book.language == "" {
+			languageStackView.isHidden = true
+		} else {
+			languageLabel.text = book.language
+		}
 
-		pageCountLabel.isHidden = book.pageCount == "" ? true : false
+		if book.pageCount == "" {
+			pagesStackView.isHidden = true
+		} else {
+			pageCountLabel.text = book.pageCount
+		}
 
 		if book.ratingsCount == "" {
 			ratingBar.isHidden = true
@@ -165,10 +194,8 @@ class DetailViewController: UIViewController {
 			ratingCountLabel.text = book.ratingsCount == "1" ?  "\(book.ratingsCount) review" : "\(book.ratingsCount) reviews"
 		}
 
-//		updateButtons()
+		updateButtons()
 
-//		descriptionHeaderLabel.text = book.about == "" ? "No description" : "Description"
-//
 		descriptionLabel.text = book.about == "" ? "No description" : book.about
 		categoryLabel.text =  book.categories
 		coverImage.image = image

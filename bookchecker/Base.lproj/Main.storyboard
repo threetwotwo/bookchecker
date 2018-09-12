@@ -509,13 +509,15 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="368"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     </view>
-                                                                    <blurEffect style="light"/>
+                                                                    <vibrancyEffect>
+                                                                        <blurEffect style="light"/>
+                                                                    </vibrancyEffect>
                                                                 </visualEffectView>
                                                             </subviews>
                                                         </view>
-                                                        <blurEffect style="light"/>
+                                                        <blurEffect style="dark"/>
                                                     </visualEffectView>
-                                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7D-vv-0k8" customClass="GradientView" customModule="bookchecker" customModuleProvider="target">
+                                                    <view hidden="YES" alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7D-vv-0k8" customClass="GradientView" customModule="bookchecker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="368"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
@@ -537,15 +539,6 @@
                                                                     <constraint firstAttribute="height" constant="150" id="i7N-C1-pvi"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                                        <real key="value" value="4"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                                        <real key="value" value="0.80000000000000004"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                                        <size key="value" width="2" height="4"/>
-                                                                    </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </userDefinedRuntimeAttribute>
@@ -571,6 +564,9 @@
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="starSize">
                                                                                 <real key="value" value="16"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                     </view>

@@ -78,13 +78,13 @@ extension WebReaderViewController: WKNavigationDelegate {
 		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-topbar-table')[0].style.visibility = 'hidden';", completionHandler: nil)
 		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-statusbar-controls-table')[0].style.visibility = 'hidden';", completionHandler: nil)
 
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingTop = '90px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingTop = '90px';", completionHandler: nil)
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingTop = '40px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingTop = '40px';", completionHandler: nil)
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingLeft = '10px';", completionHandler: nil)
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingLeft = '10px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingRight = '10px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingRight = '10px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingRight = '0px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingRight = '0px';", completionHandler: nil)
 		}
 
 

@@ -52,6 +52,9 @@ class SearchTableViewController: UITableViewController {
 		cell.coverImage.sd_setImage(with: url) { (image, error, cache, url) in
 			self.books[indexPath.row].image = UIImagePNGRepresentation(image ?? UIImage())
 		}
+		let backgroundView = UIView()
+		backgroundView.backgroundColor = UIColor.init(hexString: "e8f4f8")
+		cell.selectedBackgroundView = backgroundView
 		return cell
 	}
 

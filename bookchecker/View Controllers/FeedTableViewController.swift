@@ -98,8 +98,7 @@ extension FeedTableViewController {
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		let header = view as! UITableViewHeaderFooterView
 		header.textLabel?.font = UIFont(name: "Futura-Medium", size: 13)
-		header.textLabel?.textColor = UIColor.white
-		header.contentView.backgroundColor = UIColor(hexString: "70719A")
+		header.textLabel?.textColor = UIColor.init(hexString: "10165E")
 	}
 
 	//Footer Height

@@ -19,7 +19,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="241" estimatedRowHeight="241" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" id="3bF-V5-y0h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedCell" id="OxC-dd-sjM" customClass="FeedTableViewCell" customModule="bookchecker">
@@ -31,7 +31,7 @@
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UNf-pK-oMQ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="241"/>
-                                            <color key="backgroundColor" red="0.4392156862745098" green="0.44313725490196076" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="HLt-Tg-jnS">
                                                 <size key="itemSize" width="150" height="240"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -250,8 +250,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search title, author, etc" id="FWJ-TX-pfm">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search title, author, etc" translucent="NO" id="FWJ-TX-pfm">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -276,17 +277,17 @@
                                                     <real key="value" value="0.5"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="value" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="HAP-ej-rzb">
                                             <rect key="frame" x="142.5" y="81" width="196.5" height="39.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOY-SD-xDg">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOY-SD-xDg">
                                                     <rect key="frame" x="0.0" y="0.0" width="196.5" height="16"/>
                                                     <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="12"/>
-                                                    <color key="textColor" red="0.090196078430000007" green="0.12549019610000001" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.062745098040000002" green="0.086274509799999996" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2O-e7-5YC">
@@ -297,14 +298,15 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
-                                        <button opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0V3-0S-ijc" customClass="DesignableButton" customModule="bookchecker" customModuleProvider="target">
+                                        <button opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0V3-0S-ijc" customClass="DesignableButton" customModule="bookchecker" customModuleProvider="target">
                                             <rect key="frame" x="142.5" y="50" width="80" height="18"/>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <color key="backgroundColor" red="0.90980392156862744" green="0.95686274509803915" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="L49-ko-I3K"/>
                                                 <constraint firstAttribute="height" constant="18" id="rhN-AL-op1"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="italicSystem" pointSize="9"/>
+                                            <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <state key="normal" title="api source">
                                                 <color key="titleColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
@@ -313,7 +315,10 @@
                                                     <real key="value" value="9"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
@@ -321,6 +326,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="HAP-ej-rzb" firstAttribute="centerY" secondItem="4dK-iq-XEg" secondAttribute="centerY" id="5hW-Cu-bRn"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0V3-0S-ijc" secondAttribute="trailing" constant="20" symbolic="YES" id="5n4-iB-TSs"/>
@@ -333,6 +339,7 @@
                                         <constraint firstAttribute="bottom" secondItem="4dK-iq-XEg" secondAttribute="bottom" constant="20" id="x7Z-Jm-QaI"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="apiSourceButton" destination="0V3-0S-ijc" id="5as-pa-Hpf"/>
                                     <outlet property="authorLabel" destination="xOY-SD-xDg" id="ESY-5T-G5S"/>
@@ -362,7 +369,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="VGk-aw-cJP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xGG-hc-eHa">
                             <size key="itemSize" width="160" height="160"/>
                             <size key="headerReferenceSize" width="50" height="50"/>
@@ -379,17 +386,30 @@
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookcover" translatesAutoresizingMaskIntoConstraints="NO" id="mPM-BU-eMa">
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="mPM-BU-eMa" firstAttribute="leading" secondItem="evl-ez-0j4" secondAttribute="leading" id="bwg-uy-JLc"/>
                                     <constraint firstItem="mPM-BU-eMa" firstAttribute="top" secondItem="evl-ez-0j4" secondAttribute="top" id="dlq-0O-vWT"/>
                                     <constraint firstAttribute="trailing" secondItem="mPM-BU-eMa" secondAttribute="trailing" id="jVV-Bq-fhy"/>
                                     <constraint firstAttribute="bottom" secondItem="mPM-BU-eMa" secondAttribute="bottom" id="kzI-pV-a97"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="coverImage" destination="mPM-BU-eMa" id="MXc-OL-DLD"/>
                                 </connections>
@@ -495,13 +515,16 @@
                                                         </view>
                                                         <blurEffect style="light"/>
                                                     </visualEffectView>
-                                                    <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7D-vv-0k8" customClass="GradientView" customModule="bookchecker" customModuleProvider="target">
+                                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l7D-vv-0k8" customClass="GradientView" customModule="bookchecker" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="368"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eP-lt-xJo" userLabel="Image Detail View">
@@ -515,13 +538,13 @@
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                                        <real key="value" value="5"/>
+                                                                        <real key="value" value="4"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                                        <real key="value" value="0.84999999999999998"/>
+                                                                        <real key="value" value="0.80000000000000004"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                                        <size key="value" width="3" height="5"/>
+                                                                        <size key="value" width="2" height="4"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -531,13 +554,13 @@
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgP-kU-v53">
                                                                 <rect key="frame" x="30" y="210" width="315" height="18.5"/>
                                                                 <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="14"/>
-                                                                <color key="textColor" red="0.062745098040000002" green="0.086274509799999996" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvV-76-qi9">
                                                                 <rect key="frame" x="30" y="233.5" width="315" height="23.5"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
-                                                                <color key="textColor" red="0.062745098040000002" green="0.086274509799999996" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0CA-UQ-7gg">
@@ -554,7 +577,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCK-0Z-KrX">
                                                                         <rect key="frame" x="108" y="0.0" width="29.5" height="16"/>
                                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
-                                                                        <color key="textColor" red="0.062745098040000002" green="0.086274509799999996" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -564,23 +587,21 @@
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6u-iS-XvG" customClass="LoadingButton" customModule="bookchecker" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="128" height="40"/>
+                                                                        <color key="backgroundColor" red="0.23137254901960785" green="0.49803921568627452" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="128" id="C4Y-o2-Uaa"/>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="C4Y-o2-Uaa"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                                                         <state key="normal" title="READ ONLINE">
-                                                                            <color key="titleColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </state>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                                 <real key="value" value="20"/>
                                                                             </userDefinedRuntimeAttribute>
-                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                <color key="value" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            </userDefinedRuntimeAttribute>
                                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                                <real key="value" value="2"/>
+                                                                                <real key="value" value="0.0"/>
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>

@@ -15,7 +15,7 @@ class SearchTableViewCell: UITableViewCell {
 	@IBOutlet weak var coverImage: UIImageView!
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var authorLabel: UILabel!
-	@IBOutlet weak var apiSourceButton: DesignableButton!
+	@IBOutlet weak var apiSourceButton: UILabel!
 	
 
     override func awakeFromNib() {

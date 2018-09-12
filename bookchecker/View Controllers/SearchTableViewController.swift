@@ -9,11 +9,12 @@
 import UIKit
 import SDWebImage
 
-class SearchTableViewController: UITableViewController {
+class SearchTableViewController: UIViewController {
 
 	//MARK: - IBOutlets
 	@IBOutlet weak var searchBar: UISearchBar!
-	
+	@IBOutlet weak var searchTableView: UITableView!
+
 	//MARK: - variables
 	var books: [Book] = []
 	var timer: Timer?
@@ -25,27 +26,45 @@ class SearchTableViewController: UITableViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		removeSearchbarBorders()
-		tableView.tableFooterView = UIView()
+		searchTableView.tableFooterView = UIView()
 		Navbar.addImage(to: self)
 		self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
 		searchBar.delegate = self
 		tabBarController?.delegate = self
     }
+}
 
+//MARK: - UITableViewDelegate
+extension SearchTableViewController: UITableViewDelegate {
+
+	 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
+		vc.book = books[indexPath.row]
+		present(vc, animated: true)
+	}
+}
+
+// MARK: - UITableViewDataSource
+extension SearchTableViewController: UITableViewDataSource {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(true)
-		contentOffset = tableView.contentOffset
+		contentOffset = searchTableView.contentOffset
 	}
-    // MARK: - UITableViewDataSource
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+	 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if books.count == 0 {
+			self.searchTableView.setEmptyMessage("No results. Please enter another query.")
+		} else {
+			self.searchTableView.restore()
+		}
 		return books.count
 	}
 
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
 		cell.coverImage.image = nil
 		let book = books[indexPath.row]
-		cell.apiSourceButton.setTitle(book.apiSource, for: [])
+		cell.apiSourceButton.text = book.apiSource
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
 		let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
@@ -57,14 +76,6 @@ class SearchTableViewController: UITableViewController {
 		cell.selectedBackgroundView = backgroundView
 		return cell
 	}
-
-	//MARK: - UITableViewDelegate
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
-			vc.book = books[indexPath.row]
-			present(vc, animated: true)
-	}
-
 }
 
 //MARK: - Search bar methods
@@ -76,7 +87,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 	@objc func getBooksFromSearchbar() {
 		Services.shared.getBooks(from: .archive, .google, searchParameter: searchBar.text!) { (books) in
 			self.books = books
-			self.tableView.reloadData()
+			self.searchTableView.reloadData()
 			self.activityIndicator.stopAnimating()
 			self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
 		}
@@ -108,9 +119,9 @@ extension SearchTableViewController: UITabBarControllerDelegate {
 	func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 		print("Selected: \(viewController)!")
 		if let contentOffset = contentOffset {
-			tableView.setContentOffset(contentOffset, animated: true)
+			searchTableView.setContentOffset(contentOffset, animated: true)
 		} else {
-			self.tableView.setContentOffset(CGPoint(x: 0, y: -64), animated: true)
+			self.searchTableView.setContentOffset(CGPoint.zero, animated: true)
 		}
 		self.contentOffset = nil
 	}

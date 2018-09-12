@@ -25,6 +25,7 @@ class SearchTableViewController: UITableViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		removeSearchbarBorders()
+		tableView.tableFooterView = UIView()
 		Navbar.addImage(to: self)
 		self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
 		searchBar.delegate = self

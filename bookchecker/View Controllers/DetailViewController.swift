@@ -52,28 +52,19 @@ class DetailViewController: UIViewController {
 	@IBAction func cancelButtonPressed(_ sender: Any) {
 		self.dismiss(animated: true, completion: nil)
 	}
-	
-	@IBAction func previewButtonPressed(_ sender: UIButton) {
-		let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
-		let link = sender.tag == 101 ? book.infoLink : book.readerLink
-		guard let url = URL(string: link) else {
-			return
+
+	@IBAction func apisourceButtonPressed(_ sender: Any) {
+		if book.infoLink != "" {
+			let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
+			guard let url = URL(string: book.infoLink) else {
+				return
+			}
+			vc.previewLink = url
+			//Turn reader to page 1 or the most current page
+			present(vc, animated: true)
 		}
-		vc.bookID = book.id
-		vc.previewLink = url
-		//Turn reader to page 1 or the most current page
-		vc.previewLink.setValue(forKey: "pg", to: savedBook?.currentPage == "" ? "PA1" : savedBook?.currentPage ?? "PA1")
-		present(vc, animated: true)
 	}
-	
-	@IBAction func getBookButtonPressed(_ sender: UIButton) {
-		let vc = storyboard?.instantiateViewController(withIdentifier: "PopUpVC") as! PopUpViewController
-		vc.bookIdentifier = book.id
-		vc.bookTitle = book.title
-		vc.fileNames = book.downloadLinks
-		self.present(vc, animated: true)
-	}
-	
+
 	@IBAction func readOrDownloadButtonPressed(_ sender: Any) {
 		if book.readerLink != "" {
 			let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController

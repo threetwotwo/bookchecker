@@ -9,7 +9,7 @@
 import Foundation
 
 enum APISource: String {
-	case google = "google books"
+	case google = "Google Books"
 	case archive = "archive.org"
 
 	var searchURL: String {

@@ -53,7 +53,7 @@ extension SearchTableViewController: UITableViewDataSource {
 
 	 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if books.count == 0 {
-			self.searchTableView.setEmptyMessage("Search for books, magazines, papers, etc.")
+			self.searchTableView.setEmptyMessage("Search for books, magazines, papers and more")
 		} else {
 			self.searchTableView.restore()
 		}

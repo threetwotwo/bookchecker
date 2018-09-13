@@ -116,7 +116,6 @@ class Services {
 							book.id = identifier
 							book.title = item["title"].stringValue
 							book.authors = item["creator"].stringValue
-							book.publisher = item["creator"].stringValue
 							book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
 							book.about = String(item["description"].stringValue.prefix(2500))
 							book.language = item["language"].stringValue
@@ -192,5 +191,37 @@ class Services {
 			break
 		}
 		return URL(string: url)
+	}
+
+
+	class downloadManager {
+		private var resumeData: Data?
+		static let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
+
+		func downloadFile(url: String, progressCompletion: @escaping (Float) -> (), fileURLCompletion: @escaping (URL) -> ()) {
+
+			let request: DownloadRequest
+
+			if let resumeData = resumeData {
+				request = Alamofire.download(resumingWith: resumeData, to: Services.downloadManager.destination)
+			} else {
+				request = Alamofire.download(url, to: Services.downloadManager.destination)
+			}
+
+			request.downloadProgress { (progress) in
+				progressCompletion(Float(progress.fractionCompleted))
+				}
+				.response { (response) in
+					if let error = response.error {
+						print("Failed with error: \(error)")
+					} else {
+						print("Downloaded file successfully")
+						if let targetURL = response.destinationURL {
+							print(targetURL)
+							fileURLCompletion(targetURL)
+						}
+					}
+			}
+		}
 	}
 }

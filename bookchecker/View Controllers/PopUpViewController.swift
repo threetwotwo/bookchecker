@@ -55,6 +55,7 @@ extension PopUpViewController: UITableViewDataSource {
 
 	fileprivate func setReadableFileName(at indexPath: IndexPath, _ cell: PopUpTableViewCell) {
 		let name = fileNames[indexPath.row]
+		//Clean up the file name
 		if let index = (name.range(of: "-")?.upperBound), name.countInstances(of: ".") > 1 {
 			cell.filenameLabel.text = String(name.suffix(from: index))
 		} else {
@@ -70,6 +71,7 @@ extension PopUpViewController: UITableViewDataSource {
 
 	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		let header = view as! UITableViewHeaderFooterView
+		//Configure header view
 		header.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
 		header.textLabel?.textColor = UIColor.black
 		header.textLabel?.textAlignment = .center
@@ -87,12 +89,10 @@ extension PopUpViewController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 extension PopUpViewController: UITableViewDelegate {
 	
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory, in: .userDomainMask)
-		
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {		
 		let fileURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
 		print("fileURL: - \(fileURL)")
-		//Replace whitespace
+		//Encoding for whitespace
 		let encodedFileURL = fileURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
 		let cell = tableView.cellForRow(at: indexPath) as! PopUpTableViewCell
@@ -100,25 +100,29 @@ extension PopUpViewController: UITableViewDelegate {
 		cell.progressBar.progress = 0
 		cell.progressBar.isHidden = false
 
-		Alamofire.download(encodedFileURL!, to: destination).response { (response) in
-			if let error = response.error {
-				print("Failed with error: \(error)")
-			} else {
-				print("Downloaded file successfully")
-			}
-			if let targetURL = response.destinationURL {
-				print("Target URL: \(targetURL)")
-				self.docController = UIDocumentInteractionController(url: targetURL)
-				let url = URL(string:"itms-books:");
-				if UIApplication.shared.canOpenURL(url!) {
-					self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
-					print("iBooks is installed")
-				} else {
-					print("iBooks is not installed")
+		guard let downloadURL = encodedFileURL else {return}
+		Services.downloadManager().downloadFile(url: downloadURL, progressCompletion: { (progress) in
+			cell.progressBar.progress = progress
+		}) { (fileURL) in
+			print(fileURL)
+			self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
+			do {
+				let items = try FileManager.default.contentsOfDirectory(atPath: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path)
+				if items.contains(self.fileNames[indexPath.row]) {
+					print("DOWNLOAD FINISH: \(self.fileNames[indexPath.row])")
 				}
+			} catch {
+				print(error.localizedDescription)
 			}
-			}.downloadProgress { (progress) in
-				cell.progressBar.progress = Float(progress.fractionCompleted)
 		}
 	}
+//
+//	self.docController = UIDocumentInteractionController(url: targetURL)
+//	let url = URL(string:"itms-books:");
+//	if UIApplication.shared.canOpenURL(url!) {
+//	self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
+//	print("iBooks is installed")
+//	} else {
+//	print("iBooks is not installed")
+//	}
 }

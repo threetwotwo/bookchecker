@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SearchTableViewCell: UITableViewCell {
 
@@ -22,4 +23,9 @@ class SearchTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		coverImage.sd_cancelCurrentImageLoad()
+	}
 }

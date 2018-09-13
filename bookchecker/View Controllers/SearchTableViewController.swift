@@ -21,6 +21,7 @@ class SearchTableViewController: UIViewController {
 	var contentOffset: CGPoint?
 	var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 	var searchImage: UIImage?
+	var imageManager = SDWebImageManager.shared()
 
 	//MARK: - Life cycle
 	override func viewDidLoad() {
@@ -79,9 +80,8 @@ extension SearchTableViewController: UITableViewDataSource {
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
 		let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
-		cell.coverImage.sd_setImage(with: url) { (image, error, cache, url) in
-			self.books[indexPath.row].image = UIImagePNGRepresentation(image ?? UIImage())
-		}
+
+		cell.coverImage.sd_setImage(with: url)
 	}
 }
 

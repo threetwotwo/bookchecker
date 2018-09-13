@@ -73,9 +73,7 @@ extension FeedTableViewController: UICollectionViewDataSource {
 		cell.coverImage.image = nil
 		if let book = booksArray[collectionView.tag]?[indexPath.row] {
 			let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
-			cell.coverImage.sd_setImage(with: url) { (image, error, cache, url) in
-				self.booksArray[collectionView.tag]?[indexPath.row].image = UIImagePNGRepresentation(image!)
-			}
+			cell.coverImage.sd_setImage(with: url)
 		}
 		return cell
 	}

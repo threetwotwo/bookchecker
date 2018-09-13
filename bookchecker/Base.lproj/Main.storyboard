@@ -47,7 +47,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="csb-xc-j9Q" customClass="DesignableImage" customModule="bookchecker" customModuleProvider="target">
-                                                                <rect key="frame" x="16" y="0.0" width="134" height="240"/>
+                                                                <rect key="frame" x="16" y="0.0" width="134" height="225"/>
                                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
@@ -342,7 +342,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z3A-Eg-v7O">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z3A-Eg-v7O">
                                                     <rect key="frame" x="16" y="20" width="106.5" height="160"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <constraints>
@@ -475,25 +475,13 @@
         <!--Detail View Controller-->
         <scene sceneID="qOk-E3-ig1">
             <objects>
-                <viewController storyboardIdentifier="DetailVC" id="9QJ-1z-xjw" customClass="DetailViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailVC" hidesBottomBarWhenPushed="YES" id="9QJ-1z-xjw" customClass="DetailViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U9c-E7-eiy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ym-ye-RIA">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <items>
-                                    <navigationItem id="THv-HM-54T">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="DQe-RH-duo">
-                                            <connections>
-                                                <action selector="cancelButtonPressed:" destination="9QJ-1z-xjw" id="xiH-8X-Asi"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ddn-o9-4hY">
-                                <rect key="frame" x="0.0" y="64" width="375" height="936"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="980"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRn-br-hZQ" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="656"/>
@@ -501,7 +489,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="78B-6z-nVC">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="368"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookcover" translatesAutoresizingMaskIntoConstraints="NO" id="4hI-Vh-RGn">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4hI-Vh-RGn">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="368"/>
                                                     </imageView>
                                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bjz-V4-flt">
@@ -537,10 +525,10 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eP-lt-xJo" userLabel="Image Detail View">
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9eP-lt-xJo" userLabel="Image Detail View">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="368"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="He2-pL-HPF">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cover_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="He2-pL-HPF">
                                                                 <rect key="frame" x="112.5" y="40" width="150" height="150"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="150" id="dOe-6r-OKh"/>
@@ -838,13 +826,10 @@
                         <constraints>
                             <constraint firstItem="t9T-Hg-b8W" firstAttribute="bottom" secondItem="Ddn-o9-4hY" secondAttribute="bottom" id="Ghc-pX-x2Y"/>
                             <constraint firstItem="Ddn-o9-4hY" firstAttribute="leading" secondItem="t9T-Hg-b8W" secondAttribute="leading" id="Kmi-Z5-6x1"/>
-                            <constraint firstItem="0Ym-ye-RIA" firstAttribute="top" secondItem="t9T-Hg-b8W" secondAttribute="top" id="NkW-aJ-rVp"/>
+                            <constraint firstItem="Ddn-o9-4hY" firstAttribute="top" secondItem="t9T-Hg-b8W" secondAttribute="top" id="VlY-c5-3W2"/>
                             <constraint firstItem="eRn-br-hZQ" firstAttribute="width" secondItem="U9c-E7-eiy" secondAttribute="width" id="WZg-ag-717"/>
                             <constraint firstItem="t9T-Hg-b8W" firstAttribute="trailing" secondItem="Ddn-o9-4hY" secondAttribute="trailing" id="asG-vQ-e2F"/>
-                            <constraint firstItem="Ddn-o9-4hY" firstAttribute="top" secondItem="0Ym-ye-RIA" secondAttribute="bottom" id="ban-td-NzT"/>
-                            <constraint firstItem="0Ym-ye-RIA" firstAttribute="leading" secondItem="t9T-Hg-b8W" secondAttribute="leading" id="eXg-Lx-qxf"/>
                             <constraint firstItem="eRn-br-hZQ" firstAttribute="height" secondItem="U9c-E7-eiy" secondAttribute="height" priority="250" id="i63-On-45C"/>
-                            <constraint firstItem="0Ym-ye-RIA" firstAttribute="trailing" secondItem="t9T-Hg-b8W" secondAttribute="trailing" id="zfL-Vv-JCm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="t9T-Hg-b8W"/>
                     </view>
@@ -1016,6 +1001,7 @@
     <resources>
         <image name="baseline_favorite_border_white_36pt_1x" width="36" height="36"/>
         <image name="bookcover" width="350" height="350"/>
+        <image name="cover_placeholder" width="171" height="256"/>
         <image name="heart-7" width="30" height="30"/>
         <image name="home-7" width="30" height="30"/>
         <image name="search-7" width="30" height="30"/>

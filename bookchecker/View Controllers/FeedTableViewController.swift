@@ -85,7 +85,8 @@ extension FeedTableViewController: UICollectionViewDelegate {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 		if let book = booksArray[collectionView.tag]?[indexPath.item] {
 			vc.book = book
-			present(vc, animated: true)
+			navigationController?.pushViewController(vc, animated: true)
+//			vc.tabBarController?.tabBar.isHidden = true
 		}
 	}
 }

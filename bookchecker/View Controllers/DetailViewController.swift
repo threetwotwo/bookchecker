@@ -5,13 +5,20 @@
 //  Created by Gary on 8/18/18.
 //  Copyright © 2018 Gary. All rights reserved.
 //
-import AVFoundation
 import UIKit
 import Cosmos
 import RealmSwift
 import Alamofire
 
 class DetailViewController: UIViewController {
+
+	//MARK: - variables
+	let realm = try! Realm()
+	var book: Book!
+	lazy var bookIDs: [String] = []
+	var docController: UIDocumentInteractionController?
+	var savedBook: RealmBook?
+
 	//MARK: - IBOutlets
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var authorLabel: UILabel!
@@ -31,22 +38,6 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var pagesStackView: UIStackView!
 	
 	@IBOutlet weak var imageHeight: NSLayoutConstraint!
-
-
-	//MARK: - variables
-	let realm = try! Realm()
-	var book: Book! {
-		didSet {
-			if let imageData = book.image {
-				image = UIImage(data: imageData)
-			}
-		}
-	}
-	var image: UIImage?
-	lazy var bookIDs: [String] = []
-	var docController: UIDocumentInteractionController?
-	var savedBook: RealmBook?
-	var viewWidth: CGFloat?
 
 	//MARK: - IBActions
 	@IBAction func cancelButtonPressed(_ sender: Any) {
@@ -105,39 +96,16 @@ class DetailViewController: UIViewController {
 
 	override func viewDidLoad() {
         super.viewDidLoad()
-
 		loadSavedBook()
     }
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
-
+		//center the favorite icon 
 		favoriteButton.imageView?.contentMode = .scaleAspectFit
 		favoriteButton.imageEdgeInsets = UIEdgeInsetsMake(8, 7, 7, 7)
-
-		if let image = image {
-			let width = image.size.width
-			let height = image.size.height
-			let scaleFactor = coverImage.frame.width / width
-			let adjustedHeight = height * scaleFactor
-			imageHeight.constant = adjustedHeight
-		}
-
+		adjustImageHeight()
 		updateUI()
-	}
-
-	func resizedImage(sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
-		let oldWidth = sourceImage.size.width
-		let scaleFactor = scaledToWidth / oldWidth
-
-		let newHeight = sourceImage.size.height * scaleFactor
-		let newWidth = oldWidth * scaleFactor
-
-		UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
-		sourceImage.draw(in: CGRect(x:0, y:0, width:newWidth, height:newHeight))
-		let newImage = UIGraphicsGetImageFromCurrentImageContext()
-		UIGraphicsEndImageContext()
-		return newImage!
 	}
 
 	//MARK: - UI
@@ -155,6 +123,16 @@ class DetailViewController: UIViewController {
 		}
 
 		savedBook == nil ? favoriteButton.setImage(#imageLiteral(resourceName: "baseline_favorite_border_white_36pt_1x"), for: []) : favoriteButton.setImage(#imageLiteral(resourceName: "baseline_favorite_white_36pt_1x"), for: [])
+	}
+
+	fileprivate func adjustImageHeight() {
+		if let image = coverImage.image {
+			let width = image.size.width
+			let height = image.size.height
+			let scaleFactor = coverImage.frame.width / width
+			let adjustedHeight = height * scaleFactor
+			imageHeight.constant = adjustedHeight
+		}
 	}
 
 	func updateUI() {
@@ -189,8 +167,14 @@ class DetailViewController: UIViewController {
 
 		descriptionLabel.text = book.about == "" ? "No description" : book.about
 		categoryLabel.text =  book.categories
-		coverImage.image = image
-		backgroundImage.image = image
+		let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
+		coverImage.sd_setImage(with: url) { (image, _, _, _) in
+			print(image?.size)
+			self.adjustImageHeight()
+			self.backgroundImage.image = image
+			self.book.image = UIImagePNGRepresentation(image ?? UIImage())
+			self.view.layoutIfNeeded()
+		}
 	}
 }
 

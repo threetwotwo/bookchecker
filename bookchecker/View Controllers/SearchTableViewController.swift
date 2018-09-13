@@ -41,7 +41,7 @@ extension SearchTableViewController: UITableViewDelegate {
 	 func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 		vc.book = books[indexPath.row]
-		present(vc, animated: true)
+		navigationController?.pushViewController(vc, animated: true)
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
 }

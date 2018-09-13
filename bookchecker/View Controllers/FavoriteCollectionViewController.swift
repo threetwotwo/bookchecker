@@ -11,11 +11,15 @@ import RealmSwift
 
 private let reuseIdentifier = "FavoriteCollectionCell"
 
-class FavoriteCollectionViewController: UICollectionViewController {
+class FavoriteCollectionViewController: UIViewController {
+	//MARK: - IBOutlets
+	@IBOutlet weak var favoriteCollectionView: UICollectionView!
+	@IBOutlet weak var searchBar: UISearchBar!
+	
 	//MARK: - IBAction
 	@IBAction func deleteAll(_ sender: Any) {
 		DBManager.shared.deleteAll()
-		collectionView?.reloadData()
+		favoriteCollectionView?.reloadData()
 	}
 
 	//MARK: - Variables
@@ -26,53 +30,83 @@ class FavoriteCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-		collectionView?.delegate = self
 		Navbar.addImage(to: self)
+		setUpSearchbar()
     }
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
 		loadBooks()
 	}
+}
 
-    // MARK: UICollectionViewDataSource
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
+// MARK: UICollectionViewDataSource
+extension FavoriteCollectionViewController: UICollectionViewDataSource {
+	 func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		// #warning Incomplete implementation, return the number of items
 		if books?.count == 0 {
-			self.collectionView?.setEmptyMessage("Your collection is empty. Save books by pressing the favorite button.")
+			collectionView.setEmptyMessage("Your collection is empty. Save books by pressing the favorite button.")
 		} else {
-			self.collectionView?.restore()
+			collectionView.restore()
 		}
-        return books?.count ?? 0
-    }
+		return books?.count ?? 0
+	}
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FavoriteCollectionViewCell
+	 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! FavoriteCollectionViewCell
 		cell.coverImage.image = nil
 		if let book = books?[indexPath.item],
-		let imageData = book.image{
+			let imageData = book.image{
 			cell.coverImage.image = UIImage(data: imageData)
 		}
-        return cell
-    }
+		return cell
+	}
+}
 
-	//MARK: - UICollectionViewDelegate
-	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//MARK: - UICollectionViewDelegate
+extension FavoriteCollectionViewController: UICollectionViewDelegate {
+	 func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 		if let realmBook = books?[indexPath.item] {
 			vc.book = Book(realmBook: realmBook)
-			present(vc, animated: true)
+			navigationController?.pushViewController(vc, animated: true)
 		}
 	}
 }
+
 //MARK: - Realm
 extension FavoriteCollectionViewController {
-
 	func loadBooks() {
 		books = realm.objects(RealmBook.self).sorted(byKeyPath: "dateAdded", ascending: false)
-		collectionView?.reloadData()
+		favoriteCollectionView?.reloadData()
+	}
+
+	func loadBooks(query: String) {
+		books = realm.objects(RealmBook.self).sorted(byKeyPath: "dateAdded", ascending: false).filter("title CONTAINS[cd] %@ OR authors CONTAINS[cd] %@", query, query)
+		favoriteCollectionView?.reloadData()
 	}
 }
+//MARK: - Search Bar
+extension FavoriteCollectionViewController: UISearchBarDelegate {
+	fileprivate func setUpSearchbar() {
+		//remove borders
+		searchBar.backgroundImage = UIImage()
+		self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
+	}
+
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		guard searchBar.text != "" else {
+			loadBooks()
+			return
+		}
+		loadBooks(query: searchBar.text!)
+	}
+
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		searchBar.resignFirstResponder()
+	}
+}
+
 //MARK: - UICollectionViewLayout
 
 extension FavoriteCollectionViewController: UICollectionViewDelegateFlowLayout {
@@ -97,3 +131,4 @@ extension FavoriteCollectionViewController: UICollectionViewDelegateFlowLayout {
 		return 15
 	}
 }
+

@@ -97,7 +97,26 @@ class DetailViewController: UIViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		loadSavedBook()
+		let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+		swipeRight.direction = .right
+		self.view.addGestureRecognizer(swipeRight)
     }
+
+	@objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+		if gesture.direction == UISwipeGestureRecognizerDirection.right {
+			print("Swipe Right")
+			self.navigationController?.popViewController(animated: true)
+		}
+		else if gesture.direction == UISwipeGestureRecognizerDirection.left {
+			print("Swipe Left")
+		}
+		else if gesture.direction == UISwipeGestureRecognizerDirection.up {
+			print("Swipe Up")
+		}
+		else if gesture.direction == UISwipeGestureRecognizerDirection.down {
+			print("Swipe Down")
+		}
+	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)

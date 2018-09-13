@@ -26,11 +26,9 @@ class SearchTableViewController: UIViewController {
 	//MARK: - Life cycle
 	override func viewDidLoad() {
         super.viewDidLoad()
-		removeSearchbarBorders()
+		setUpSearchbar()
 		searchTableView.tableFooterView = UIView()
 		Navbar.addImage(to: self)
-		self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
-		searchBar.delegate = self
 		tabBarController?.delegate = self
     }
 }
@@ -87,8 +85,10 @@ extension SearchTableViewController: UITableViewDataSource {
 
 //MARK: - Search bar methods
 extension SearchTableViewController: UISearchBarDelegate {
-	fileprivate func removeSearchbarBorders() {
+	fileprivate func setUpSearchbar() {
+		//remove borders
 		searchBar.backgroundImage = UIImage()
+		self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
 	}
 
 	@objc func getBooksFromSearchbar() {
@@ -99,10 +99,6 @@ extension SearchTableViewController: UISearchBarDelegate {
 			self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
 		}
 		self.searchTableView.setContentOffset(CGPoint.zero, animated: true)
-	}
-
-	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-		//throttle the url requests
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

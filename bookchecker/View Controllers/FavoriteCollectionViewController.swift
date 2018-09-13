@@ -38,6 +38,11 @@ class FavoriteCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
+		if books?.count == 0 {
+			self.collectionView?.setEmptyMessage("Your collection is empty. Save books by pressing the favorite button.")
+		} else {
+			self.collectionView?.restore()
+		}
         return books?.count ?? 0
     }
 

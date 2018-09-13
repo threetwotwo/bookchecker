@@ -49,35 +49,42 @@ class Services {
 				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
-					guard response.result.isSuccess else {
-						print(response.result.error?.localizedDescription ?? "Error fetching books")
-						return
-					}
-					print(response.request)
+					print("GBS request: \(response.request)")
+					print("GBS response code: \(response.response?.statusCode)")
 
-					let bookJSON = JSON(response.result.value!)
-					let totalItems = bookJSON["items"].arrayValue
-					for item in totalItems {
-						let volumeInfo = item["volumeInfo"]
+					switch response.result {
+					case .success:
+						print("GBS: Successful Request")
+						guard let json = response.result.value else {
+							print("GBS: Cannot get JSON object from result")
+							return
+						}
+						let bookJSON = JSON(json)
+						let totalItems = bookJSON["items"].arrayValue
+						for item in totalItems {
+							let volumeInfo = item["volumeInfo"]
 
-						var book = Book()
-						book.apiSource = source.rawValue
-						book.language = volumeInfo["language"].stringValue
-						book.id = item["id"].stringValue
-						book.title = volumeInfo["title"].stringValue
-						book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-						book.pageCount = volumeInfo["pageCount"].stringValue
-						book.about = String(volumeInfo["description"].stringValue.prefix(2500))
-						book.publisher = volumeInfo["publisher"].stringValue
-						book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
-						book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-						book.averageRating = volumeInfo["averageRating"].stringValue
-						book.ratingsCount = volumeInfo["ratingsCount"].stringValue
-						book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
-						book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
-						book.infoLink = volumeInfo["infoLink"].stringValue
+							var book = Book()
+							book.apiSource = source.rawValue
+							book.language = volumeInfo["language"].stringValue
+							book.id = item["id"].stringValue
+							book.title = volumeInfo["title"].stringValue
+							book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
+							book.pageCount = volumeInfo["pageCount"].stringValue
+							book.about = String(volumeInfo["description"].stringValue.prefix(2500))
+							book.publisher = volumeInfo["publisher"].stringValue
+							book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
+							book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
+							book.averageRating = volumeInfo["averageRating"].stringValue
+							book.ratingsCount = volumeInfo["ratingsCount"].stringValue
+							book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
+							book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
+							book.infoLink = volumeInfo["infoLink"].stringValue
 
-						books.append(book)
+							books.append(book)
+						}
+					case .failure:
+						print("GBS: BAD Request!")
 					}
 					self.dispatchGroup.leave()
 				}
@@ -89,30 +96,37 @@ class Services {
 				parameters["count"] = "100"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
-					guard response.result.isSuccess else {
-						print(response.result.error?.localizedDescription ?? "Error fetching books")
-						return
-					}
+					print("ARCHIVE.ORG request: \(response.request)")
+					print("ARCHIVE.ORG response code: \(response.response?.statusCode)")
+					switch response.result {
+					case .success:
+						print("ARCHIVE.ORG: Successful Request")
+						guard let json = response.result.value else {
+							print("ARCHIVE.ORG: Cannot get JSON object from result")
+							return
+						}
+						let bookJSON = JSON(json)
+						let totalItems = bookJSON["items"].arrayValue
+						//return at max 10 results
+						for i in 0..<min(40, totalItems.count) {
+							let item = totalItems[i]
+							var book = Book()
+							let identifier = item["identifier"].stringValue
+							book.apiSource = source.rawValue
+							book.id = identifier
+							book.title = item["title"].stringValue
+							book.authors = item["creator"].stringValue
+							book.publisher = item["creator"].stringValue
+							book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
+							book.about = String(item["description"].stringValue.prefix(2500))
+							book.language = item["language"].stringValue
+							book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
+							book.categories = item["collection"].arrayValue[0].stringValue
 
-					let bookJSON = JSON(response.result.value!)
-					let totalItems = bookJSON["items"].arrayValue
-					//return at max 10 results
-					for i in 0..<min(40, totalItems.count) {
-						let item = totalItems[i]
-						var book = Book()
-						let identifier = item["identifier"].stringValue
-						book.apiSource = source.rawValue
-						book.id = identifier
-						book.title = item["title"].stringValue
-						book.authors = item["creator"].stringValue
-						book.publisher = item["creator"].stringValue
-						book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
-						book.about = String(item["description"].stringValue.prefix(2500))
-						book.language = item["language"].stringValue
-						book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
-						book.categories = item["collection"].arrayValue[0].stringValue
-
-						books.append(book)
+							books.append(book)
+						}
+					case .failure:
+						print("Archive.org: BAD request!")
 					}
 					self.dispatchGroup.leave()
 				}

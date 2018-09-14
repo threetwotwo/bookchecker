@@ -127,6 +127,14 @@ class DetailViewController: UIViewController {
 		updateUI()
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		if let savedBook = savedBook {
+			try! Realm().write {
+				savedBook.lastOpened = Date()
+			}
+		}
+	}
+
 	//MARK: - UI
 	fileprivate func updateButtons() {
 		if book.readerLink != "" {
@@ -188,7 +196,6 @@ class DetailViewController: UIViewController {
 		categoryLabel.text =  book.categories
 		let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
 		coverImage.sd_setImage(with: url) { (image, _, _, _) in
-			print(image?.size)
 			self.adjustImageHeight()
 			self.backgroundImage.image = image
 			self.book.image = UIImagePNGRepresentation(image ?? UIImage())

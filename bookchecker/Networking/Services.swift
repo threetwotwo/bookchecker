@@ -25,11 +25,12 @@ class Services {
 		do {
 			names = try FileManager.default.contentsOfDirectory(atPath: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path)
 		} catch {
-			error.localizedDescription
+			print(error.localizedDescription)
 		}
 		return names
 	}
 
+	//Index is needed to organize feed
 	static func createSubjectQueriesWithIndex(queries: Categories...) -> [Int : Categories] {
 		var results: [Int : Categories] = [:]
 		for i in 0..<queries.count {
@@ -215,7 +216,6 @@ class Services {
 
 				return (fileURL, [.removePreviousFile])
 			}
-//			let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
 
 			if let resumeData = resumeData {
 				request = Alamofire.download(resumingWith: resumeData, to: destination)

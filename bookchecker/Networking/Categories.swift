@@ -9,6 +9,7 @@
 import Foundation
 
 enum Categories {
+	case savedCollection
 	case fiction
 	case romance
 	case historicalFiction
@@ -46,6 +47,8 @@ enum Categories {
 			return "Business & Economics / Decision-Making & Problem Solving"
 		case .mystery:
 			return "Fiction / Mystery & Detective / General"
+		case .savedCollection:
+			return ""
 		}
 	}
 
@@ -73,6 +76,8 @@ enum Categories {
 			return "Business"
 		case .mystery:
 			return "Mystery"
+		case .savedCollection:
+			return "Continue Reading"
 		}
 	}
 }

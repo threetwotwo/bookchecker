@@ -8,32 +8,53 @@
 
 import UIKit
 import SDWebImage
+import RealmSwift
 
 class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 	var networkManager: NetworkManager!
-	let queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .fantasy)
-
+	let queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .fantasy)
+	var savedBooks: Results<RealmBook>?
 	var booksArray: [Int : [Book]] = [ : ]
     var storedOffsets = [Int: CGFloat]()
 
 	//MARK: - Life Cycle
-    override func viewDidLoad() {
+	fileprivate func fetchBooks(tillSectionIndex index: Int) {
+		savedBooks = DBManager.shared.getBooks().sorted(byKeyPath: "lastOpened", ascending: false)
+		print(savedBooks?.count)
+		for i in 0..<index {
+			if i == 0 {
+				var books = [Book]()
+				for savedBook in savedBooks! {
+					books.append(Book(realmBook: savedBook))
+					booksArray[i] = books
+					print(booksArray[i]?.count)
+					tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+				}
+			} else {
+				Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(queries[i]!.parameterValue())\"") { (books) in
+					self.booksArray[i] = books
+					self.tableView.reloadRows(at: [IndexPath(row: 0, section: i)], with: .automatic)
+				}
+			}
+		}
+	}
+
+	override func viewDidLoad() {
         super.viewDidLoad()
 		networkManager = NetworkManager()
 		Navbar.addImage(to: self)
-		for i in 0..<queries.count {
-			Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(queries[i]!.parameterValue())\"") { (books) in
-				self.booksArray[i] = books
-				self.tableView.reloadData()
-			}
-		}
-		
+		fetchBooks(tillSectionIndex: queries.count)
     }
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(true)
+		fetchBooks(tillSectionIndex: 1)
+	}
 
 	//MARK: - UITableViewDataSource
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return queries.count
+		return (savedBooks?.isEmpty)! ? queries.count : queries.count
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,6 +63,22 @@ class FeedTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return queries[section]?.headerDescription() ?? "books"
+	}
+
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		if section == 0 && (savedBooks?.isEmpty)!{
+			return 0
+		} else {
+			return tableView.sectionHeaderHeight
+		}
+	}
+
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		if indexPath.section == 0 && (savedBooks?.isEmpty)!{
+			return 0
+		} else {
+			return tableView.rowHeight
+		}
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

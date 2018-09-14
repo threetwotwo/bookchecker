@@ -17,7 +17,7 @@ class DBManager {
 		realm = try! Realm()
 	}
 
-	func getBooks() ->   Results<RealmBook> {
+	func getBooks() -> Results<RealmBook> {
 		let results: Results<RealmBook> =   realm.objects(RealmBook.self)
 		return results
 	}

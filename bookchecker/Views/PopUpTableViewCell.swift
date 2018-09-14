@@ -13,6 +13,8 @@ class PopUpTableViewCell: UITableViewCell {
 	@IBOutlet weak var filenameLabel: UILabel!
 	@IBOutlet weak var progressBar: UIProgressView!
 	@IBOutlet weak var downloadIcon: UIImageView!
+
+	var fileURL: URL?
 	
     override func awakeFromNib() {
         super.awakeFromNib()

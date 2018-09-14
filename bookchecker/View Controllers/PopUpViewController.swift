@@ -71,7 +71,7 @@ class PopUpViewController: UIViewController {
 //MARK: - UITableViewDataSource
 extension PopUpViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return "Select file to open"
+		return fileNames.isEmpty ? "No files available" : "Select file to open"
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,38 +122,47 @@ extension PopUpViewController: UITableViewDataSource {
 extension PopUpViewController: UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		//Archive.org - download url
-		let downloadURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
-		print("fileURL: - \(downloadURL)")
-		//Encoding for whitespace
-		let encodedDownloadURL = downloadURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-
 		let cell = tableView.cellForRow(at: indexPath) as! PopUpTableViewCell
-		showProgressBar(for: cell)
-
-		guard let encodedURL = encodedDownloadURL else {return}
 		guard let encodedFileName = getEncodedFileName(from: fileNames[indexPath.row]) else {
 			print("Cannot encode file name")
 			return
 		}
-		print("Encoded file name: - \(encodedFileName)")
-		Services.downloadManager().downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
-			cell.progressBar.progress = progress
-		}) { (fileURL) in
-			print(fileURL)
-			self.hideProgressBar(for: cell)
-			self.diskFileNames = Services.getfileNamesFromDisk()
-			self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
+		if diskFileNames.contains(encodedFileName){
+			let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(encodedFileName)
+			print("File Name: \(encodedFileName)")
+
+			print("File URL: \(fileURL)")
 			self.docController = UIDocumentInteractionController(url: fileURL)
 			let url = URL(string:"itms-books:");
 			if UIApplication.shared.canOpenURL(url!) {
-			self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
-			print("iBooks is installed")
+				self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
+				print("iBooks is installed")
 			} else {
-			Alert.createAlert(self, title: "iBooks is not installed", message: "Download iBooks from the App Store")
-			print("iBooks is not installed")
+				Alert.createAlert(self, title: "iBooks is not installed", message: "Download iBooks from the App Store")
+				print("iBooks is not installed")
+			}
+		} else {
+			//Archive.org - download url
+			let downloadURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
+			print("fileURL: - \(downloadURL)")
+			//Encoding for whitespace
+			let encodedDownloadURL = downloadURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+			showProgressBar(for: cell)
+
+			guard let encodedURL = encodedDownloadURL else {return}
+
+			print("Encoded file name: - \(encodedFileName)")
+			Services.downloadManager().downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
+				cell.progressBar.progress = progress
+			}) { (fileURL) in
+				print(fileURL)
+				self.hideProgressBar(for: cell)
+				//update file names in disk
+				self.diskFileNames = Services.getfileNamesFromDisk()
+				self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
 			}
 		}
+		popupTableView.deselectRow(at: indexPath, animated: true)
 	}
-
 }

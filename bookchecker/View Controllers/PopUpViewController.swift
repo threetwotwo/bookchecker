@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-
+import SwiftMessages
 
 class PopUpViewController: UIViewController {
 
@@ -127,6 +127,7 @@ extension PopUpViewController: UITableViewDelegate {
 			print("Cannot encode file name")
 			return
 		}
+		//Open file if it already exists
 		if diskFileNames.contains(encodedFileName){
 			let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(encodedFileName)
 			print("File Name: \(encodedFileName)")
@@ -141,6 +142,7 @@ extension PopUpViewController: UITableViewDelegate {
 				Alert.createAlert(self, title: "iBooks is not installed", message: "\nDownload iBooks from the App Store")
 				print("iBooks is not installed")
 			}
+			//Download file if it doesn't exist in disk
 		} else {
 			//Archive.org - download url
 			let downloadURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
@@ -156,7 +158,7 @@ extension PopUpViewController: UITableViewDelegate {
 			Services.downloadManager().downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
 				cell.progressBar.progress = progress
 			}) { (fileURL) in
-				print(fileURL)
+				Alert.showMessage(title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]))
 				self.hideProgressBar(for: cell)
 				//update file names in disk
 				self.diskFileNames = Services.getfileNamesFromDisk()

@@ -66,6 +66,8 @@ extension FavoriteCollectionViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension FavoriteCollectionViewController: UICollectionViewDelegate {
 	 func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		searchBar.resignFirstResponder()
+		searchBar.text = nil
 		let vc = storyboard?.instantiateViewController(withIdentifier: "DetailVC") as! DetailViewController
 		if let realmBook = books?[indexPath.item] {
 			vc.book = Book(realmBook: realmBook)
@@ -100,7 +102,7 @@ extension FavoriteCollectionViewController: UISearchBarDelegate {
 			return
 		}
 		loadBooks(query: searchBar.text!)
-	}
+	}	
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		searchBar.resignFirstResponder()

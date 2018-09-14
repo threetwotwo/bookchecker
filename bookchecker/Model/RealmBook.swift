@@ -34,7 +34,7 @@ class RealmBook: Object {
 	@objc dynamic var apiSource = ""
 	@objc dynamic var language = ""
 	@objc dynamic var dateAdded: Date = Date()
-	@objc dynamic var lastOpened: Date = Date()
+	@objc dynamic var lastOpened: Date?
 	@objc dynamic var id = ""
 	@objc dynamic var authors = ""
 	@objc dynamic var title = ""

@@ -20,7 +20,7 @@ class FeedTableViewController: UITableViewController {
 
 	//MARK: - Life Cycle
 	fileprivate func fetchBooks(tillSectionIndex index: Int) {
-		savedBooks = DBManager.shared.getBooks().sorted(byKeyPath: "lastOpened", ascending: false)
+		savedBooks = DBManager.shared.getBooks().filter("lastOpened!=nil").sorted(byKeyPath: "lastOpened", ascending: false)
 		print(savedBooks?.count)
 		for i in 0..<index {
 			if i == 0 {

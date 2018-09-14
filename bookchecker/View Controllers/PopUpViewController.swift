@@ -138,7 +138,7 @@ extension PopUpViewController: UITableViewDelegate {
 				self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
 				print("iBooks is installed")
 			} else {
-				Alert.createAlert(self, title: "iBooks is not installed", message: "Download iBooks from the App Store")
+				Alert.createAlert(self, title: "iBooks is not installed", message: "\nDownload iBooks from the App Store")
 				print("iBooks is not installed")
 			}
 		} else {

@@ -108,6 +108,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		guard searchBar.text != "" else {return}
 		searchBar.resignFirstResponder()
 		getBooksFromSearchbar()
 		//Show activity indicator

@@ -12,6 +12,7 @@ class PopUpTableViewCell: UITableViewCell {
 	//MARK: - IBOutlets
 	@IBOutlet weak var filenameLabel: UILabel!
 	@IBOutlet weak var progressBar: UIProgressView!
+	@IBOutlet weak var downloadIcon: UIImageView!
 	
     override func awakeFromNib() {
         super.awakeFromNib()

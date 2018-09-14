@@ -20,6 +20,15 @@ class Services {
 	static let shared = Services()
 	var docController: UIDocumentInteractionController?
 	let dispatchGroup = DispatchGroup()
+	static func getfileNamesFromDisk() -> [String] {
+		var names = [String]()
+		do {
+			names = try FileManager.default.contentsOfDirectory(atPath: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].path)
+		} catch {
+			error.localizedDescription
+		}
+		return names
+	}
 
 	static func createSubjectQueriesWithIndex(queries: Categories...) -> [Int : Categories] {
 		var results: [Int : Categories] = [:]
@@ -196,16 +205,22 @@ class Services {
 
 	class downloadManager {
 		private var resumeData: Data?
-		static let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
 
-		func downloadFile(url: String, progressCompletion: @escaping (Float) -> (), fileURLCompletion: @escaping (URL) -> ()) {
+		func downloadFile(url: String, fileName: String, progressCompletion: @escaping (Float) -> (), fileURLCompletion: @escaping (URL) -> ()) {
 
 			let request: DownloadRequest
+			let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+				let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+				let fileURL = documentsURL.appendingPathComponent(fileName)
+
+				return (fileURL, [.removePreviousFile])
+			}
+//			let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
 
 			if let resumeData = resumeData {
-				request = Alamofire.download(resumingWith: resumeData, to: Services.downloadManager.destination)
+				request = Alamofire.download(resumingWith: resumeData, to: destination)
 			} else {
-				request = Alamofire.download(url, to: Services.downloadManager.destination)
+				request = Alamofire.download(url, to: destination)
 			}
 
 			request.downloadProgress { (progress) in

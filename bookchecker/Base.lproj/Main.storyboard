@@ -155,26 +155,36 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ze-Ju-a6G">
-                                                                    <rect key="frame" x="8" y="8" width="254" height="27.5"/>
+                                                                    <rect key="frame" x="34" y="8" width="228" height="27.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="fRl-s0-LBc">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download" translatesAutoresizingMaskIntoConstraints="NO" id="diw-8a-sAh">
+                                                                    <rect key="frame" x="8" y="13" width="18" height="18"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="18" id="Drd-tV-2wY"/>
+                                                                        <constraint firstAttribute="height" constant="18" id="y3s-5I-vDb"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fRl-s0-LBc">
                                                                     <rect key="frame" x="18" y="21" width="234" height="2"/>
                                                                 </progressView>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="fRl-s0-LBc" firstAttribute="centerY" secondItem="WQ3-GQ-W9I" secondAttribute="centerY" id="2VY-KD-7dF"/>
+                                                                <constraint firstItem="diw-8a-sAh" firstAttribute="leading" secondItem="WQ3-GQ-W9I" secondAttribute="leading" constant="8" id="2t7-R2-ptZ"/>
                                                                 <constraint firstAttribute="trailing" secondItem="fRl-s0-LBc" secondAttribute="trailing" constant="18" id="BZO-5a-ju2"/>
                                                                 <constraint firstItem="fRl-s0-LBc" firstAttribute="leading" secondItem="WQ3-GQ-W9I" secondAttribute="leading" constant="18" id="MN0-cv-cAw"/>
+                                                                <constraint firstItem="diw-8a-sAh" firstAttribute="centerY" secondItem="WQ3-GQ-W9I" secondAttribute="centerY" id="PeH-A4-Gfn"/>
                                                                 <constraint firstItem="4Ze-Ju-a6G" firstAttribute="top" secondItem="WQ3-GQ-W9I" secondAttribute="topMargin" id="YDl-Zq-F8A"/>
                                                                 <constraint firstItem="4Ze-Ju-a6G" firstAttribute="bottom" secondItem="WQ3-GQ-W9I" secondAttribute="bottomMargin" id="nUo-kl-4xl"/>
                                                                 <constraint firstAttribute="trailingMargin" secondItem="4Ze-Ju-a6G" secondAttribute="trailing" id="pFI-C5-olF"/>
-                                                                <constraint firstItem="4Ze-Ju-a6G" firstAttribute="leading" secondItem="WQ3-GQ-W9I" secondAttribute="leadingMargin" id="xpR-7y-7OT"/>
+                                                                <constraint firstItem="4Ze-Ju-a6G" firstAttribute="leading" secondItem="diw-8a-sAh" secondAttribute="trailing" constant="8" id="viH-kK-Bso"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="downloadIcon" destination="diw-8a-sAh" id="AHV-ib-8cC"/>
                                                             <outlet property="filenameLabel" destination="4Ze-Ju-a6G" id="EMy-Qg-ynv"/>
                                                             <outlet property="progressBar" destination="fRl-s0-LBc" id="Kye-FY-A9a"/>
                                                         </connections>
@@ -1022,6 +1032,7 @@
     <resources>
         <image name="baseline_favorite_border_white_36pt_1x" width="36" height="36"/>
         <image name="cover_placeholder" width="171" height="256"/>
+        <image name="download" width="50" height="50"/>
         <image name="heart-7" width="30" height="30"/>
         <image name="home-7" width="30" height="30"/>
         <image name="search-7" width="30" height="30"/>

@@ -29,8 +29,18 @@ class SearchTableViewController: UIViewController {
 		setUpSearchbar()
 		searchTableView.tableFooterView = UIView()
 		Navbar.addImage(to: self)
-		tabBarController?.delegate = self
     }
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(true)
+		tabBarController?.delegate = self
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(true)
+		tabBarController?.delegate = nil
+		contentOffset = searchTableView.contentOffset
+	}
 }
 
 //MARK: - UITableViewDelegate
@@ -46,10 +56,6 @@ extension SearchTableViewController: UITableViewDelegate {
 
 // MARK: - UITableViewDataSource
 extension SearchTableViewController: UITableViewDataSource {
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(true)
-		contentOffset = searchTableView.contentOffset
-	}
 
 	 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if books.count == 0 {

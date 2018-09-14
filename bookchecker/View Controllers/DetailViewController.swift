@@ -74,6 +74,12 @@ class DetailViewController: UIViewController {
 			vc.fileNames = book.downloadLinks
 			self.present(vc, animated: true)
 		}
+
+		if let savedBook = savedBook {
+			try! Realm().write {
+				savedBook.lastOpened = Date()
+			}
+		}
 	}
 
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
@@ -127,13 +133,13 @@ class DetailViewController: UIViewController {
 		updateUI()
 	}
 
-	override func viewWillDisappear(_ animated: Bool) {
-		if let savedBook = savedBook {
-			try! Realm().write {
-				savedBook.lastOpened = Date()
-			}
-		}
-	}
+//	override func viewWillDisappear(_ animated: Bool) {
+//		if let savedBook = savedBook {
+//			try! Realm().write {
+//				savedBook.lastOpened = Date()
+//			}
+//		}
+//	}
 
 	//MARK: - UI
 	fileprivate func updateButtons() {

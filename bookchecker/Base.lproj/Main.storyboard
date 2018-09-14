@@ -16,70 +16,89 @@
         <scene sceneID="Iga-l5-kSg">
             <objects>
                 <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="hMG-lO-OjQ" customClass="FeedTableViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="241" estimatedRowHeight="241" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" id="3bF-V5-y0h">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="195" estimatedRowHeight="195" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" id="3bF-V5-y0h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedCell" id="OxC-dd-sjM" customClass="FeedTableViewCell" customModule="bookchecker">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="241"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="195"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OxC-dd-sjM" id="zUm-oQ-9Au">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="241"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OxC-dd-sjM" id="zUm-oQ-9Au">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UNf-pK-oMQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="241"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="195"/>
                                             <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="HLt-Tg-jnS">
-                                                <size key="itemSize" width="150" height="225"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="HLt-Tg-jnS">
+                                                <size key="itemSize" width="130" height="195"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </collectionViewFlowLayout>
                                             <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="Rca-ZO-WV0" customClass="FeedCollectionViewCell" customModule="bookchecker" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="8" width="150" height="225"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="FeedCollectionCell" id="y8h-p4-b7h" customClass="FeedCollectionViewCell" customModule="bookchecker" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="195"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="225"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="130" height="195"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="csb-xc-j9Q" customClass="DesignableImage" customModule="bookchecker" customModuleProvider="target">
-                                                                <rect key="frame" x="16" y="0.0" width="134" height="225"/>
-                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUG-aY-UEg">
+                                                                <rect key="frame" x="0.0" y="0.0" width="130" height="195"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Abb-PT-UK6">
+                                                                        <rect key="frame" x="8" y="8" width="114" height="179"/>
+                                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                                <real key="value" value="0.0"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="Abb-PT-UK6" firstAttribute="top" secondItem="oUG-aY-UEg" secondAttribute="top" constant="8" id="SXe-m0-x5Q"/>
+                                                                    <constraint firstItem="Abb-PT-UK6" firstAttribute="leading" secondItem="oUG-aY-UEg" secondAttribute="leading" constant="8" id="ckA-pz-oX9"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="Abb-PT-UK6" secondAttribute="trailing" constant="8" id="fbg-bd-Bao"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="Abb-PT-UK6" secondAttribute="bottom" constant="8" id="uOE-Wq-oiL"/>
+                                                                </constraints>
                                                                 <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
-                                                                        <size key="value" width="0.0" height="4"/>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                                        <real key="value" value="4"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                                         <real key="value" value="1"/>
                                                                     </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                                        <real key="value" value="2"/>
+                                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                                        <size key="value" width="2" height="2"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
-                                                            </imageView>
+                                                            </view>
                                                         </subviews>
                                                     </view>
                                                     <constraints>
-                                                        <constraint firstItem="csb-xc-j9Q" firstAttribute="leading" secondItem="Rca-ZO-WV0" secondAttribute="leading" constant="16" id="JEe-4v-taA"/>
-                                                        <constraint firstAttribute="trailing" secondItem="csb-xc-j9Q" secondAttribute="trailing" id="NDA-DP-oHr"/>
-                                                        <constraint firstItem="csb-xc-j9Q" firstAttribute="top" secondItem="Rca-ZO-WV0" secondAttribute="top" id="edU-Z6-QcJ"/>
-                                                        <constraint firstAttribute="bottom" secondItem="csb-xc-j9Q" secondAttribute="bottom" id="grX-P0-WXY"/>
+                                                        <constraint firstAttribute="bottom" secondItem="oUG-aY-UEg" secondAttribute="bottom" id="Nju-EW-BQ7"/>
+                                                        <constraint firstItem="oUG-aY-UEg" firstAttribute="top" secondItem="y8h-p4-b7h" secondAttribute="top" id="UGh-5F-xyj"/>
+                                                        <constraint firstAttribute="trailing" secondItem="oUG-aY-UEg" secondAttribute="trailing" id="c7E-eh-G4g"/>
+                                                        <constraint firstItem="oUG-aY-UEg" firstAttribute="leading" secondItem="y8h-p4-b7h" secondAttribute="leading" id="rBg-6F-5V8"/>
                                                     </constraints>
-                                                    <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                                     <connections>
-                                                        <outlet property="coverImage" destination="csb-xc-j9Q" id="9u0-YB-ynH"/>
+                                                        <outlet property="coverImage" destination="Abb-PT-UK6" id="8wN-Yf-eoA"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
                                         </collectionView>
                                     </subviews>
+                                    <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="UNf-pK-oMQ" secondAttribute="bottom" id="8iv-1Z-hZJ"/>
                                         <constraint firstItem="UNf-pK-oMQ" firstAttribute="leading" secondItem="zUm-oQ-9Au" secondAttribute="leading" id="MCp-7H-0E9"/>
@@ -87,7 +106,7 @@
                                         <constraint firstItem="UNf-pK-oMQ" firstAttribute="top" secondItem="zUm-oQ-9Au" secondAttribute="top" id="nRp-RH-UCG"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>

@@ -69,7 +69,7 @@ extension FeedTableViewController: UICollectionViewDataSource {
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! FeedCollectionViewCell
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCollectionCell", for: indexPath) as! FeedCollectionViewCell
 		cell.coverImage.image = nil
 		if let book = booksArray[collectionView.tag]?[indexPath.row] {
 			let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)

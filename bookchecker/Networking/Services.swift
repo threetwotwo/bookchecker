@@ -15,6 +15,8 @@ class Services {
 	static let archiveURL = ""
 	static let archiveMetadataURL = "https://archive.org/metadata"
 	static let archiveDownloadURL = "https://archive.org/download"
+	static var googleBooks: [JSON] = []
+	static var archiveBooks: [JSON] = []
 
 
 	static let shared = Services()
@@ -40,6 +42,67 @@ class Services {
 		return results
 	}
 
+	fileprivate func extractBooks(apiSource: APISource, from totalItems: [JSON]) -> [Book]{
+		var books: [Book] = []
+		let index = min(40, totalItems.count)
+
+		switch apiSource {
+		case .google:
+			var googleBooks: [Book] = []
+			for i in 0..<index {
+				let item = totalItems[i]
+				let volumeInfo = item["volumeInfo"]
+
+				var book = Book()
+				book.apiSource = apiSource.rawValue
+				book.language = volumeInfo["language"].stringValue
+				book.id = item["id"].stringValue
+				book.title = volumeInfo["title"].stringValue
+				book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
+				book.pageCount = volumeInfo["pageCount"].stringValue
+				book.about = String(volumeInfo["description"].stringValue.prefix(2500))
+				book.publisher = volumeInfo["publisher"].stringValue
+				book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
+				book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
+				book.averageRating = volumeInfo["averageRating"].stringValue
+				book.ratingsCount = volumeInfo["ratingsCount"].stringValue
+				book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
+				book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
+				book.infoLink = volumeInfo["infoLink"].stringValue
+
+				googleBooks.append(book)
+			}
+			books.append(contentsOf: googleBooks)
+			Services.googleBooks = Array(totalItems.suffix(from: index))
+			print("googleBooks: \(Services.googleBooks.count)")
+		case .archive:
+
+			var archiveBooks: [Book] = []
+
+			//return at max 10 results
+			for i in 0..<index {
+				let item = totalItems[i]
+				var book = Book()
+				let identifier = item["identifier"].stringValue
+				book.apiSource = apiSource.rawValue
+				book.id = identifier
+				book.title = item["title"].stringValue
+				book.authors = item["creator"].stringValue
+				book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
+				book.about = String(item["description"].stringValue.prefix(2500))
+				book.language = item["language"].stringValue
+				book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
+				book.categories = item["collection"].arrayValue[0].stringValue
+
+				archiveBooks.append(book)
+			}
+			books.append(contentsOf: archiveBooks)
+			Services.archiveBooks = Array(totalItems.suffix(from: index))
+			print("archiveBooks: \(Services.archiveBooks.count)")
+		}
+		return books
+	}
+
 	func getBooks(from apiSources: APISource..., searchParameter: String, completion: @escaping ([Book]) -> ()) {
 		var books: [Book] = []
 		for source in apiSources {
@@ -54,7 +117,7 @@ class Services {
 				//return english books
 				parameters["langRestrict"] = "en"
 				//number of books
-				parameters["maxResults"] = "5"
+				parameters["maxResults"] = "10"
 				parameters["download"] = "epub"
 				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
@@ -71,28 +134,7 @@ class Services {
 						}
 						let bookJSON = JSON(json)
 						let totalItems = bookJSON["items"].arrayValue
-						for item in totalItems {
-							let volumeInfo = item["volumeInfo"]
-
-							var book = Book()
-							book.apiSource = source.rawValue
-							book.language = volumeInfo["language"].stringValue
-							book.id = item["id"].stringValue
-							book.title = volumeInfo["title"].stringValue
-							book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-							book.pageCount = volumeInfo["pageCount"].stringValue
-							book.about = String(volumeInfo["description"].stringValue.prefix(2500))
-							book.publisher = volumeInfo["publisher"].stringValue
-							book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
-							book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-							book.averageRating = volumeInfo["averageRating"].stringValue
-							book.ratingsCount = volumeInfo["ratingsCount"].stringValue
-							book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
-							book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
-							book.infoLink = volumeInfo["infoLink"].stringValue
-
-							books.append(book)
-						}
+						books.append(contentsOf: self.extractBooks(apiSource: source, from: totalItems))
 					case .failure:
 						print("GBS: BAD Request!")
 					}
@@ -117,23 +159,7 @@ class Services {
 						}
 						let bookJSON = JSON(json)
 						let totalItems = bookJSON["items"].arrayValue
-						//return at max 10 results
-						for i in 0..<min(40, totalItems.count) {
-							let item = totalItems[i]
-							var book = Book()
-							let identifier = item["identifier"].stringValue
-							book.apiSource = source.rawValue
-							book.id = identifier
-							book.title = item["title"].stringValue
-							book.authors = item["creator"].stringValue
-							book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
-							book.about = String(item["description"].stringValue.prefix(2500))
-							book.language = item["language"].stringValue
-							book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
-							book.categories = item["collection"].arrayValue[0].stringValue
-
-							books.append(book)
-						}
+						books.append(contentsOf: self.extractBooks(apiSource: source, from: totalItems))
 					case .failure:
 						print("Archive.org: BAD request!")
 					}

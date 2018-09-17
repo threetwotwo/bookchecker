@@ -86,11 +86,11 @@ class DetailViewController: UIViewController {
 
 		if let savedBook = savedBook {
 			DBManager.shared.delete(object: savedBook)
-			Alert.showMessage(title: "Book removed from favorites", body: nil)
+			Alert.showMessage(theme: .warning, title: "Book removed from favorites", body: nil, displayDuration: 1)
 //			Alert.createAlert(self, title: "Book removed from favorites", message: nil)
 		} else {
 			saveToFavorites(book: book)
-			Alert.showMessage(title: "Book saved!", body: nil)
+			Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
 //			Alert.createAlert(self, title: "Book added!", message: nil)
 		}
 		loadSavedBook()

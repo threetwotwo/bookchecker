@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class SearchTableViewController: UIViewController {
+class SearchTableViewController: UIViewController, UIScrollViewDelegate {
 
 	//MARK: - IBOutlets
 	@IBOutlet weak var searchBar: UISearchBar!
@@ -22,6 +22,8 @@ class SearchTableViewController: UIViewController {
 	var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 	var searchImage: UIImage?
 	var imageManager = SDWebImageManager.shared()
+	var fetchMore = false
+
 
 	//MARK: - Life cycle
 	override func viewDidLoad() {
@@ -29,6 +31,7 @@ class SearchTableViewController: UIViewController {
 		setUpSearchbar()
 		searchTableView.tableFooterView = UIView()
 		Navbar.addImage(to: self)
+		searchTableView.delegate = self
     }
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +44,22 @@ class SearchTableViewController: UIViewController {
 		tabBarController?.delegate = nil
 		contentOffset = searchTableView.contentOffset
 	}
+
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let offsetY = searchTableView.contentOffset.y
+		let contentHeight = searchTableView.contentSize.height
+		if offsetY > contentHeight - scrollView.frame.height {
+			if !fetchMore {
+				beginBatchFetch()
+			}
+		}
+	}
+
+	func beginBatchFetch() {
+		fetchMore = true
+		print("Begin batch fetch")
+
+	}
 }
 
 //MARK: - UITableViewDelegate
@@ -52,6 +71,7 @@ extension SearchTableViewController: UITableViewDelegate {
 		navigationController?.pushViewController(vc, animated: true)
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
+
 }
 
 // MARK: - UITableViewDataSource

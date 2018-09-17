@@ -175,6 +175,7 @@
 		4E99956721290E13007A7E09 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4E892BB5212FFE4C00FBB739 /* Alert.swift */,
 				4E695BC82121CF6B00CFE856 /* URL + components.swift */,
 				4E8CCEBE21491850003EE9D0 /* UITableView + EmptyView.swift */,
 				4E40280F2142673700A8223C /* GradientView.swift */,
@@ -185,7 +186,6 @@
 				4ED986952137950B0025C766 /* UIView + IBDesignable.swift */,
 				4E99956521290DF9007A7E09 /* UIColor + hex.swift */,
 				4EA08772212AC8F60033A1B2 /* Navbar.swift */,
-				4E892BB5212FFE4C00FBB739 /* Alert.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

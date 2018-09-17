@@ -17,18 +17,17 @@ class FeedTableViewController: UITableViewController {
 	var savedBooks: Results<RealmBook>?
 	var booksArray: [Int : [Book]] = [ : ]
     var storedOffsets = [Int: CGFloat]()
+	var fetchMore = false
 
 	//MARK: - Life Cycle
 	fileprivate func fetchBooks(tillSectionIndex index: Int) {
 		savedBooks = DBManager.shared.getBooks().filter("lastOpened!=nil").sorted(byKeyPath: "lastOpened", ascending: false)
-		print(savedBooks?.count)
 		for i in 0..<index {
 			if i == 0 {
 				var books = [Book]()
 				for savedBook in savedBooks! {
 					books.append(Book(realmBook: savedBook))
 					booksArray[i] = books
-					print(booksArray[i]?.count)
 					tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
 				}
 			} else {
@@ -45,6 +44,7 @@ class FeedTableViewController: UITableViewController {
 		networkManager = NetworkManager()
 		Navbar.addImage(to: self)
 		fetchBooks(tillSectionIndex: queries.count)
+		tableView.prefetchDataSource = self
     }
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -96,6 +96,28 @@ class FeedTableViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let cell = cell as! FeedTableViewCell
 		storedOffsets[indexPath.section] = cell.collectionViewOffset
+	}
+
+	override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let offsetY = tableView.contentOffset.y
+		let contentHeight = tableView.contentSize.height
+		if offsetY > contentHeight - scrollView.frame.height {
+			if !fetchMore {
+				beginBatchFetch()
+			}
+		}
+	}
+
+	func beginBatchFetch() {
+		fetchMore = true
+		print("Begin batch fetch")
+
+	}
+}
+
+extension FeedTableViewController: UITableViewDataSourcePrefetching {
+	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+		print("Prefetch: \(indexPaths)")
 	}
 }
 

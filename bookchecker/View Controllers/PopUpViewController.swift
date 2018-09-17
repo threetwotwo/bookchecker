@@ -158,7 +158,7 @@ extension PopUpViewController: UITableViewDelegate {
 			Services.downloadManager().downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
 				cell.progressBar.progress = progress
 			}) { (fileURL) in
-				Alert.showMessage(title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]))
+				Alert.showMessage(theme: .success, title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]), displayDuration: 5)
 				self.hideProgressBar(for: cell)
 				//update file names in disk
 				self.diskFileNames = Services.getfileNamesFromDisk()

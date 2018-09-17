@@ -56,9 +56,21 @@ class SearchTableViewController: UIViewController, UIScrollViewDelegate {
 	}
 
 	func beginBatchFetch() {
-		fetchMore = true
-		print("Begin batch fetch")
-
+//		fetchMore = true
+//		print("Begin batch fetch")
+//		var additionalBooks: [Book] = []
+//		if (Services.cachedBooks[.archive]?.isEmpty)! {
+//			print("No more books to fetch")
+//			return
+//		} else {
+//			additionalBooks = Services.shared.extractBooks(from: Services.cachedBooks, searchParameter: searchBar.text!)
+//			books += additionalBooks
+//
+//			let indexPaths = (books.count - additionalBooks.count ..< books.count)
+//				.map { IndexPath(row: $0, section: 0) }
+//			searchTableView.insertRows(at: indexPaths, with: .bottom)
+//			fetchMore = false
+//		}
 	}
 }
 
@@ -128,6 +140,7 @@ extension SearchTableViewController: UISearchBarDelegate {
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		Services.cachedBooks.removeAll()
 		guard searchBar.text != "" else {return}
 		searchBar.resignFirstResponder()
 		getBooksFromSearchbar()

@@ -15,9 +15,7 @@ class Services {
 	static let archiveURL = ""
 	static let archiveMetadataURL = "https://archive.org/metadata"
 	static let archiveDownloadURL = "https://archive.org/download"
-	static var googleBooks: [JSON] = []
-	static var archiveBooks: [JSON] = []
-
+	static var cachedBooks: [APISource:[JSON]] = [:]
 
 	static let shared = Services()
 	var docController: UIDocumentInteractionController?
@@ -42,65 +40,89 @@ class Services {
 		return results
 	}
 
-	fileprivate func extractBooks(apiSource: APISource, from totalItems: [JSON]) -> [Book]{
+	func extractBooks(from totalItems: [APISource:[JSON]], searchParameter: String) -> [Book]{
 		var books: [Book] = []
-		let index = min(40, totalItems.count)
 
-		switch apiSource {
-		case .google:
-			var googleBooks: [Book] = []
-			for i in 0..<index {
-				let item = totalItems[i]
-				let volumeInfo = item["volumeInfo"]
+		for (key,value) in totalItems {
+			let index = min(100, totalItems[key]!.count)
+			switch key {
+			case .google:
+				var googleBooks: [Book] = []
+				for i in 0..<index {
+					guard let totalItems = totalItems[key] else {return books}
+					let item = totalItems[i]
+					let volumeInfo = item["volumeInfo"]
 
-				var book = Book()
-				book.apiSource = apiSource.rawValue
-				book.language = volumeInfo["language"].stringValue
-				book.id = item["id"].stringValue
-				book.title = volumeInfo["title"].stringValue
-				book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-				book.pageCount = volumeInfo["pageCount"].stringValue
-				book.about = String(volumeInfo["description"].stringValue.prefix(2500))
-				book.publisher = volumeInfo["publisher"].stringValue
-				book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
-				book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
-				book.averageRating = volumeInfo["averageRating"].stringValue
-				book.ratingsCount = volumeInfo["ratingsCount"].stringValue
-				book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
-				book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
-				book.infoLink = volumeInfo["infoLink"].stringValue
+					var book = Book()
+					book.apiSource = key.rawValue
+					book.language = volumeInfo["language"].stringValue
+					book.id = item["id"].stringValue
+					book.title = volumeInfo["title"].stringValue
+					book.authors = volumeInfo["authors"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
+					book.pageCount = volumeInfo["pageCount"].stringValue
+					book.about = String(volumeInfo["description"].stringValue.prefix(2500))
+					book.publisher = volumeInfo["publisher"].stringValue
+					book.publishedDate = String(volumeInfo["publishedDate"].stringValue.prefix(4))
+					book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
+					book.averageRating = volumeInfo["averageRating"].stringValue
+					book.ratingsCount = volumeInfo["ratingsCount"].stringValue
+					book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
+					book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
+					book.infoLink = volumeInfo["infoLink"].stringValue
 
-				googleBooks.append(book)
+					googleBooks.append(book)
+				}
+				books.append(contentsOf: googleBooks)
+				Services.cachedBooks[.google] = Array(totalItems[key]!.suffix(from: index))
+
+			case .archive:
+				var archiveBooks: [Book] = []
+
+				//return at max 10 results
+				for i in 0..<index {
+					guard let totalItems = totalItems[key] else {return books}
+					let item = totalItems[i]
+					var book = Book()
+					let identifier = item["identifier"].stringValue
+					book.apiSource = key.rawValue
+					book.id = identifier
+					book.title = item["title"].stringValue
+					book.authors = item["creator"].stringValue
+					book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
+					book.about = String(item["description"].stringValue.prefix(2500))
+					book.language = item["language"].stringValue
+					book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
+					book.categories = item["collection"].arrayValue[0].stringValue
+
+					archiveBooks.append(book)
+				}
+				books.append(contentsOf: archiveBooks)
+				Services.cachedBooks[.archive] = Array(totalItems[key]!.suffix(from: index))
 			}
-			books.append(contentsOf: googleBooks)
-			Services.googleBooks = Array(totalItems.suffix(from: index))
-			print("googleBooks: \(Services.googleBooks.count)")
-		case .archive:
-
-			var archiveBooks: [Book] = []
-
-			//return at max 10 results
-			for i in 0..<index {
-				let item = totalItems[i]
-				var book = Book()
-				let identifier = item["identifier"].stringValue
-				book.apiSource = apiSource.rawValue
-				book.id = identifier
-				book.title = item["title"].stringValue
-				book.authors = item["creator"].stringValue
-				book.publishedDate = String(item["publicdate"].stringValue.prefix(4))
-				book.about = String(item["description"].stringValue.prefix(2500))
-				book.language = item["language"].stringValue
-				book.infoLink = "https://archive.org/details/" + item["identifier"].stringValue
-				book.categories = item["collection"].arrayValue[0].stringValue
-
-				archiveBooks.append(book)
-			}
-			books.append(contentsOf: archiveBooks)
-			Services.archiveBooks = Array(totalItems.suffix(from: index))
-			print("archiveBooks: \(Services.archiveBooks.count)")
 		}
 		return books
+	}
+
+	static func sortedBooks(_ books: [Book], by term: String) -> [Book] {
+		return books.sorted {
+			let title1 = $0.title
+			let title2 = $1.title
+
+			let key = term.lowercased()
+
+			if title1 == key && title2 != key {
+				return true
+			} else if title1.hasPrefix(key) && !title2.hasPrefix(key)  {
+				return true
+			} else if title1.hasPrefix(key) && title2.hasPrefix(key) && title1.count < title2.count  {
+				return true
+			} else if title1.contains(key) && !title2.contains(key) {
+				return true
+			} else if title1.contains(key) && title2.contains(key) && title1.count < title2.count {
+				return true
+			}
+			return false
+		}
 	}
 
 	func getBooks(from apiSources: APISource..., searchParameter: String, completion: @escaping ([Book]) -> ()) {
@@ -117,7 +139,7 @@ class Services {
 				//return english books
 				parameters["langRestrict"] = "en"
 				//number of books
-				parameters["maxResults"] = "10"
+				parameters["maxResults"] = "30"
 				parameters["download"] = "epub"
 				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
@@ -134,7 +156,7 @@ class Services {
 						}
 						let bookJSON = JSON(json)
 						let totalItems = bookJSON["items"].arrayValue
-						books.append(contentsOf: self.extractBooks(apiSource: source, from: totalItems))
+						books.append(contentsOf: self.extractBooks(from: [source:totalItems], searchParameter: searchParameter))
 					case .failure:
 						print("GBS: BAD Request!")
 					}
@@ -159,7 +181,7 @@ class Services {
 						}
 						let bookJSON = JSON(json)
 						let totalItems = bookJSON["items"].arrayValue
-						books.append(contentsOf: self.extractBooks(apiSource: source, from: totalItems))
+						books.append(contentsOf: self.extractBooks(from: [source:totalItems], searchParameter: searchParameter))
 					case .failure:
 						print("Archive.org: BAD request!")
 					}
@@ -168,25 +190,7 @@ class Services {
 			}
 			dispatchGroup.notify(queue: .main) {
 //				completion(books)
-				completion(books.sorted {
-					let title1 = $0.title
-					let title2 = $1.title
-
-					let key = searchParameter.lowercased()
-
-					if title1 == key && title2 != key {
-						return true
-					} else if title1.hasPrefix(key) && !title2.hasPrefix(key)  {
-						return true
-					} else if title1.hasPrefix(key) && title2.hasPrefix(key) && title1.count < title2.count  {
-						return true
-					} else if title1.contains(key) && !title2.contains(key) {
-						return true
-					} else if title1.contains(key) && title2.contains(key) && title1.count < title2.count {
-						return true
-					}
-					return false
-				})
+				completion(Services.sortedBooks(books, by: searchParameter))
 			}
 		}
 	}

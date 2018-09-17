@@ -13,27 +13,31 @@ import RealmSwift
 class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 	var networkManager: NetworkManager!
-	let queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .fantasy)
+	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .fantasy, .crime, .food, .mystery, .business, .kids, .scifi)
 	var savedBooks: Results<RealmBook>?
 	var booksArray: [Int : [Book]] = [ : ]
     var storedOffsets = [Int: CGFloat]()
+	var collectionTags = Set<Int>()
 	var fetchMore = false
 
 	//MARK: - Life Cycle
-	fileprivate func fetchBooks(tillSectionIndex index: Int) {
+	fileprivate func fetchBooks(fromSectionIndex index: Int) {
 		savedBooks = DBManager.shared.getBooks().filter("lastOpened!=nil").sorted(byKeyPath: "lastOpened", ascending: false)
-		for i in 0..<index {
+		let categoriesToLoad = min(3, queries.count - index)
+		for i in index..<categoriesToLoad + index{
 			if i == 0 {
 				var books = [Book]()
 				for savedBook in savedBooks! {
 					books.append(Book(realmBook: savedBook))
 					booksArray[i] = books
-					tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
 				}
 			} else {
+				let stopIndex = i + index
+				guard !collectionTags.contains(i) else {return}
 				Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(queries[i]!.parameterValue())\"") { (books) in
 					self.booksArray[i] = books
-					self.tableView.reloadRows(at: [IndexPath(row: 0, section: i)], with: .automatic)
+					self.tableView.reloadData()
+					print("Downloaded books for category: \(self.queries[i])!!!!")
 				}
 			}
 		}
@@ -43,18 +47,22 @@ class FeedTableViewController: UITableViewController {
         super.viewDidLoad()
 		networkManager = NetworkManager()
 		Navbar.addImage(to: self)
-		fetchBooks(tillSectionIndex: queries.count)
-		tableView.prefetchDataSource = self
+		fetchBooks(fromSectionIndex: 0)
     }
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
-		fetchBooks(tillSectionIndex: 1)
+		var books = [Book]()
+		for savedBook in savedBooks! {
+			books.append(Book(realmBook: savedBook))
+			booksArray[0] = books
+		}
+		tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
 	}
 
 	//MARK: - UITableViewDataSource
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return (savedBooks?.isEmpty)! ? queries.count : queries.count
+		return booksArray.count
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,6 +95,11 @@ class FeedTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		let lastItem = booksArray.count - 1
+		if indexPath.section == lastItem {
+			fetchBooks(fromSectionIndex: lastItem)
+			print("Begin batch fetch")
+		}
 		let cell = cell as! FeedTableViewCell
 		cell.feedCollection.tag = indexPath.section
 		cell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.section)
@@ -97,33 +110,14 @@ class FeedTableViewController: UITableViewController {
 		let cell = cell as! FeedTableViewCell
 		storedOffsets[indexPath.section] = cell.collectionViewOffset
 	}
-
-	override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		let offsetY = tableView.contentOffset.y
-		let contentHeight = tableView.contentSize.height
-		if offsetY > contentHeight - scrollView.frame.height {
-			if !fetchMore {
-				beginBatchFetch()
-			}
-		}
-	}
-
-	func beginBatchFetch() {
-		fetchMore = true
-		print("Begin batch fetch")
-
-	}
-}
-
-extension FeedTableViewController: UITableViewDataSourcePrefetching {
-	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-		print("Prefetch: \(indexPaths)")
-	}
 }
 
 //MARK: - UICollectionViewDataSource
 extension FeedTableViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		let tag = collectionView.tag
+		collectionTags.insert(tag)
+		print(self.collectionTags)
 		return booksArray[collectionView.tag]?.count ?? 0
 	}
 
@@ -145,7 +139,6 @@ extension FeedTableViewController: UICollectionViewDelegate {
 		if let book = booksArray[collectionView.tag]?[indexPath.item] {
 			vc.book = book
 			navigationController?.pushViewController(vc, animated: true)
-//			vc.tabBarController?.tabBar.isHidden = true
 		}
 	}
 }

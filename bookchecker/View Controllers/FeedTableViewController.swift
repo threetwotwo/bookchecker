@@ -24,7 +24,8 @@ class FeedTableViewController: UITableViewController {
 	fileprivate func fetchBooks(fromSectionIndex index: Int) {
 		savedBooks = DBManager.shared.getBooks().filter("lastOpened!=nil").sorted(byKeyPath: "lastOpened", ascending: false)
 		let categoriesToLoad = min(3, queries.count - index)
-		for i in index..<categoriesToLoad + index{
+		let stopIndex = categoriesToLoad + index
+		for i in index..<stopIndex{
 			if i == 0 {
 				var books = [Book]()
 				for savedBook in savedBooks! {
@@ -32,7 +33,7 @@ class FeedTableViewController: UITableViewController {
 					booksArray[i] = books
 				}
 			} else {
-				let stopIndex = i + index
+				//Dont make the request twice
 				guard !collectionTags.contains(i) else {return}
 				Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(queries[i]!.parameterValue())\"") { (books) in
 					self.booksArray[i] = books

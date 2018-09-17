@@ -166,8 +166,8 @@ class Services {
 				dispatchGroup.enter()
 
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
-				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf) AND (collection:opensource* OR collection:gutenberg OR collection:magazine_rack) AND mediatype:texts"
-				parameters["count"] = "100"
+				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf) AND (collection:opensource* OR collection:gutenberg OR collection:magazine_rack OR collection:mensmagazines OR collection:comics OR collection:no-preview) AND mediatype:texts"
+				parameters["count"] = "300"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					print("ARCHIVE.ORG request: \(response.request)")

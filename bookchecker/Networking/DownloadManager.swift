@@ -11,6 +11,8 @@ import Alamofire
 
 class DownloadManager {
 	private var resumeData: Data?
+	var docController: UIDocumentInteractionController!
+
 	static let shared = DownloadManager()
 
 	func downloadFile(url: String, fileName: String, progressCompletion: @escaping (Float) -> (), fileURLCompletion: @escaping (URL) -> ()) {

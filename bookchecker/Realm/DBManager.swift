@@ -11,6 +11,7 @@ import RealmSwift
 
 class DBManager {
 	private var realm: Realm
+	
 	static let shared = DBManager()
 
 	private init() {

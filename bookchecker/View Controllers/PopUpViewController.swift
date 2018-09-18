@@ -26,7 +26,6 @@ class PopUpViewController: UIViewController {
 	var bookTitle: String?
 	var fileNames: [String]!
 	var diskFileNames: [String] = []
-	var docController: UIDocumentInteractionController!
 
 	//MARK: - Life Cycle
 	override func viewDidLoad() {
@@ -126,19 +125,19 @@ extension PopUpViewController: UITableViewDelegate {
 		print("File Name: \(encodedFileName)")
 
 		print("File URL: \(fileURL)")
-		self.docController = UIDocumentInteractionController(url: fileURL)
+		DownloadManager.shared.docController = UIDocumentInteractionController(url: fileURL)
 		let url = URL(string:"itms-books:");
+		if var topController = UIApplication.shared.keyWindow?.rootViewController {
+			while let presentedViewController = topController.presentedViewController {
+				topController = presentedViewController
+			}
 		if UIApplication.shared.canOpenURL(url!) {
-			self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
+			DownloadManager.shared.docController.presentOpenInMenu(from: .zero, in: topController.view, animated: true)
 			print("iBooks is installed")
 		} else {
-			if var topController = UIApplication.shared.keyWindow?.rootViewController {
-				while let presentedViewController = topController.presentedViewController {
-					topController = presentedViewController
-				}
-				// topController should now be your topmost view controller
-				Alert.createAlert(topController, title: "iBooks is not installed", message: "\nDownload iBooks from the App Store")
-				print("iBooks is not installed")
+			// topController should now be your topmost view controller
+			Alert.createAlert(topController, title: "iBooks is not installed", message: "\nDownload iBooks from the App Store")
+			print("iBooks is not installed")
 			}
 		}
 	}

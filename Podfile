@@ -2,6 +2,7 @@ platform :ios, '10.3'
 
 post_install do |installer|
     installer.pods_project.build_configurations.each do |config|
+      	config.build_settings['SWIFT_VERSION'] = '4.2'
         config.build_settings.delete('CODE_SIGNING_ALLOWED')
         config.build_settings.delete('CODE_SIGNING_REQUIRED')
     end

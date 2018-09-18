@@ -19,7 +19,7 @@ class SearchTableViewController: UIViewController, UIScrollViewDelegate {
 	var books: [Book] = []
 	var timer: Timer?
 	var contentOffset: CGPoint?
-	var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+	var activityIndicator = UIActivityIndicatorView(style: .gray)
 	var searchImage: UIImage?
 	var imageManager = SDWebImageManager.shared()
 	var fetchMore = false
@@ -140,7 +140,6 @@ extension SearchTableViewController: UISearchBarDelegate {
 	}
 
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-		Services.cachedBooks.removeAll()
 		guard searchBar.text != "" else {return}
 		searchBar.resignFirstResponder()
 		getBooksFromSearchbar()

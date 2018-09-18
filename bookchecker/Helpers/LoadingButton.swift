@@ -33,7 +33,7 @@ class LoadingButton: UIButton {
 	private func createActivityIndicator() -> UIActivityIndicatorView {
 		let activityIndicator = UIActivityIndicatorView()
 		activityIndicator.hidesWhenStopped = true
-		activityIndicator.activityIndicatorViewStyle = .white
+		activityIndicator.style = .white
 		return activityIndicator
 	}
 

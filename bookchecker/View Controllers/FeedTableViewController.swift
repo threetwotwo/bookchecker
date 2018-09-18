@@ -30,8 +30,8 @@ class FeedTableViewController: UITableViewController {
 				var books = [Book]()
 				for savedBook in savedBooks! {
 					books.append(Book(realmBook: savedBook))
-					booksArray[i] = books
 				}
+				booksArray[i] = books
 			} else {
 				//Dont make the request twice
 				guard !collectionTags.contains(i) else {return}
@@ -48,6 +48,7 @@ class FeedTableViewController: UITableViewController {
         super.viewDidLoad()
 		networkManager = NetworkManager()
 		Navbar.addImage(to: self)
+
 		fetchBooks(fromSectionIndex: 0)
     }
 

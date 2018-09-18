@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class Services {
 
+	//MARK: - Variables
 	static let baseURL = "https://www.googleapis.com/books/v1/volumes"
 	static let archiveURL = ""
 	static let archiveMetadataURL = "https://archive.org/metadata"
@@ -231,5 +232,10 @@ class Services {
 			break
 		}
 		return URL(string: url)
+	}
+
+	func hasEPUB(book:  Book) -> Bool {
+		
+		return false
 	}
 }

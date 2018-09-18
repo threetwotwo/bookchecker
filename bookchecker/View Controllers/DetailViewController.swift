@@ -87,11 +87,11 @@ class DetailViewController: UIViewController {
 
 		if let savedBook = savedBook {
 			DBManager.shared.delete(object: savedBook)
-			Alert.showMessage(theme: .warning, title: "Book removed from favorites", body: nil, displayDuration: 1, completion: nil)
+			Alert.showMessage(theme: .warning, title: "Book removed from favorites", body: nil, displayDuration: 1)
 //			Alert.createAlert(self, title: "Book removed from favorites", message: nil)
 		} else {
 			saveToFavorites(book: book)
-			Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1, completion: nil)
+			Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
 //			Alert.createAlert(self, title: "Book added!", message: nil)
 		}
 		loadSavedBook()
@@ -112,17 +112,17 @@ class DetailViewController: UIViewController {
     }
 
 	@objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
-		if gesture.direction == UISwipeGestureRecognizerDirection.right {
+		if gesture.direction == UISwipeGestureRecognizer.Direction.right {
 			print("Swipe Right")
 			self.navigationController?.popViewController(animated: true)
 		}
-		else if gesture.direction == UISwipeGestureRecognizerDirection.left {
+		else if gesture.direction == UISwipeGestureRecognizer.Direction.left {
 			print("Swipe Left")
 		}
-		else if gesture.direction == UISwipeGestureRecognizerDirection.up {
+		else if gesture.direction == UISwipeGestureRecognizer.Direction.up {
 			print("Swipe Up")
 		}
-		else if gesture.direction == UISwipeGestureRecognizerDirection.down {
+		else if gesture.direction == UISwipeGestureRecognizer.Direction.down {
 			print("Swipe Down")
 		}
 	}
@@ -131,7 +131,7 @@ class DetailViewController: UIViewController {
 		super.viewWillAppear(true)
 		//center the favorite icon 
 		favoriteButton.imageView?.contentMode = .scaleAspectFit
-		favoriteButton.imageEdgeInsets = UIEdgeInsetsMake(8, 7, 7, 7)
+		favoriteButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 7, bottom: 7, right: 7)
 		adjustImageHeight()
 		updateUI()
 	}
@@ -212,7 +212,7 @@ class DetailViewController: UIViewController {
 		coverImage.sd_setImage(with: url) { (image, _, _, _) in
 			self.adjustImageHeight()
 			self.backgroundImage.image = image
-			self.book.image = UIImagePNGRepresentation(image ?? UIImage())
+			self.book.image = (image ?? UIImage()).pngData()
 			self.view.layoutIfNeeded()
 		}
 	}

@@ -16,7 +16,7 @@ struct Alert {
 		vc.present(ac, animated: true)
 	}
 
-	static func showMessage(theme: Theme, title: String, body: String?, displayDuration: Double = 2, buttonTitle: String = "OK", completion: (()->())? = nil) {
+	static func showMessage(theme: Theme, title: String, body: String?, displayDuration: Double = 2, buttonTitle: String = "OK", completion: @escaping (() -> Void) = { }) {
 		// Instantiate a message view from the provided card view layout. SwiftMessages searches for nib
 		// files in the main bundle first, so you can easily copy them into your project and make changes.
 		let view = MessageView.viewFromNib(layout: .tabView)
@@ -30,7 +30,7 @@ struct Alert {
 		// Set message title, body, and icon. Here, we're overriding the default warning
 		// image with an emoji character.
 		view.configureContent(title: title, body: body, iconImage: nil, iconText: nil, buttonImage: nil, buttonTitle: buttonTitle) { (_) in
-			completion!()
+			completion()
 			SwiftMessages.hide()
 		}
 		// Increase the external margin around the card. In general, the effect of this setting
@@ -38,7 +38,7 @@ struct Alert {
 //		view.layoutMarginAdditions = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
 		// Reduce the corner radius (applicable to layouts featuring rounded corners).
-		(view.backgroundView as? CornerRoundingView)?.cornerRadius = 10
+//		(view.backgroundView as? CornerRoundingView)?.cornerRadius = 10
 
 		var config = SwiftMessages.Config()
 		config.duration = .seconds(seconds: displayDuration)

@@ -36,6 +36,7 @@
 		4EA08773212AC8F60033A1B2 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA08772212AC8F60033A1B2 /* Navbar.swift */; };
 		4EA35ABA212A705600B7DC3F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA35AB9212A705600B7DC3F /* NetworkManager.swift */; };
 		4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABBAE62128180000657D33 /* DetailViewController.swift */; };
+		4EAEB04821512E460059E9B4 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEB04721512E460059E9B4 /* DownloadManager.swift */; };
 		4EBB90282140E5910054C952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EBB90272140E5900054C952 /* GoogleService-Info.plist */; };
 		4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */; };
 		4ED3DC9D21311BBA009EC21A /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3DC9C21311BBA009EC21A /* Categories.swift */; };
@@ -79,6 +80,7 @@
 		4EA08772212AC8F60033A1B2 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
 		4EA35AB9212A705600B7DC3F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4EABBAE62128180000657D33 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		4EAEB04721512E460059E9B4 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		4EBB90272140E5900054C952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		4ED3DC9C21311BBA009EC21A /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			children = (
 				4EA35AB9212A705600B7DC3F /* NetworkManager.swift */,
 				4E695BCE2121E8C100CFE856 /* Services.swift */,
+				4EAEB04721512E460059E9B4 /* DownloadManager.swift */,
 				4ED3DC9C21311BBA009EC21A /* Categories.swift */,
 				4E0D8C722136D2AF00447AD8 /* APISource.swift */,
 			);
@@ -360,6 +363,7 @@
 				4E2E6183213A9FE100AE6780 /* LoadingButton.swift in Sources */,
 				4EA08773212AC8F60033A1B2 /* Navbar.swift in Sources */,
 				4E4028102142673700A8223C /* GradientView.swift in Sources */,
+				4EAEB04821512E460059E9B4 /* DownloadManager.swift in Sources */,
 				4EED5FC2213AFF320019384B /* PopUpTableViewCell.swift in Sources */,
 				4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */,
 				4E695BC7212183FE00CFE856 /* Book.swift in Sources */,

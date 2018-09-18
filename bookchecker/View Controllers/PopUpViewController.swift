@@ -165,7 +165,7 @@ extension PopUpViewController: UITableViewDelegate {
 			guard let encodedURL = encodedDownloadURL else {return}
 
 			print("Encoded file name: - \(encodedFileName)")
-			Services.downloadManager().downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
+			DownloadManager.shared.downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
 				cell.progressBar.progress = progress
 			}) { (fileURL) in
 				Alert.showMessage(theme: .success, title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]), displayDuration: 5, buttonTitle: "OPEN", completion: {

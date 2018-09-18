@@ -15,7 +15,6 @@ class DetailViewController: UIViewController {
 	//MARK: - variables
 	let realm = try! Realm()
 	var book: Book!
-	lazy var bookIDs: [String] = []
 	var docController: UIDocumentInteractionController?
 	var savedBook: RealmBook?
 
@@ -70,9 +69,7 @@ class DetailViewController: UIViewController {
 			present(vc, animated: true)
 		} else {
 			let vc = storyboard?.instantiateViewController(withIdentifier: "PopUpVC") as! PopUpViewController
-			vc.bookIdentifier = book.id
-			vc.bookTitle = book.title
-			vc.fileNames = book.downloadLinks
+			vc.book = book
 			self.present(vc, animated: true)
 		}
 
@@ -90,7 +87,7 @@ class DetailViewController: UIViewController {
 			Alert.showMessage(theme: .warning, title: "Book removed from favorites", body: nil, displayDuration: 1)
 //			Alert.createAlert(self, title: "Book removed from favorites", message: nil)
 		} else {
-			saveToFavorites(book: book)
+			DBManager.shared.saveToFavorites(book: book)
 			Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
 //			Alert.createAlert(self, title: "Book added!", message: nil)
 		}
@@ -218,18 +215,3 @@ class DetailViewController: UIViewController {
 	}
 }
 
-//MARK: - Realm
-extension DetailViewController {
-
-	func saveToFavorites(book: Book) {
-		//Check if book has already been added
-		bookIDs = DBManager.shared.getBooks().map{$0.id}
-		guard !bookIDs.contains(book.id) else {
-			Alert.createAlert(self, title: "Book has already been added!", message: nil)
-			return
-		}
-		let realmBook = RealmBook(book: book)
-
-		DBManager.shared.addBook(object: realmBook)
-	}
-}

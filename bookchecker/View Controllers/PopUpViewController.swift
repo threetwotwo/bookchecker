@@ -22,6 +22,7 @@ class PopUpViewController: UIViewController {
 	}
 
 	//MARK: - Variables
+	var book: Book!
 	var bookIdentifier: String!
 	var bookTitle: String?
 	var fileNames: [String]!
@@ -30,6 +31,9 @@ class PopUpViewController: UIViewController {
 	//MARK: - Life Cycle
 	override func viewDidLoad() {
         super.viewDidLoad()
+		bookIdentifier = book.id
+		bookTitle = book.title
+		fileNames = book.downloadLinks
 		diskFileNames = Services.getfileNamesFromDisk()
     }
 
@@ -170,6 +174,16 @@ extension PopUpViewController: UITableViewDelegate {
 				Alert.showMessage(theme: .success, title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]), displayDuration: 5, buttonTitle: "OPEN", completion: {
 					self.openBook(encodedFileName: encodedFileName)
 				})
+				let bookIDs = DBManager.shared.getBooks().map{$0.id}
+				//Saves book when download finishes
+				if !bookIDs.contains(self.book.id) {
+					let realmBook = RealmBook(book: self.book)
+					//Init book's last opened so as to make it appear in the home screen 
+					realmBook.lastOpened = Date()
+					DBManager.shared.addBook(object: realmBook)
+					Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
+				}
+
 				self.hideProgressBar(for: cell)
 				//update file names in disk
 				self.diskFileNames = Services.getfileNamesFromDisk()

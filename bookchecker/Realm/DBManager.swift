@@ -33,6 +33,17 @@ class DBManager {
 		}
 	}
 
+	func saveToFavorites(book: Book) {
+		//Check if book has already been added
+		let bookIDs = DBManager.shared.getBooks().map{$0.id}
+		guard !bookIDs.contains(book.id) else {
+			return
+		}
+		let realmBook = RealmBook(book: book)
+
+		DBManager.shared.addBook(object: realmBook)
+	}
+
 	func updateBook(object: RealmBook)   {
 		do {
 			try realm.write {

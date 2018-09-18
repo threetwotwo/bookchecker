@@ -121,6 +121,28 @@ extension PopUpViewController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 extension PopUpViewController: UITableViewDelegate {
 
+	fileprivate func openBook(encodedFileName: String) {
+		let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(encodedFileName)
+		print("File Name: \(encodedFileName)")
+
+		print("File URL: \(fileURL)")
+		self.docController = UIDocumentInteractionController(url: fileURL)
+		let url = URL(string:"itms-books:");
+		if UIApplication.shared.canOpenURL(url!) {
+			self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
+			print("iBooks is installed")
+		} else {
+			if var topController = UIApplication.shared.keyWindow?.rootViewController {
+				while let presentedViewController = topController.presentedViewController {
+					topController = presentedViewController
+				}
+				// topController should now be your topmost view controller
+				Alert.createAlert(topController, title: "iBooks is not installed", message: "\nDownload iBooks from the App Store")
+				print("iBooks is not installed")
+			}
+		}
+	}
+
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath) as! PopUpTableViewCell
 		guard let encodedFileName = getEncodedFileName(from: fileNames[indexPath.row]) else {
@@ -129,19 +151,7 @@ extension PopUpViewController: UITableViewDelegate {
 		}
 		//Open file if it already exists
 		if diskFileNames.contains(encodedFileName){
-			let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(encodedFileName)
-			print("File Name: \(encodedFileName)")
-
-			print("File URL: \(fileURL)")
-			self.docController = UIDocumentInteractionController(url: fileURL)
-			let url = URL(string:"itms-books:");
-			if UIApplication.shared.canOpenURL(url!) {
-				self.docController!.presentOpenInMenu(from: .zero, in: self.view, animated: true)
-				print("iBooks is installed")
-			} else {
-				Alert.createAlert(self, title: "iBooks is not installed", message: "\nDownload iBooks from the App Store")
-				print("iBooks is not installed")
-			}
+			openBook(encodedFileName: encodedFileName)
 			//Download file if it doesn't exist in disk
 		} else {
 			//Archive.org - download url
@@ -158,7 +168,9 @@ extension PopUpViewController: UITableViewDelegate {
 			Services.downloadManager().downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
 				cell.progressBar.progress = progress
 			}) { (fileURL) in
-				Alert.showMessage(theme: .success, title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]), displayDuration: 5)
+				Alert.showMessage(theme: .success, title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]), displayDuration: 5, buttonTitle: "OPEN", completion: {
+					self.openBook(encodedFileName: encodedFileName)
+				})
 				self.hideProgressBar(for: cell)
 				//update file names in disk
 				self.diskFileNames = Services.getfileNamesFromDisk()

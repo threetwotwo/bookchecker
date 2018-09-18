@@ -16,7 +16,7 @@ struct Alert {
 		vc.present(ac, animated: true)
 	}
 
-	static func showMessage(theme: Theme, title: String, body: String?, displayDuration: Double = 2) {
+	static func showMessage(theme: Theme, title: String, body: String?, displayDuration: Double = 2, buttonTitle: String = "OK", completion: (()->())? = nil) {
 		// Instantiate a message view from the provided card view layout. SwiftMessages searches for nib
 		// files in the main bundle first, so you can easily copy them into your project and make changes.
 		let view = MessageView.viewFromNib(layout: .tabView)
@@ -29,7 +29,8 @@ struct Alert {
 
 		// Set message title, body, and icon. Here, we're overriding the default warning
 		// image with an emoji character.
-		view.configureContent(title: title, body: body, iconImage: nil, iconText: nil, buttonImage: nil, buttonTitle: "OK") { (_) in
+		view.configureContent(title: title, body: body, iconImage: nil, iconText: nil, buttonImage: nil, buttonTitle: buttonTitle) { (_) in
+			completion!()
 			SwiftMessages.hide()
 		}
 		// Increase the external margin around the card. In general, the effect of this setting

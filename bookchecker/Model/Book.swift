@@ -46,5 +46,6 @@ extension Book {
 		thumbnail = realmBook.thumbnail
 		categories = realmBook.categories
 		image = realmBook.image
+		downloadLinks = Array(realmBook.downloadLinks)
 	}
 }

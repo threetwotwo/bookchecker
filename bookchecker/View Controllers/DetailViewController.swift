@@ -136,25 +136,29 @@ class DetailViewController: UIViewController {
 		updateUI()
 	}
 
-//	override func viewWillDisappear(_ animated: Bool) {
-//		if let savedBook = savedBook {
-//			try! Realm().write {
-//				savedBook.lastOpened = Date()
-//			}
-//		}
-//	}
-
 	//MARK: - UI
 	fileprivate func updateButtons() {
+
 		if book.readerLink != "" {
 			savedBook?.currentPage == nil || savedBook?.currentPage == "" ? readOrDownloadButton.setTitle("READ ONLINE", for: []) : readOrDownloadButton.setTitle("CONTINUE", for: [])
 		} else {
-			readOrDownloadButton.showLoading()
-			Services.shared.getDownloadLinks(book: book) { (links) in
-				self.readOrDownloadButton.hideLoading()
-				self.book.downloadLinks = links
+			print(book.downloadLinks.count)
+			//Make sure that user doesnt need to download links more than once
+			if let savedLinks = savedBook?.downloadLinks,
+				!savedLinks.isEmpty {
 				self.readOrDownloadButton.setTitle("DOWNLOAD", for: [])
-				print(links)
+				self.book.downloadLinks = Array(savedLinks)
+			} else {
+				readOrDownloadButton.showLoading()
+				Services.shared.getDownloadLinks(book: book) { (links) in
+					self.readOrDownloadButton.hideLoading()
+					self.book.downloadLinks = links
+
+					try! Realm().write {
+						self.savedBook?.downloadLinks.append(objectsIn: links)
+					}
+					self.readOrDownloadButton.setTitle("DOWNLOAD", for: [])
+				}
 			}
 		}
 

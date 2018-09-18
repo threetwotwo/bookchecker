@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var authorLabel: UILabel!
 	@IBOutlet weak var backgroundImage: UIImageView!
 	@IBOutlet weak var coverImage: UIImageView!
+	@IBOutlet weak var publishedHeader: UILabel!
 	@IBOutlet weak var publishedLabel: UILabel!
 	@IBOutlet weak var categoryLabel: UILabel!
 	@IBOutlet weak var languageLabel: UILabel!
@@ -174,6 +175,7 @@ class DetailViewController: UIViewController {
 		apiSourceButton.setTitle(book.apiSource, for: [])
 		titleLabel.text = book.title
 		authorLabel.text = book.authors
+		publishedHeader.text = book.apiSource == "archive.org" ? "UPLOADED" : "PUBLISHED"
 		let publisher = book.publisher == "" ? "" : "· \(book.publisher)"
 		publishedLabel.text = "\(book.publishedDate) \(publisher)"
 		categoryLabel.text = book.categories

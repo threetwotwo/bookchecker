@@ -897,6 +897,7 @@
                         <outlet property="languageStackView" destination="47Q-i4-5yC" id="Lee-1j-zu1"/>
                         <outlet property="pageCountLabel" destination="d1m-5R-mks" id="wls-8u-xPX"/>
                         <outlet property="pagesStackView" destination="aOj-8S-Fzm" id="tf4-ER-x5m"/>
+                        <outlet property="publishedHeader" destination="0bd-Y5-35s" id="YrN-dI-ChS"/>
                         <outlet property="publishedLabel" destination="NNY-fp-al2" id="Lde-3J-2C1"/>
                         <outlet property="ratingBar" destination="pnA-eO-uyF" id="g67-96-AEz"/>
                         <outlet property="ratingCountLabel" destination="bCK-0Z-KrX" id="xNr-j4-MHK"/>

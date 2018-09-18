@@ -166,7 +166,7 @@ class Services {
 				dispatchGroup.enter()
 
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
-				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf) AND (collection:opensource* OR collection:gutenberg OR collection:magazine_rack OR collection:mensmagazines OR collection:comics OR collection:no-preview) AND mediatype:texts"
+				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf) AND (collection:opensource* OR collection:gutenberg OR collection:magazine_rack OR collection:mensmagazines OR collection:comics OR collection:no-preview) AND (NOT subject:religion NOT subject:islam*  NOT subject:1* NOT subject:quran NOT subject:bible NOT subject:*jesus* NOT subject:*christ* NOT subject:*church*) AND mediatype:texts"
 				parameters["count"] = "300"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in

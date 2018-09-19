@@ -33,6 +33,33 @@ class DBManager {
 		}
 	}
 
+	func getDownloads() -> Results<RealmDownload> {
+		let results: Results<RealmDownload> =   realm.objects(RealmDownload.self)
+		return results
+	}
+
+	func addDownload(fileName: String)   {
+		let download = RealmDownload()
+		download.fileName = fileName
+		do {
+			try realm.write {
+				realm.add(download)
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func deleteDownload(object: RealmDownload) {
+		do {
+			try realm.write {
+				realm.delete(object)
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
 	func saveToFavorites(book: Book) {
 		//Check if book has already been added
 		let bookIDs = DBManager.shared.getBooks().map{$0.id}

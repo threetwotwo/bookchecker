@@ -19,7 +19,7 @@ struct Alert {
 	static func showMessage(theme: Theme, title: String, body: String?, displayDuration: Double = 2, buttonTitle: String = "OK", completion: @escaping (() -> Void) = { }) {
 		// Instantiate a message view from the provided card view layout. SwiftMessages searches for nib
 		// files in the main bundle first, so you can easily copy them into your project and make changes.
-		let view = MessageView.viewFromNib(layout: .tabView)
+		let view = MessageView.viewFromNib(layout: .cardView)
 
 		// Theme message elements with the warning style.
 		view.configureTheme(theme)

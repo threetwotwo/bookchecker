@@ -126,7 +126,15 @@ extension SearchTableViewController: UISearchBarDelegate {
 	fileprivate func setUpSearchbar() {
 		//remove borders
 		searchBar.backgroundImage = UIImage()
-		self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
+		self.searchBar.setImage(UIImage(named: "search"), for: .search, state: [])
+	}
+
+	fileprivate func hideActivityIndicator() {
+		let textField = searchBar.value(forKey: "searchField") as? UITextField
+		let searchIconView = textField?.leftView as? UIImageView
+		if let searchIconView = searchIconView {
+			searchIconView.image = searchImage
+		}
 	}
 
 	@objc func getBooksFromSearchbar() {
@@ -134,15 +142,12 @@ extension SearchTableViewController: UISearchBarDelegate {
 			self.books = books
 			self.searchTableView.reloadData()
 			self.activityIndicator.stopAnimating()
-			self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
+			self.hideActivityIndicator()
 		}
 		self.searchTableView.setContentOffset(CGPoint.zero, animated: true)
 	}
 
-	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-		guard searchBar.text != "" else {return}
-		searchBar.resignFirstResponder()
-		getBooksFromSearchbar()
+	fileprivate func showActivityIndicator() {
 		//Show activity indicator
 		let textField = searchBar.value(forKey: "searchField") as? UITextField
 		let searchIconView = textField?.leftView as? UIImageView
@@ -154,6 +159,14 @@ extension SearchTableViewController: UISearchBarDelegate {
 			activityIndicator.startAnimating()
 			searchIconView.addSubview(activityIndicator)
 		}
+	}
+
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		searchBar.resignFirstResponder()
+
+		guard searchBar.text != "" else {return}
+		getBooksFromSearchbar()
+		showActivityIndicator()
 	}
 }
 

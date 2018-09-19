@@ -13,7 +13,9 @@ import RealmSwift
 class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 	var networkManager: NetworkManager!
-	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .fantasy, .crime, .food, .mystery, .business, .kids, .scifi)
+	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .fantasy)
+
+//	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .fantasy, .crime, .food, .mystery, .business, .kids, .scifi)
 	var savedBooks: Results<RealmBook>?
 	var booksArray: [Int : [Book]] = [ : ]
     var storedOffsets = [Int: CGFloat]()
@@ -52,13 +54,17 @@ class FeedTableViewController: UITableViewController {
 		fetchBooks(fromSectionIndex: 0)
     }
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(true)
+	fileprivate func extractedFunc() {
 		var books = [Book]()
 		for savedBook in savedBooks! {
 			books.append(Book(realmBook: savedBook))
 			booksArray[0] = books
 		}
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(true)
+		extractedFunc()
 		tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
 	}
 

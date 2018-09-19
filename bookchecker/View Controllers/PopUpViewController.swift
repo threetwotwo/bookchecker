@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftMessages
+import RealmSwift
 
 class PopUpViewController: UIViewController {
 
@@ -27,6 +28,10 @@ class PopUpViewController: UIViewController {
 	var bookTitle: String?
 	var fileNames: [String]!
 	var diskFileNames: [String] = []
+	var downloads = DBManager.shared.getDownloads()
+	var timer = Timer()
+
+	private var myContext = 0
 
 	//MARK: - Life Cycle
 	override func viewDidLoad() {
@@ -48,10 +53,9 @@ class PopUpViewController: UIViewController {
 	}
 
 	//MARK: - UI
-	fileprivate func showProgressBar(for cell: PopUpTableViewCell) {
+	fileprivate func showProgressBar(for cell: PopUpTableViewCell, progress: Float = 0) {
 		cell.filenameLabel.isHidden = true
 		cell.downloadIcon.isHidden = true
-		cell.progressBar.progress = 0
 		cell.progressBar.isHidden = false
 	}
 
@@ -99,8 +103,25 @@ extension PopUpViewController: UITableViewDataSource {
 		let name = fileNames[indexPath.row]
 		updateDownloadIcon(name, cell)
 		//Clean up the file name
-		cell.filenameLabel.text = getReadableFileName(from: name)
+		let encodedFileName = getEncodedFileName(from: fileNames[indexPath.row])
 
+		if let download = downloads.filter("fileName == %@", encodedFileName).first,
+			download.progress != 1 {
+			showProgressBar(for: cell, progress: download.progress)
+
+			timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+				if cell.progressBar.progress == 1 {
+					timer.invalidate()
+					self.hideProgressBar(for: cell)
+					self.diskFileNames = Services.getfileNamesFromDisk()
+					self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
+					return
+				}
+				cell.progressBar.progress = download.progress
+			})
+		} else {
+			cell.filenameLabel.text = getReadableFileName(from: name)
+		}
 		return cell
 	}
 
@@ -168,26 +189,33 @@ extension PopUpViewController: UITableViewDelegate {
 			guard let encodedURL = encodedDownloadURL else {return}
 
 			print("Encoded file name: - \(encodedFileName)")
-			DownloadManager.shared.downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
+			DownloadManager().downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
 				cell.progressBar.progress = progress
+				if let download = DBManager.shared.getDownloads().filter("fileName == %@", encodedFileName).first {
+					try! Realm().write {
+						download.progress = progress
+					}
+//					if progress == 1.0 {
+//						DBManager.shared.deleteDownload(object: download)
+//					}
+				}
 			}) { (fileURL) in
 				Alert.showMessage(theme: .success, title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]), displayDuration: 5, buttonTitle: "OPEN", completion: {
 					self.openBook(encodedFileName: encodedFileName)
 				})
-				let bookIDs = DBManager.shared.getBooks().map{$0.id}
-				//Saves book when download finishes
-				if !bookIDs.contains(self.book.id) {
-					let realmBook = RealmBook(book: self.book)
-					//Init book's last opened so as to make it appear in the home screen 
-					realmBook.lastOpened = Date()
-					DBManager.shared.addBook(object: realmBook)
-					Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
-				}
-
 				self.hideProgressBar(for: cell)
 				//update file names in disk
 				self.diskFileNames = Services.getfileNamesFromDisk()
 				self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
+			}
+			//Save book
+			let bookIDs = DBManager.shared.getBooks().map{$0.id}
+			if !bookIDs.contains(self.book.id) {
+				let realmBook = RealmBook(book: self.book)
+				//Init book's last opened so as to make it appear in the home screen
+				realmBook.lastOpened = Date()
+				DBManager.shared.addBook(object: realmBook)
+				Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
 			}
 		}
 		popupTableView.deselectRow(at: indexPath, animated: true)

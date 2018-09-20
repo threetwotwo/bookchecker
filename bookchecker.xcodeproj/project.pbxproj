@@ -267,6 +267,11 @@
 					4E7D251421210919004FA408 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

@@ -13,7 +13,7 @@ import RealmSwift
 class DownloadManager {
 	private var resumeData: Data?
 	var docController: UIDocumentInteractionController!
-
+	public var backgroundSessionManager = Alamofire.SessionManager(configuration: .background(withIdentifier: "backgroundSession"))
 	static let shared = DownloadManager()
 
 	func downloadFile(url: String, fileName: String, progressCompletion: @escaping (Float) -> (), fileURLCompletion: @escaping (URL) -> ()) {
@@ -28,10 +28,10 @@ class DownloadManager {
 		}
 
 		if let resumeData = resumeData {
-			request = Alamofire.download(resumingWith: resumeData, to: destination)
+			request = backgroundSessionManager.download(resumingWith: resumeData, to: destination)
 			print("Resume data: \(resumeData)")
 		} else {
-			request = Alamofire.download(url, to: destination)
+			request = backgroundSessionManager.download(url, to: destination)
 			print("No resume data")
 		}
 
@@ -40,11 +40,11 @@ class DownloadManager {
 			switch response.result {
 			case .success:
 				if let targetURL = response.destinationURL {
-				print(response.resumeData)
 				fileURLCompletion(targetURL)
 			}
 			case .failure:
 				print("Failed with error: \(response.error)")
+				print(response.resumeData?.debugDescription)
 				self.resumeData = response.resumeData
 			}
 			}.downloadProgress { (progress) in

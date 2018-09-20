@@ -40,7 +40,18 @@ class PopUpViewController: UIViewController {
 		bookTitle = book.title
 		fileNames = book.downloadLinks
 		diskFileNames = Services.getfileNamesFromDisk()
+		let notificationCenter = NotificationCenter.default
+		notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+
     }
+
+	@objc func appMovedToBackground() {
+		self.dismiss(animated: true, completion: nil)
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		popupTableView.reloadData()
+	}
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -99,30 +110,54 @@ extension PopUpViewController: UITableViewDataSource {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "PopUpCell", for: indexPath) as! PopUpTableViewCell
-		hideProgressBar(for: cell)
-		let name = fileNames[indexPath.row]
-		updateDownloadIcon(name, cell)
-		//Clean up the file name
-		let encodedFileName = getEncodedFileName(from: fileNames[indexPath.row])
-
-		if let download = downloads.filter("fileName == %@", encodedFileName).first,
-			download.progress != 1 {
-			showProgressBar(for: cell, progress: download.progress)
-
-			timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
-				if cell.progressBar.progress == 1 {
-					timer.invalidate()
-					self.hideProgressBar(for: cell)
-					self.diskFileNames = Services.getfileNamesFromDisk()
-					self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
-					return
-				}
-				cell.progressBar.progress = download.progress
-			})
-		} else {
-			cell.filenameLabel.text = getReadableFileName(from: name)
-		}
 		return cell
+	}
+
+	func updateCellUI(for cell: PopUpTableViewCell, at indexPath: IndexPath) {
+		cell.downloadIcon.isHidden = false
+		cell.filenameLabel.isHidden = false
+		cell.progressBar.isHidden = true
+		let fileName = fileNames[indexPath.row]
+		cell.filenameLabel.text = getReadableFileName(from: fileName)
+		//Get encoded file name
+		guard let encodedFileName = getEncodedFileName(from: fileName) else {return}
+		//If file exists in disk, show checkmark
+		guard !diskFileNames.contains(encodedFileName) else {
+			cell.downloadIcon.image = UIImage(named: "checkmark_green")
+			return
+		}
+
+		//If file not downloading, show download icon
+		guard let download = downloads.filter("fileName == %@", encodedFileName).first,
+			download.progress != 1 else {
+				cell.downloadIcon.image = UIImage(named: "download")
+				return
+		}
+
+		//If file is downloading, shoe progress bar
+		cell.downloadIcon.isHidden = true
+		cell.filenameLabel.isHidden = true
+		cell.progressBar.isHidden = false
+		cell.progressBar.progress = download.progress
+		timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (timer) in
+			if cell.progressBar.progress == 1 {
+				timer.invalidate()
+				self.diskFileNames = Services.getfileNamesFromDisk()
+				DispatchQueue.main.async {
+					self.hideProgressBar(for: cell)
+					self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
+				}
+				return
+			}
+			DispatchQueue.main.async {
+				cell.progressBar.progress = download.progress
+			}
+		})
+	}
+
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		let cell = cell as! PopUpTableViewCell
+		updateCellUI(for: cell, at: indexPath)
 	}
 
 	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -174,49 +209,51 @@ extension PopUpViewController: UITableViewDelegate {
 			return
 		}
 		//Open file if it already exists
-		if diskFileNames.contains(encodedFileName){
+		guard !diskFileNames.contains(encodedFileName) else {
 			openBook(encodedFileName: encodedFileName)
 			//Download file if it doesn't exist in disk
-		} else {
-			//Archive.org - download url
-			let downloadURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
-			print("fileURL: - \(downloadURL)")
-			//Encoding for whitespace
-			let encodedDownloadURL = downloadURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+			return
+		}
+		//show progress bar
+		showProgressBar(for: cell)
+		//Archive.org - download url
+		let downloadURL = APISource.archive.downloadURL + bookIdentifier + "/" + fileNames[indexPath.row]
+		print("fileURL: - \(downloadURL)")
+		//Encoding for whitespace
+		let encodedDownloadURL = downloadURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 
-			showProgressBar(for: cell)
+		guard let encodedURL = encodedDownloadURL else {return}
 
-			guard let encodedURL = encodedDownloadURL else {return}
+		guard DBManager.shared.getDownloads().filter("fileName == %@", encodedFileName).isEmpty else {
+			popupTableView.deselectRow(at: indexPath, animated: true)
+			return
+		}
 
-			print("Encoded file name: - \(encodedFileName)")
-			DownloadManager().downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
-				cell.progressBar.progress = progress
-				if let download = DBManager.shared.getDownloads().filter("fileName == %@", encodedFileName).first {
-					try! Realm().write {
-						download.progress = progress
-					}
-//					if progress == 1.0 {
-//						DBManager.shared.deleteDownload(object: download)
-//					}
+		print("Encoded file name: - \(encodedFileName)")
+		DownloadManager.shared.downloadFile(url: encodedURL, fileName: encodedFileName, progressCompletion: { (progress) in
+			cell.progressBar.progress = progress
+			if let download = DBManager.shared.getDownloads().filter("fileName == %@", encodedFileName).first {
+				try! Realm().write {
+					download.progress = progress
 				}
-			}) { (fileURL) in
-				Alert.showMessage(theme: .success, title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]), displayDuration: 5, buttonTitle: "OPEN", completion: {
-					self.openBook(encodedFileName: encodedFileName)
-				})
-				self.hideProgressBar(for: cell)
-				//update file names in disk
-				self.diskFileNames = Services.getfileNamesFromDisk()
-				self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
 			}
-			//Save book
-			let bookIDs = DBManager.shared.getBooks().map{$0.id}
-			if !bookIDs.contains(self.book.id) {
-				let realmBook = RealmBook(book: self.book)
-				//Init book's last opened so as to make it appear in the home screen
-				realmBook.lastOpened = Date()
-				DBManager.shared.addBook(object: realmBook)
-				Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
-			}
+		}) { (fileURL) in
+			Alert.showMessage(theme: .success, title: "Download Complete", body: self.getReadableFileName(from: self.fileNames[indexPath.row]), displayDuration: 5, buttonTitle: "OPEN", completion: {
+				self.openBook(encodedFileName: encodedFileName)
+			})
+			self.updateCellUI(for: cell, at: indexPath)
+			//update file names in disk
+			self.diskFileNames = Services.getfileNamesFromDisk()
+			self.popupTableView.reloadRows(at: [indexPath], with: .automatic)
+		}
+		//Save book
+		let bookIDs = DBManager.shared.getBooks().map{$0.id}
+		if !bookIDs.contains(self.book.id) {
+			let realmBook = RealmBook(book: self.book)
+			//Init book's last opened so as to make it appear in the home screen
+			realmBook.lastOpened = Date()
+			DBManager.shared.addBook(object: realmBook)
+			Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
 		}
 		popupTableView.deselectRow(at: indexPath, animated: true)
 	}

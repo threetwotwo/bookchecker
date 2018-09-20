@@ -36,7 +36,9 @@ class FeedTableViewController: UITableViewController {
 				booksArray[i] = books
 			} else {
 				//Dont make the request twice
-				guard !collectionTags.contains(i) else {return}
+//				guard !collectionTags.contains(i) else {return}
+				guard !Array(booksArray.keys).contains(i) else {return}
+				booksArray[i] = []
 				Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(queries[i]!.parameterValue())\"") { (books) in
 					self.booksArray[i] = books
 					self.tableView.reloadData()

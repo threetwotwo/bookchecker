@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		FirebaseApp.configure()
 
 		print(Realm.Configuration.defaultConfiguration.fileURL)
+		DBManager.shared.deleteAllDownloads()
 		return true
 	}
 

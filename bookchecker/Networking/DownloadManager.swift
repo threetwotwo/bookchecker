@@ -18,7 +18,10 @@ class DownloadManager {
 
 	func downloadFile(url: String, fileName: String, progressCompletion: @escaping (Float) -> (), fileURLCompletion: @escaping (URL) -> ()) {
 
+		let download = DBManager.shared.getDownloads().filter("fileName == %@", fileName).first
+
 		DBManager.shared.addDownload(fileName: fileName)
+
 		let request: DownloadRequest
 		let destination: DownloadRequest.DownloadFileDestination = { _, _ in
 			let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -45,7 +48,9 @@ class DownloadManager {
 			case .failure:
 				print("Failed with error: \(response.error)")
 				print(response.resumeData?.debugDescription)
-				self.resumeData = response.resumeData
+				try! Realm().write {
+					download?.resumeData = self.resumeData
+				}
 			}
 			}.downloadProgress { (progress) in
 				progressCompletion(Float(progress.fractionCompleted))

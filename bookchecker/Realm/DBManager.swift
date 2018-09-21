@@ -91,6 +91,17 @@ class DBManager {
 		}
 	}
 
+	func deleteAllDownloads()  {
+		do {
+			try realm.write {
+				realm.delete(self.getDownloads())
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+
 	func delete(object: RealmBook)   {
 		do {
 			try realm.write {

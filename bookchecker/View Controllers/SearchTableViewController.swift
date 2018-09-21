@@ -26,13 +26,30 @@ class SearchTableViewController: UIViewController, UIScrollViewDelegate {
 
 
 	//MARK: - Life cycle
+	fileprivate func addTapGestureRecognizer() {
+		//Looks for single or multiple taps.
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+
+		//Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+		//tap.cancelsTouchesInView = false
+
+		view.addGestureRecognizer(tap)
+	}
+
 	override func viewDidLoad() {
         super.viewDidLoad()
 		setUpSearchbar()
 		searchTableView.tableFooterView = UIView()
 		Navbar.addImage(to: self)
 		searchTableView.delegate = self
+		addTapGestureRecognizer()
     }
+
+	//Calls this function when the tap is recognized.
+	@objc func dismissKeyboard() {
+		//Causes the view (or one of its embedded text fields) to resign the first responder status.
+		view.endEditing(true)
+	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)

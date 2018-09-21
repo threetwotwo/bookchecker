@@ -67,7 +67,7 @@ class FeedTableViewController: UITableViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
 		extractedFunc()
-		tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+		tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
 	}
 
 	//MARK: - UITableViewDataSource

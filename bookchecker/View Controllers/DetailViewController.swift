@@ -68,7 +68,7 @@ class DetailViewController: UIViewController {
 			vc.previewLink.setValue(forKey: "pg", to: savedBook?.currentPage == "" ? "PA1" : savedBook?.currentPage ?? "PA1")
 			present(vc, animated: true)
 		} else {
-			let vc = storyboard?.instantiateViewController(withIdentifier: "PopUpVC") as! PopUpViewController
+			let vc = storyboard?.instantiateViewController(withIdentifier: "DownloadVC") as! DownloadViewController
 			vc.book = book
 			self.present(vc, animated: true)
 		}

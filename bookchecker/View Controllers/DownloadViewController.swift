@@ -1,5 +1,5 @@
 //
-//  PopUpViewController.swift
+//  DownloadViewController.swift
 //  bookchecker
 //
 //  Created by Gary on 9/1/18.
@@ -11,7 +11,7 @@ import Alamofire
 import SwiftMessages
 import RealmSwift
 
-class PopUpViewController: UIViewController {
+class DownloadViewController: UIViewController {
 
 	//MARK: - IBOutlets
 	@IBOutlet weak var popupTableView: UITableView!
@@ -64,19 +64,19 @@ class PopUpViewController: UIViewController {
 	}
 
 	//MARK: - UI
-	fileprivate func showProgressBar(for cell: PopUpTableViewCell, progress: Float = 0) {
+	fileprivate func showProgressBar(for cell: DownloadTableViewCell, progress: Float = 0) {
 		cell.filenameLabel.isHidden = true
 		cell.downloadIcon.isHidden = true
 		cell.progressBar.isHidden = false
 	}
 
-	fileprivate func hideProgressBar(for cell: PopUpTableViewCell) {
+	fileprivate func hideProgressBar(for cell: DownloadTableViewCell) {
 		cell.filenameLabel.isHidden = false
 		cell.downloadIcon.isHidden = false
 		cell.progressBar.isHidden = true
 	}
 
-	fileprivate func updateDownloadIcon(_ name: String, _ cell: PopUpTableViewCell) {
+	fileprivate func updateDownloadIcon(_ name: String, _ cell: DownloadTableViewCell) {
 		if let encodedFileName = getEncodedFileName(from: name),
 			diskFileNames.contains(encodedFileName){
 			cell.downloadIcon.image = #imageLiteral(resourceName: "checkmark_green")
@@ -87,7 +87,7 @@ class PopUpViewController: UIViewController {
 }
 
 //MARK: - UITableViewDataSource
-extension PopUpViewController: UITableViewDataSource {
+extension DownloadViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return fileNames.isEmpty ? "No files available" : "Select file to open"
 	}
@@ -109,11 +109,11 @@ extension PopUpViewController: UITableViewDataSource {
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "PopUpCell", for: indexPath) as! PopUpTableViewCell
+		let cell = tableView.dequeueReusableCell(withIdentifier: "DownloadCell", for: indexPath) as! DownloadTableViewCell
 		return cell
 	}
 
-	func updateCellUI(for cell: PopUpTableViewCell, at indexPath: IndexPath) {
+	func updateCellUI(for cell: DownloadTableViewCell, at indexPath: IndexPath) {
 		cell.downloadIcon.isHidden = false
 		cell.filenameLabel.isHidden = false
 		cell.progressBar.isHidden = true
@@ -156,7 +156,7 @@ extension PopUpViewController: UITableViewDataSource {
 	}
 
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		let cell = cell as! PopUpTableViewCell
+		let cell = cell as! DownloadTableViewCell
 		updateCellUI(for: cell, at: indexPath)
 	}
 
@@ -178,7 +178,7 @@ extension PopUpViewController: UITableViewDataSource {
 }
 
 //MARK: - UITableViewDelegate
-extension PopUpViewController: UITableViewDelegate {
+extension DownloadViewController: UITableViewDelegate {
 
 	fileprivate func openBook(encodedFileName: String) {
 		let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(encodedFileName)
@@ -203,7 +203,7 @@ extension PopUpViewController: UITableViewDelegate {
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let cell = tableView.cellForRow(at: indexPath) as! PopUpTableViewCell
+		let cell = tableView.cellForRow(at: indexPath) as! DownloadTableViewCell
 		guard let encodedFileName = getEncodedFileName(from: fileNames[indexPath.row]) else {
 			print("Cannot encode file name")
 			return

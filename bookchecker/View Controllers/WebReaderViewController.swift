@@ -74,17 +74,18 @@ extension WebReaderViewController: WKNavigationDelegate {
 
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		//Hides header and footer
-
 		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-topbar-table')[0].style.visibility = 'hidden';", completionHandler: nil)
 		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-statusbar-controls-table')[0].style.visibility = 'hidden';", completionHandler: nil)
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingTop = '40px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingTop = '40px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingTop = '16px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingTop = '16pxpx';", completionHandler: nil)
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingLeft = '10px';", completionHandler: nil)
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingLeft = '10px';", completionHandler: nil)
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingRight = '0px';", completionHandler: nil)
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingRight = '0px';", completionHandler: nil)
+//			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-segment')[0].style.fontSize = '24px';", completionHandler: nil)
+//			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-segment')[1].style.fontSize = '24px';", completionHandler: nil)
 		}
 
 

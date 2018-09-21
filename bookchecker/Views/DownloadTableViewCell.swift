@@ -1,5 +1,5 @@
 //
-//  PopUpTableViewCell.swift
+//  DownloadTableViewCell.swift
 //  bookchecker
 //
 //  Created by Gary on 9/2/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PopUpTableViewCell: UITableViewCell {
+class DownloadTableViewCell: UITableViewCell {
 	//MARK: - IBOutlets
 	@IBOutlet weak var filenameLabel: UILabel!
 	@IBOutlet weak var progressBar: UIProgressView!

@@ -54,6 +54,7 @@ class FeedTableViewController: UITableViewController {
 		Navbar.addImage(to: self)
 
 		fetchBooks(fromSectionIndex: 0)
+		addSwipeGesturesForSwitchingTabs()
     }
 
 	fileprivate func extractedFunc() {

@@ -32,6 +32,7 @@
 		4E892BB4212FF60900FBB739 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E892BB3212FF60900FBB739 /* DBManager.swift */; };
 		4E892BB6212FFE4C00FBB739 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E892BB5212FFE4C00FBB739 /* Alert.swift */; };
 		4E8CCEBF21491850003EE9D0 /* UITableView + EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CCEBE21491850003EE9D0 /* UITableView + EmptyView.swift */; };
+		4E977EC82154A33E004E261E /* UIViewController + Swipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E977EC72154A33E004E261E /* UIViewController + Swipe.swift */; };
 		4E99956621290DF9007A7E09 /* UIColor + hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956521290DF9007A7E09 /* UIColor + hex.swift */; };
 		4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956821297C72007A7E09 /* WebReaderViewController.swift */; };
 		4EA08773212AC8F60033A1B2 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA08772212AC8F60033A1B2 /* Navbar.swift */; };
@@ -77,6 +78,7 @@
 		4E892BB3212FF60900FBB739 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		4E892BB5212FFE4C00FBB739 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		4E8CCEBE21491850003EE9D0 /* UITableView + EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + EmptyView.swift"; sourceTree = "<group>"; };
+		4E977EC72154A33E004E261E /* UIViewController + Swipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Swipe.swift"; sourceTree = "<group>"; };
 		4E99956521290DF9007A7E09 /* UIColor + hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + hex.swift"; sourceTree = "<group>"; };
 		4E99956821297C72007A7E09 /* WebReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebReaderViewController.swift; sourceTree = "<group>"; };
 		4EA08772212AC8F60033A1B2 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				4E892BB5212FFE4C00FBB739 /* Alert.swift */,
+				4E977EC72154A33E004E261E /* UIViewController + Swipe.swift */,
 				4E695BC82121CF6B00CFE856 /* URL + components.swift */,
 				4E8CCEBE21491850003EE9D0 /* UITableView + EmptyView.swift */,
 				4E40280F2142673700A8223C /* GradientView.swift */,
@@ -397,6 +400,7 @@
 				4E7794062123212600AF3C25 /* TestTableViewController.swift in Sources */,
 				4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */,
 				4ED986962137950B0025C766 /* UIView + IBDesignable.swift in Sources */,
+				4E977EC82154A33E004E261E /* UIViewController + Swipe.swift in Sources */,
 				4E0D8C732136D2B000447AD8 /* APISource.swift in Sources */,
 				4E892BB4212FF60900FBB739 /* DBManager.swift in Sources */,
 				4E8CCEBF21491850003EE9D0 /* UITableView + EmptyView.swift in Sources */,

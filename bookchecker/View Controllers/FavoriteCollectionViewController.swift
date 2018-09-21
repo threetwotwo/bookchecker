@@ -27,12 +27,12 @@ class FavoriteCollectionViewController: UIViewController {
 	var books: Results<RealmBook>?
 
 	//MARK: - Life Cycle
-	fileprivate func addTapGestureRecognizer() {
+	fileprivate func addTapGestureRecognizerToDismissKeyboard() {
 		//Looks for single or multiple taps.
 		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 
 		//Uncomment the line below if you want the tap not not interfere and cancel other interactions.
-		//tap.cancelsTouchesInView = false
+		tap.cancelsTouchesInView = false
 
 		view.addGestureRecognizer(tap)
 	}
@@ -47,7 +47,8 @@ class FavoriteCollectionViewController: UIViewController {
         // Do any additional setup after loading the view.
 		Navbar.addImage(to: self)
 		setUpSearchbar()
-		addTapGestureRecognizer()
+		addTapGestureRecognizerToDismissKeyboard()
+		addSwipeGesturesForSwitchingTabs()
     }
 
 	override func viewDidAppear(_ animated: Bool) {

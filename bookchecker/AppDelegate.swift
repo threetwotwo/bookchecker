@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		//Firebase
 		FirebaseApp.configure()
+		// Initialize the Google Mobile Ads SDK.
+		GADMobileAds.configure(withApplicationID: "ca-app-pub-3632853954476836~7969121337")
 
 		print(Realm.Configuration.defaultConfiguration.fileURL)
 		DBManager.shared.deleteAllDownloads()

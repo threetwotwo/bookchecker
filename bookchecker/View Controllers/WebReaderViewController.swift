@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 import RealmSwift
+import GoogleMobileAds
 
 class WebReaderViewController: UIViewController {
 
@@ -17,6 +18,7 @@ class WebReaderViewController: UIViewController {
 	@IBOutlet weak var webReaderView: WKWebView!
 	@IBOutlet weak var topConstraint: NSLayoutConstraint!
 	@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+	@IBOutlet weak var adBannerView: GADBannerView!
 
 	//MARK: - IBActions
 	@IBAction func cancelButtonPressed(_ sender: Any) {
@@ -40,9 +42,12 @@ class WebReaderViewController: UIViewController {
 
 	override func viewDidLoad() {
         super.viewDidLoad()
+
 		setUpWebReaderView(url: previewLink)
-		print(previewLink)
-    }
+		adBannerView.adUnitID = "ca-app-pub-3632853954476836/8819168571"
+		adBannerView.rootViewController = self
+		adBannerView.load(GADRequest())
+	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(true)

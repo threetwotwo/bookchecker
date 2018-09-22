@@ -29,11 +29,7 @@ class FeedTableViewController: UITableViewController {
 		let stopIndex = categoriesToLoad + index
 		for i in index..<stopIndex{
 			if i == 0 {
-				var books = [Book]()
-				for savedBook in savedBooks! {
-					books.append(Book(realmBook: savedBook))
-				}
-				booksArray[i] = books
+				loadSavedBooks()
 			} else {
 				//Dont make the request twice
 //				guard !collectionTags.contains(i) else {return}
@@ -57,17 +53,18 @@ class FeedTableViewController: UITableViewController {
 		addSwipeGesturesForSwitchingTabs()
     }
 
-	fileprivate func extractedFunc() {
+	fileprivate func loadSavedBooks() {
 		var books = [Book]()
-		for savedBook in savedBooks! {
-			books.append(Book(realmBook: savedBook))
-			booksArray[0] = books
+		guard let savedBooks = savedBooks else {return}
+		for index in 0..<min(50,savedBooks.count) {
+			books.append(Book(realmBook: savedBooks[index]))
 		}
+		booksArray[0] = books
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
-		extractedFunc()
+		loadSavedBooks()
 		tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
 	}
 

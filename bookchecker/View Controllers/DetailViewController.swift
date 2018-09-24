@@ -56,7 +56,11 @@ class DetailViewController: UIViewController {
 		}
 	}
 
-	@IBAction func readOrDownloadButtonPressed(_ sender: Any) {
+	@IBAction func readOrDownloadButtonPressed(_ sender: UIButton) {
+		sender.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+		UIView.animate(withDuration: 0.15) {
+			sender.transform = CGAffineTransform.identity
+		}
 		if book.readerLink != "" {
 			let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
 			guard let url = URL(string: book.readerLink) else {
@@ -82,6 +86,11 @@ class DetailViewController: UIViewController {
 
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
 
+		sender.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+		sender.imageView?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+		UIView.animate(withDuration: 0.15) {
+			sender.transform = CGAffineTransform.identity
+		}
 		if let savedBook = savedBook {
 			DBManager.shared.deleteBook(object: savedBook)
 			Alert.showMessage(theme: .warning, title: "Book removed from favorites", body: nil, displayDuration: 1)

@@ -137,7 +137,7 @@ class DetailViewController: UIViewController {
 	fileprivate func updateButtons() {
 
 		if book.readerLink != "" {
-			savedBook?.currentPage == nil || savedBook?.currentPage == "" ? readOrDownloadButton.setTitle("READ ONLINE", for: []) : readOrDownloadButton.setTitle("CONTINUE", for: [])
+			savedBook?.currentPage == nil || savedBook?.currentPage == "" ? readOrDownloadButton.setTitle("GOOGLE PREVIEW", for: []) : readOrDownloadButton.setTitle("CONTINUE", for: [])
 		} else {
 			print(book.downloadLinks.count)
 			//Make sure that user doesnt need to download links more than once

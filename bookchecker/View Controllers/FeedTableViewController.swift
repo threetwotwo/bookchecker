@@ -13,88 +13,69 @@ import RealmSwift
 class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 	var networkManager: NetworkManager!
-	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .fantasy)
+	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
 
-//	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .fantasy, .crime, .food, .mystery, .business, .kids, .scifi)
 	var savedBooks: Results<RealmBook>?
 	var booksArray: [Int : [Book]] = [ : ]
+	var booksCollection: [[Book]?] = []
     var storedOffsets = [Int: CGFloat]()
-	var collectionTags = Set<Int>()
-	var fetchMore = false
-
-	//MARK: - Life Cycle
-	fileprivate func fetchBooks(fromSectionIndex index: Int) {
-		savedBooks = DBManager.shared.getBooks().filter("lastOpened!=nil").sorted(byKeyPath: "lastOpened", ascending: false)
-		let categoriesToLoad = min(3, queries.count - index)
-		let stopIndex = categoriesToLoad + index
-		for i in index..<stopIndex{
-			if i == 0 {
-				loadSavedBooks()
-			} else {
-				//Dont make the request twice
-//				guard !collectionTags.contains(i) else {return}
-				guard !Array(booksArray.keys).contains(i) else {return}
-				booksArray[i] = []
-				Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(queries[i]!.parameterValue())\"") { (books) in
-					self.booksArray[i] = books
-					self.tableView.reloadData()
-					print("Downloaded books for category: \(self.queries[i])!!!!")
-				}
-			}
-		}
-	}
+//	var collectionTags = Set<Int>()
 
 	override func viewDidLoad() {
         super.viewDidLoad()
 		networkManager = NetworkManager()
 		Navbar.addImage(to: self)
-
-		fetchBooks(fromSectionIndex: 0)
-		addSwipeGesturesForSwitchingTabs()
+		booksCollection = [[Book]?](repeating: nil, count: queries.count)
+//		addSwipeGesturesForSwitchingTabs()
     }
 
-	fileprivate func loadSavedBooks() {
-		var books = [Book]()
-		guard let savedBooks = savedBooks else {return}
-		for index in 0..<min(50,savedBooks.count) {
-			books.append(Book(realmBook: savedBooks[index]))
-		}
-		booksArray[0] = books
-	}
-	
+
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
-		loadSavedBooks()
-		tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+		loadSavedBooks(0)
+	}
+
+	//MARK: - Data Fetching
+	fileprivate func loadSavedBooks(_ index: Int) {
+		savedBooks = DBManager.shared.getBooks().filter("lastOpened != nil").sorted(byKeyPath: "lastOpened", ascending: false)
+		var books = [Book]()
+		guard let savedBooks = savedBooks else {return}
+		for savedBook in savedBooks {
+			books.append(Book(realmBook: savedBook))
+		}
+		booksCollection[index] = books
+		self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+	}
+
+	func fetchBooks(ofIndex index: Int) {
+		let category = queries[index]
+
+		guard category != .savedCollection else {
+			loadSavedBooks(index)
+			return
+		}
+		Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(category!.parameterValue())\"") { (books) in
+			print("Fetched books for category \(category?.parameterValue())!!!")
+			self.booksArray[index] = books
+			self.booksCollection[index] = books
+			let indexPath = IndexPath(row: 0, section: index)
+			// check if the row of news which we are calling API to retrieve is in the visible rows area in screen
+			// the 'indexPathsForVisibleRows?' is because indexPathsForVisibleRows might return nil when there is no rows in visible area/screen
+			// if the indexPathsForVisibleRows is nil, '?? false' will make it become false
+			if self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
+				// if the row is visible (means it is currently empty on screen, refresh it with the loaded data with fade animation
+				self.tableView.reloadRows(at: [IndexPath(row: 0, section: index)], with: .automatic)
+			}
+		}
 	}
 
 	//MARK: - UITableViewDataSource
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return booksArray.count
+		return booksCollection.count
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return queries[section]?.headerDescription() ?? "books"
-	}
-
-	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		if section == 0 && (savedBooks?.isEmpty)!{
-			return 0
-		} else {
-			return tableView.sectionHeaderHeight
-		}
-	}
-
-	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		if indexPath.section == 0 && (savedBooks?.isEmpty)!{
-			return 0
-		} else {
-			return tableView.rowHeight
-		}
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,36 +84,65 @@ class FeedTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-		let lastItem = booksArray.count - 1
-		if indexPath.section == lastItem {
-			fetchBooks(fromSectionIndex: lastItem)
-			print("Begin batch fetch")
+
+		guard let cell = cell as? FeedTableViewCell else {return}
+		let index = indexPath.section
+		cell.setCollectionViewDataSourceDelegate(self, forRow: index)
+		cell.collectionViewOffset = storedOffsets[index] ?? 0
+		cell.feedCollection.tag = index
+
+		if index == 0 {
+			cell.collectionViewOffset = 0
 		}
-		let cell = cell as! FeedTableViewCell
-		cell.feedCollection.tag = indexPath.section
-		cell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.section)
-		cell.collectionViewOffset = storedOffsets[indexPath.section] ?? 0
+		if booksCollection[index] == nil {
+			fetchBooks(ofIndex: index)
+		}
 	}
 
 	override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let cell = cell as! FeedTableViewCell
 		storedOffsets[indexPath.section] = cell.collectionViewOffset
 	}
+
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return queries[section]?.headerDescription() ?? "books"
+	}
+
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		if queries[section] == .savedCollection && savedBooks?.isEmpty ?? true {
+			return 0
+		}
+		return tableView.sectionHeaderHeight
+	}
+
+	override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		if queries[indexPath.section] == .savedCollection && savedBooks?.isEmpty ?? true{
+			return 0
+		} else {
+			return tableView.rowHeight
+		}
+	}
+}
+
+//MARK: - UITableViewDataSourcePrefetching
+extension FeedTableViewController: UITableViewDataSourcePrefetching {
+	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+		for indexPath in indexPaths {
+			fetchBooks(ofIndex: indexPath.section)
+		}
+	}
 }
 
 //MARK: - UICollectionViewDataSource
 extension FeedTableViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		let tag = collectionView.tag
-		collectionTags.insert(tag)
-		print(self.collectionTags)
-		return booksArray[collectionView.tag]?.count ?? 0
+		return booksCollection[collectionView.tag]?.count ?? 0
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCollectionCell", for: indexPath) as! FeedCollectionViewCell
 		cell.coverImage.image = nil
-		if let book = booksArray[collectionView.tag]?[indexPath.row] {
+		if let book = booksCollection[collectionView.tag]?[indexPath.row] {
 			let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
 			cell.coverImage.sd_setImage(with: url)
 		}

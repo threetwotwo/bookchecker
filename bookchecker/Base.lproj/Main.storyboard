@@ -13,6 +13,7 @@
         <!--Feed Table View Controller-->
         <scene sceneID="Iga-l5-kSg">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zho-kx-Qd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="hMG-lO-OjQ" customClass="FeedTableViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="195" estimatedRowHeight="195" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" id="3bF-V5-y0h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -120,7 +121,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="YNw-SU-s47"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zho-kx-Qd9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1914" y="-260"/>
         </scene>
@@ -171,7 +171,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="270" height="47.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Ze-Ju-a6G">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="4Ze-Ju-a6G">
                                                                     <rect key="frame" x="34" y="0.0" width="228" height="47.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <nil key="textColor"/>
@@ -512,34 +512,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W8y-NX-n67" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1913" y="428"/>
-        </scene>
-        <!--Test Table View Controller-->
-        <scene sceneID="BA3-H8-bDh">
-            <objects>
-                <tableViewController id="2E7-Tb-LwM" customClass="TestTableViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yE8-Qj-Rfa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TestCell" id="Q7d-EX-RY5">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q7d-EX-RY5" id="w0X-1d-UdM">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="2E7-Tb-LwM" id="p2F-qW-r4I"/>
-                            <outlet property="delegate" destination="2E7-Tb-LwM" id="v2k-4U-uMT"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1AO-NZ-7CF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="148" y="-772"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="qOk-E3-ig1">

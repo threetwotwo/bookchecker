@@ -16,15 +16,14 @@ class FeedTableViewController: UITableViewController {
 	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
 
 	var savedBooks: Results<RealmBook>?
-	var booksArray: [Int : [Book]] = [ : ]
-	var booksCollection: [[Book]?] = []
+	var booksArray: [[Book]?] = []
     var storedOffsets = [Int: CGFloat]()
 //	var collectionTags = Set<Int>()
 
 	override func viewDidLoad() {
         super.viewDidLoad()
 		networkManager = NetworkManager()
-		booksCollection = [[Book]?](repeating: nil, count: queries.count)
+		booksArray = [[Book]?](repeating: nil, count: queries.count)
 //		addSwipeGesturesForSwitchingTabs()
     }
 
@@ -42,8 +41,8 @@ class FeedTableViewController: UITableViewController {
 		for savedBook in savedBooks {
 			books.append(Book(realmBook: savedBook))
 		}
-		booksCollection[index] = books
-		self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+		booksArray[index] = books
+		self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
 	}
 
 	func fetchBooks(ofIndex index: Int) {
@@ -56,7 +55,6 @@ class FeedTableViewController: UITableViewController {
 		Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(category!.parameterValue())\"") { (books) in
 			print("Fetched books for category \(category?.parameterValue())!!!")
 			self.booksArray[index] = books
-			self.booksCollection[index] = books
 			let indexPath = IndexPath(row: 0, section: index)
 			// check if the row of news which we are calling API to retrieve is in the visible rows area in screen
 			// the 'indexPathsForVisibleRows?' is because indexPathsForVisibleRows might return nil when there is no rows in visible area/screen
@@ -70,7 +68,7 @@ class FeedTableViewController: UITableViewController {
 
 	//MARK: - UITableViewDataSource
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return booksCollection.count
+		return booksArray.count
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,7 +91,7 @@ class FeedTableViewController: UITableViewController {
 		if index == 0 {
 			cell.collectionViewOffset = 0
 		}
-		if booksCollection[index] == nil {
+		if booksArray[index] == nil {
 			fetchBooks(ofIndex: index)
 		}
 	}
@@ -135,13 +133,13 @@ extension FeedTableViewController: UITableViewDataSourcePrefetching {
 //MARK: - UICollectionViewDataSource
 extension FeedTableViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return booksCollection[collectionView.tag]?.count ?? 0
+		return booksArray[collectionView.tag]?.count ?? 0
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FeedCollectionCell", for: indexPath) as! FeedCollectionViewCell
 		cell.coverImage.image = nil
-		if let book = booksCollection[collectionView.tag]?[indexPath.row] {
+		if let book = booksArray[collectionView.tag]?[indexPath.row] {
 			let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
 			cell.coverImage.sd_setImage(with: url)
 		}

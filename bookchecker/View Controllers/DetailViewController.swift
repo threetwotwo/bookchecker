@@ -86,7 +86,7 @@ class DetailViewController: UIViewController {
 
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
 
-		sender.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+		sender.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
 		sender.imageView?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
 		UIView.animate(withDuration: 0.15) {
 			sender.transform = CGAffineTransform.identity

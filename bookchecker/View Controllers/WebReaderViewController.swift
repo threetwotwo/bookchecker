@@ -83,10 +83,10 @@ extension WebReaderViewController: WKNavigationDelegate {
 		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-statusbar-controls-table')[0].style.visibility = 'hidden';", completionHandler: nil)
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingTop = '16px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingTop = '16pxpx';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingLeft = '10px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingLeft = '10px';", completionHandler: nil)
+//			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingTop = '10px';", completionHandler: nil)
+//			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingTop = '10pxpx';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingLeft = '0px';", completionHandler: nil)
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingLeft = '0px';", completionHandler: nil)
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingRight = '0px';", completionHandler: nil)
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingRight = '0px';", completionHandler: nil)
 //			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-segment')[0].style.fontSize = '24px';", completionHandler: nil)

@@ -45,7 +45,6 @@ class SearchTableViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
 		setUpSearchbar()
 		searchTableView.tableFooterView = UIView()
-		Navbar.addImage(to: self)
 		searchTableView.delegate = self
 		addTapGestureRecognizerToDismissKeyboard()
 		addSwipeGesturesForSwitchingTabs()

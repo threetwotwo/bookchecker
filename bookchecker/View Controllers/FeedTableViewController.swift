@@ -24,7 +24,6 @@ class FeedTableViewController: UITableViewController {
 	override func viewDidLoad() {
         super.viewDidLoad()
 		networkManager = NetworkManager()
-		Navbar.addImage(to: self)
 		booksCollection = [[Book]?](repeating: nil, count: queries.count)
 //		addSwipeGesturesForSwitchingTabs()
     }

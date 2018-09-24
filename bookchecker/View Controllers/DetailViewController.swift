@@ -83,7 +83,7 @@ class DetailViewController: UIViewController {
 	@IBAction func favoriteButtonPressed(_ sender: UIButton) {
 
 		if let savedBook = savedBook {
-			DBManager.shared.delete(object: savedBook)
+			DBManager.shared.deleteBook(object: savedBook)
 			Alert.showMessage(theme: .warning, title: "Book removed from favorites", body: nil, displayDuration: 1)
 //			Alert.createAlert(self, title: "Book removed from favorites", message: nil)
 		} else {

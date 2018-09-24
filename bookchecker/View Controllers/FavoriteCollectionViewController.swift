@@ -15,16 +15,35 @@ class FavoriteCollectionViewController: UIViewController {
 	//MARK: - IBOutlets
 	@IBOutlet weak var favoriteCollectionView: UICollectionView!
 	@IBOutlet weak var searchBar: UISearchBar!
-	
+	@IBOutlet weak var editButton: UIBarButtonItem!
+
 	//MARK: - IBAction
-	@IBAction func deleteAll(_ sender: Any) {
-		DBManager.shared.deleteAll()
+	@IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+		editMode = !editMode
+		editButton.title = editMode ? "Done" : "Edit"
+	}
+
+	@objc func deleteAll(sender: Any) {
+		guard let currentBooks = currentBooks else {return}
+		DBManager.shared.deleteBooks(objects: currentBooks)
 		favoriteCollectionView?.reloadData()
 	}
 
 	//MARK: - Variables
 	let realm = try! Realm()
 	var books: Results<RealmBook>?
+	var currentBooks: Results<RealmBook>?
+	var editMode = false {
+		didSet {
+			if editMode {
+				self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Delete All", style: .plain, target: self, action: #selector(deleteAll(sender:)))
+			} else {
+				self.navigationItem.leftBarButtonItem = nil
+			}
+			favoriteCollectionView?.reloadData()
+		}
+	}
+
 
 	//MARK: - Life Cycle
 	fileprivate func addTapGestureRecognizerToDismissKeyboard() {
@@ -44,16 +63,20 @@ class FavoriteCollectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-		Navbar.addImage(to: self)
+//		navigationController?.navigationBar.prefersLargeTitles = true
 		setUpSearchbar()
 		addTapGestureRecognizerToDismissKeyboard()
-		addSwipeGesturesForSwitchingTabs()
     }
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
 		loadBooks()
+		currentBooks = books
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super .viewWillDisappear(true)
+		editMode = false
 	}
 }
 
@@ -75,8 +98,19 @@ extension FavoriteCollectionViewController: UICollectionViewDataSource {
 		if let book = books?[indexPath.item],
 			let imageData = book.image{
 			cell.coverImage.image = UIImage(data: imageData)
+			cell.bookID = book.id
+			cell.deleteButton.addTarget(self, action: #selector(deleteButtonTapped(sender:)), for: .touchUpInside)
+			if editMode {
+				cell.deleteButton.isHidden = false
+			} else {
+				cell.deleteButton.isHidden = true
+			}
 		}
 		return cell
+	}
+
+	@objc func deleteButtonTapped(sender: UIButton) {
+		favoriteCollectionView.reloadData()
 	}
 }
 
@@ -102,6 +136,7 @@ extension FavoriteCollectionViewController {
 
 	func loadBooks(query: String) {
 		books = realm.objects(RealmBook.self).sorted(byKeyPath: "dateAdded", ascending: false).filter("title CONTAINS[cd] %@ OR authors CONTAINS[cd] %@", query, query)
+		currentBooks = books
 		favoriteCollectionView?.reloadData()
 	}
 }

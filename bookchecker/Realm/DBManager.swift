@@ -102,10 +102,20 @@ class DBManager {
 	}
 
 
-	func delete(object: RealmBook)   {
+	func deleteBook(object: RealmBook)   {
 		do {
 			try realm.write {
 				realm.delete(object)
+			}
+		} catch {
+			print(error.localizedDescription)
+		}
+	}
+
+	func deleteBooks(objects: Results<RealmBook>)   {
+		do {
+			try realm.write {
+				realm.delete(objects)
 			}
 		} catch {
 			print(error.localizedDescription)

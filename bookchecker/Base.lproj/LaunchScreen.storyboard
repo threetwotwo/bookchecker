@@ -18,24 +18,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_happy" translatesAutoresizingMaskIntoConstraints="NO" id="CNR-2q-KLX">
-                                <rect key="frame" x="0.0" y="304.5" width="375" height="78"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beeghost" translatesAutoresizingMaskIntoConstraints="NO" id="mQi-zK-sKo">
-                                <rect key="frame" x="0.0" y="200.5" width="375" height="104"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beebaby_isolated" translatesAutoresizingMaskIntoConstraints="NO" id="mQi-zK-sKo">
+                                <rect key="frame" x="-117.5" y="236.5" width="629" height="180"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="104" id="qqK-wY-T35"/>
+                                    <constraint firstAttribute="height" constant="180" id="qqK-wY-T35"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.46274509803921571" green="0.83921568627450982" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="CNR-2q-KLX" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="E2u-Df-iBx"/>
-                            <constraint firstItem="CNR-2q-KLX" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="INt-sV-VZR"/>
-                            <constraint firstItem="CNR-2q-KLX" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Rpa-tn-hIh"/>
-                            <constraint firstItem="mQi-zK-sKo" firstAttribute="trailing" secondItem="CNR-2q-KLX" secondAttribute="trailing" id="YJc-ge-Bvj"/>
-                            <constraint firstItem="CNR-2q-KLX" firstAttribute="top" secondItem="mQi-zK-sKo" secondAttribute="bottom" id="msA-Bx-tuI"/>
-                            <constraint firstItem="mQi-zK-sKo" firstAttribute="leading" secondItem="CNR-2q-KLX" secondAttribute="leading" id="p7M-R6-aSX"/>
+                            <constraint firstItem="mQi-zK-sKo" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.95" id="BPR-zX-4UE"/>
+                            <constraint firstItem="mQi-zK-sKo" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.05" id="Qa8-cm-RVZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -46,7 +39,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="beeghost" width="629" height="743"/>
-        <image name="logo_happy" width="700" height="78"/>
+        <image name="beebaby_isolated" width="629" height="743"/>
     </resources>
 </document>

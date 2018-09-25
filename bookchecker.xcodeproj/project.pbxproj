@@ -44,6 +44,7 @@
 		4ED986962137950B0025C766 /* UIView + IBDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED986952137950B0025C766 /* UIView + IBDesignable.swift */; };
 		4EED5FC0213AF4FA0019384B /* String + occurences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED5FBF213AF4FA0019384B /* String + occurences.swift */; };
 		4EED5FC2213AFF320019384B /* DownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED5FC1213AFF320019384B /* DownloadTableViewCell.swift */; };
+		4EF413472159E6EB00E50E11 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF413462159E6EB00E50E11 /* SettingsTableViewController.swift */; };
 		9FC6D242152B7B2A5495EC3F /* Pods_bookchecker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEC06E3514225794F98B506 /* Pods_bookchecker.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		4ED986952137950B0025C766 /* UIView + IBDesignable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + IBDesignable.swift"; sourceTree = "<group>"; };
 		4EED5FBF213AF4FA0019384B /* String + occurences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + occurences.swift"; sourceTree = "<group>"; };
 		4EED5FC1213AFF320019384B /* DownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewCell.swift; sourceTree = "<group>"; };
+		4EF413462159E6EB00E50E11 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		5B8352BB987EF499395F67C9 /* Pods-bookchecker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookchecker.release.xcconfig"; path = "Pods/Target Support Files/Pods-bookchecker/Pods-bookchecker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +119,7 @@
 		4E5F5C8421259BAF0080A0F6 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4EF413462159E6EB00E50E11 /* SettingsTableViewController.swift */,
 				4E7D252A21210A88004FA408 /* FeedTableViewController.swift */,
 				4E5F5C822125871E0080A0F6 /* SearchTableViewController.swift */,
 				4E558D5B212BE5A5007E7310 /* FavoriteCollectionViewController.swift */,
@@ -375,6 +378,7 @@
 				4EAEB04821512E460059E9B4 /* DownloadManager.swift in Sources */,
 				4EED5FC2213AFF320019384B /* DownloadTableViewCell.swift in Sources */,
 				4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */,
+				4EF413472159E6EB00E50E11 /* SettingsTableViewController.swift in Sources */,
 				4E695BC7212183FE00CFE856 /* Book.swift in Sources */,
 				4EED5FC0213AF4FA0019384B /* String + occurences.swift in Sources */,
 				4E3FE76D21405D4B006C5628 /* UIImage + alpha.swift in Sources */,

@@ -11,14 +11,13 @@ import SDWebImage
 import RealmSwift
 
 class FeedTableViewController: UITableViewController {
+
 	//MARK: - Variables
 	var networkManager: NetworkManager!
 	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
-
 	var savedBooks: Results<RealmBook>?
 	var booksArray: [[Book]?] = []
     var storedOffsets = [Int: CGFloat]()
-//	var collectionTags = Set<Int>()
 
 	override func viewDidLoad() {
         super.viewDidLoad()

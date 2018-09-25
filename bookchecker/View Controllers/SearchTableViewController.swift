@@ -14,6 +14,12 @@ class SearchTableViewController: UIViewController, UIScrollViewDelegate {
 	//MARK: - IBOutlets
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var searchTableView: UITableView!
+	
+	//MARK: - IBActions
+	@IBAction func settingsButtonPressed(_ sender: UIBarButtonItem) {
+		let vc = storyboard?.instantiateViewController(withIdentifier: "SettingsVC") as! SettingsTableViewController
+		navigationController?.pushViewController(vc, animated: true)
+	}
 
 	//MARK: - variables
 	var books: [Book] = []
@@ -154,7 +160,8 @@ extension SearchTableViewController: UISearchBarDelegate {
 	}
 
 	@objc func getBooksFromSearchbar() {
-		Services.shared.getBooks(from: .archive, .google, searchParameter: searchBar.text!) { (books) in
+		let matureSetting: Bool = UserDefaults.standard.bool(forKey: "matureContent")
+		Services.shared.getBooks(from: .archive, .google, searchParameter: searchBar.text!, matureContent: matureSetting) { (books) in
 			self.books = books
 			self.searchTableView.reloadData()
 			self.activityIndicator.stopAnimating()

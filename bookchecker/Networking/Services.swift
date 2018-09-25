@@ -13,14 +13,13 @@ class Services {
 
 	//MARK: - Variables
 	static let baseURL = "https://www.googleapis.com/books/v1/volumes"
-	static let archiveURL = ""
 	static let archiveMetadataURL = "https://archive.org/metadata"
 	static let archiveDownloadURL = "https://archive.org/download"
-	static var cachedBooks: [APISource:[JSON]] = [:]
 
 	static let shared = Services()
 	var docController: UIDocumentInteractionController?
 	let dispatchGroup = DispatchGroup()
+
 	static func getfileNamesFromDisk() -> [String] {
 		var names = [String]()
 		do {
@@ -74,7 +73,6 @@ class Services {
 					googleBooks.append(book)
 				}
 				books.append(contentsOf: googleBooks)
-				Services.cachedBooks[.google] = Array(totalItems[key]!.suffix(from: index))
 
 			case .archive:
 				var archiveBooks: [Book] = []
@@ -98,7 +96,6 @@ class Services {
 					archiveBooks.append(book)
 				}
 				books.append(contentsOf: archiveBooks)
-				Services.cachedBooks[.archive] = Array(totalItems[key]!.suffix(from: index))
 			}
 		}
 		return books
@@ -141,7 +138,7 @@ class Services {
 				//return english books
 				parameters["langRestrict"] = "en"
 				//number of books
-				parameters["maxResults"] = "30"
+				parameters["maxResults"] = "40"
 				parameters["download"] = "epub"
 				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 

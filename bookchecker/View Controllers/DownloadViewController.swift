@@ -40,9 +40,10 @@ class DownloadViewController: UIViewController {
 		bookTitle = book.title
 		fileNames = book.downloadLinks
 		diskFileNames = Services.getfileNamesFromDisk()
+		//Dismiss the view controller when app is moved to background
+		//to reduce the visual bug that occurs with the progress bar
 		let notificationCenter = NotificationCenter.default
 		notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-
     }
 
 	@objc func appMovedToBackground() {
@@ -56,7 +57,7 @@ class DownloadViewController: UIViewController {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		//table view content + button height
-		let contentHeight = popupTableView.contentSize.height + 30
+		let contentHeight = popupTableView.contentSize.height + 48
 		//set pop up view maximum height to 400
 		heightConstraint.constant = min(contentHeight, 400)
 		//scroll indicator insets

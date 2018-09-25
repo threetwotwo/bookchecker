@@ -14,13 +14,12 @@ extension UITableView {
 		messageLabel.center = self.center
 		messageLabel.text = message
 		messageLabel.textColor = UIColor.lightGray
-		messageLabel.numberOfLines = 4;
-		messageLabel.textAlignment = .center;
-		messageLabel.font = UIFont(name: "Futura-Medium", size: 16)
+		messageLabel.numberOfLines = 4
+		messageLabel.textAlignment = .center
+		messageLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
 		messageLabel.sizeToFit()
-
-		self.backgroundView = messageLabel;
-		self.separatorStyle = .none;
+		self.backgroundView = messageLabel
+		self.separatorStyle = .none
 		self.isScrollEnabled = false
 
 	}
@@ -38,12 +37,11 @@ extension UICollectionView {
 		messageLabel.center = self.center
 		messageLabel.text = message
 		messageLabel.textColor = UIColor.lightGray
-		messageLabel.numberOfLines = 4;
-		messageLabel.textAlignment = .center;
-		messageLabel.font = UIFont(name: "Futura-Medium", size: 16)
+		messageLabel.numberOfLines = 4
+		messageLabel.textAlignment = .center
+		messageLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
 		messageLabel.sizeToFit()
-
-		self.backgroundView = messageLabel;
+		self.backgroundView = messageLabel
 		self.isScrollEnabled = false
 
 	}

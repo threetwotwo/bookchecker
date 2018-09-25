@@ -18,15 +18,22 @@ class FavoriteCollectionViewController: UIViewController {
 	@IBOutlet weak var editButton: UIBarButtonItem!
 
 	//MARK: - IBAction
-	@IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
-		editMode = !editMode
+	fileprivate func updateEditButtonTitle() {
 		editButton.title = editMode ? "Done" : "Edit"
 	}
 
+	@IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+		editMode = !editMode
+	}
+
+	//Delete all books currently shown on screen
 	@objc func deleteAll(sender: Any) {
-		guard let currentBooks = currentBooks else {return}
-		DBManager.shared.deleteBooks(objects: currentBooks)
-		favoriteCollectionView?.reloadData()
+		Alert.createAlertWithCancel(self, title: "Delete books?", message: nil) { (_) in
+			guard let currentBooks = self.currentBooks else {return}
+			DBManager.shared.deleteBooks(objects: currentBooks)
+			self.favoriteCollectionView?.reloadData()
+			self.editMode = false
+		}
 	}
 
 	//MARK: - Variables
@@ -40,6 +47,7 @@ class FavoriteCollectionViewController: UIViewController {
 			} else {
 				self.navigationItem.leftBarButtonItem = nil
 			}
+			updateEditButtonTitle()
 			favoriteCollectionView?.reloadData()
 		}
 	}

@@ -17,6 +17,7 @@ class SearchTableViewCell: UITableViewCell {
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var authorLabel: UILabel!
 	@IBOutlet weak var apiSourceButton: UILabel!
+	@IBOutlet weak var epubLabel: UILabel!
 	
 
     override func awakeFromNib() {

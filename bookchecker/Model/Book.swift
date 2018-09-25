@@ -6,7 +6,6 @@
 //  Copyright © 2018 Gary. All rights reserved.
 //
 import Foundation
-import RealmSwift
 
 struct Book {
 	var apiSource = ""

@@ -22,7 +22,13 @@ class SearchTableViewController: UIViewController, UIScrollViewDelegate {
 	}
 
 	//MARK: - variables
-	var books: [Book] = []
+	var books: [Book] = [] {
+		didSet {
+			hasEpubs = [Bool?](repeating: nil, count: books.count)
+		}
+	}
+	//track if book has a downloadable epub file
+	var hasEpubs: [Bool?] = []
 	var timer: Timer?
 	var contentOffset: CGPoint?
 	var activityIndicator = UIActivityIndicatorView(style: .gray)
@@ -123,7 +129,7 @@ extension SearchTableViewController: UITableViewDataSource {
 	 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
 		cell.coverImage.image = nil
-
+		cell.epubLabel.isHidden = true
 		//Highlight color when cell is selected
 		let backgroundView = UIView()
 		backgroundView.backgroundColor = UIColor.init(hexString: "e8f4f8")
@@ -134,6 +140,23 @@ extension SearchTableViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let cell = cell as! SearchTableViewCell
 		let book = books[indexPath.row]
+		if let hasEpub = hasEpubs[indexPath.row] {
+			cell.epubLabel.isHidden = hasEpub ? false : true
+		} else {
+			Services.shared.getDownloadLinks(book: book) { (links) in
+				for link in links {
+					if link.hasSuffix(".epub") {
+						self.hasEpubs[indexPath.row] = true
+						cell.epubLabel.isHidden = false
+						break
+					} else {
+						self.hasEpubs[indexPath.row] = false
+						cell.epubLabel.isHidden = true
+					}
+				}
+			}
+		}
+
 		cell.apiSourceButton.text = book.apiSource
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors

@@ -457,7 +457,7 @@
                                                             <color key="textColor" red="0.062745098040000002" green="0.086274509799999996" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xS5-5G-4jA">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="xS5-5G-4jA">
                                                             <rect key="frame" x="0.0" y="20" width="197.5" height="21"/>
                                                             <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
                                                             <color key="textColor" red="0.062745098040000002" green="0.086274509799999996" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -487,11 +487,34 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
+                                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="epub" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5T-mC-6GO">
+                                                    <rect key="frame" x="142.5" y="135.5" width="50" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="HaS-rn-NF9"/>
+                                                        <constraint firstAttribute="width" constant="50" id="dKB-Lz-QqW"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="10"/>
+                                                    <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="9"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="z3A-Eg-v7O" firstAttribute="leading" secondItem="VjR-C8-gD7" secondAttribute="leading" constant="16" id="24O-eN-Oxh"/>
                                                 <constraint firstItem="z3A-Eg-v7O" firstAttribute="top" secondItem="VjR-C8-gD7" secondAttribute="top" constant="20" id="2ek-2v-waV"/>
+                                                <constraint firstItem="V5T-mC-6GO" firstAttribute="leading" secondItem="PUu-hb-9Pi" secondAttribute="leading" id="7hL-4c-riG"/>
                                                 <constraint firstAttribute="bottom" secondItem="z3A-Eg-v7O" secondAttribute="bottom" constant="20" id="FkT-1y-5PQ"/>
+                                                <constraint firstItem="V5T-mC-6GO" firstAttribute="top" secondItem="PUu-hb-9Pi" secondAttribute="bottom" constant="15" id="Lcs-8s-Uy5"/>
                                                 <constraint firstItem="PUu-hb-9Pi" firstAttribute="top" secondItem="my6-oJ-4Zu" secondAttribute="bottom" constant="20" id="jio-Ov-Xrq"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="PUu-hb-9Pi" secondAttribute="trailing" constant="20" id="jxV-N9-XKE"/>
                                                 <constraint firstItem="PUu-hb-9Pi" firstAttribute="centerY" secondItem="z3A-Eg-v7O" secondAttribute="centerY" id="ngi-Eb-3Nr"/>
@@ -503,6 +526,7 @@
                                             <outlet property="apiSourceButton" destination="my6-oJ-4Zu" id="9yR-9p-im6"/>
                                             <outlet property="authorLabel" destination="E3W-Bd-5Kl" id="03W-md-5cV"/>
                                             <outlet property="coverImage" destination="z3A-Eg-v7O" id="2gL-w5-OD9"/>
+                                            <outlet property="epubLabel" destination="V5T-mC-6GO" id="lQH-zp-WBk"/>
                                             <outlet property="titleLabel" destination="xS5-5G-4jA" id="SDZ-3F-POw"/>
                                         </connections>
                                     </tableViewCell>
@@ -1023,18 +1047,18 @@
             </objects>
             <point key="canvasLocation" x="-73" y="553"/>
         </scene>
-        <!--Settings Table View Controller-->
+        <!--Settings-->
         <scene sceneID="QXb-eT-f2K">
             <objects>
-                <tableViewController storyboardIdentifier="SettingsVC" hidesBottomBarWhenPushed="YES" id="GbU-rA-CkY" customClass="SettingsTableViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="IWW-uZ-DQY">
+                <tableViewController storyboardIdentifier="SettingsVC" title="Settings" hidesBottomBarWhenPushed="YES" id="GbU-rA-CkY" customClass="SettingsTableViewController" customModule="bookchecker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="IWW-uZ-DQY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
                             <tableViewSection headerTitle="Adult Content" id="w31-sh-s63">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="24S-8H-U7N">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="24S-8H-U7N">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="24S-8H-U7N" id="HTM-pu-avr">

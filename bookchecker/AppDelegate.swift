@@ -16,9 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		// listener for network reachability
-		NetworkManager.shared.startNetworkReachabilityObserver()
-
 		//Initialize realm
 		do {
 			_ = try Realm()

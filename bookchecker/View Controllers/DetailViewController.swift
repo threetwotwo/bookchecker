@@ -50,8 +50,7 @@ class DetailViewController: UIViewController {
 			guard let url = URL(string: book.infoLink) else {
 				return
 			}
-			vc.previewLink = url
-			//Turn reader to page 1 or the most current page
+			vc.readerLink = url
 			present(vc, animated: true)
 		}
 	}
@@ -67,9 +66,8 @@ class DetailViewController: UIViewController {
 				return
 			}
 			vc.bookID = book.id
-			vc.previewLink = url
+			vc.readerLink = url
 			//Turn reader to page 1 or the most current page
-//			vc.previewLink.setValue(forKey: "pg", to: savedBook?.currentPage == "" ? "PA1" : savedBook?.currentPage ?? "PA1")
 			navigationController?.pushViewController(vc, animated: true)
 		} else {
 			let vc = storyboard?.instantiateViewController(withIdentifier: "DownloadVC") as! DownloadViewController
@@ -94,11 +92,9 @@ class DetailViewController: UIViewController {
 		if let savedBook = savedBook {
 			DBManager.shared.deleteBook(object: savedBook)
 			Alert.showMessage(theme: .warning, title: "Book removed from favorites", body: nil, displayDuration: 1)
-//			Alert.createAlert(self, title: "Book removed from favorites", message: nil)
 		} else {
 			DBManager.shared.saveToFavorites(book: book)
 			Alert.showMessage(theme: .warning, title: "Book saved!", body: nil, displayDuration: 1)
-//			Alert.createAlert(self, title: "Book added!", message: nil)
 		}
 		loadSavedBook()
 		updateButtons()

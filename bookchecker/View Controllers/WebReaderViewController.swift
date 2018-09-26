@@ -26,7 +26,7 @@ class WebReaderViewController: UIViewController {
 
 	//MARK: - Variables
 	var bookID = ""
-	var previewLink: URL!
+	var readerLink: URL!
 	var timer: Timer?
 	var savedBook: RealmBook?
 
@@ -36,7 +36,7 @@ class WebReaderViewController: UIViewController {
 		webReaderView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webReaderView.navigationDelegate = self
 
-		let urlRequest = URLRequest(url: previewLink)
+		let urlRequest = URLRequest(url: readerLink)
 		webReaderView.load(urlRequest)
 	}
 
@@ -45,7 +45,7 @@ class WebReaderViewController: UIViewController {
 		if let book = DBManager.shared.getBooks().filter("id == '\(bookID)'").first {
 			savedBook = book
 		}
-		setUpWebReaderView(url: previewLink)
+		setUpWebReaderView(url: readerLink)
 		adBannerView.adUnitID = "ca-app-pub-3632853954476836/8819168571"
 		adBannerView.rootViewController = self
 		adBannerView.load(GADRequest())
@@ -84,9 +84,10 @@ extension WebReaderViewController: WKNavigationDelegate {
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		//Hides header and footer
 		self.webReaderView.evaluateJavaScript("document.getElementById('gb-mobile-appbar').remove();", completionHandler: nil)
-//		self.webReaderView.evaluateJavaScript("document.getElementById('volume-center').style.marginTop = 0;", completionHandler: nil)
 		if let currentPage = savedBook?.currentPage {
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('overflow-scrolling')[0].scrollTop = \(currentPage);", completionHandler: nil)
+		} else {
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('overflow-scrolling')[0].scrollTop = 0;", completionHandler: nil)
 		}
 
 		UIApplication.shared.isNetworkActivityIndicatorVisible = false

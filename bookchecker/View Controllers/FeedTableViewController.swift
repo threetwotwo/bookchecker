@@ -9,27 +9,47 @@
 import UIKit
 import SDWebImage
 import RealmSwift
+import Alamofire
 
 class FeedTableViewController: UITableViewController {
 
 	//MARK: - Variables
-	var networkManager: NetworkManager!
 	var queries: [Int : Category] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
 	var savedBooks: Results<RealmBook>?
 	var booksArray: [[Book]?] = []
     var storedOffsets = [Int: CGFloat]()
 
+	let reachabilityManager = NetworkReachabilityManager()
+
+	func startNetworkReachabilityObserver() {
+
+		reachabilityManager?.listener = { status in
+			switch status {
+			case .notReachable:
+				print("The network is not reachable")
+			case .unknown :
+				print("It is unknown whether the network is reachable")
+			case .reachable:
+				print("The network is reachable")
+				self.tableView.reloadData()
+			}
+		}
+
+		// start listening
+		reachabilityManager?.startListening()
+	}
+
 	override func viewDidLoad() {
         super.viewDidLoad()
-		networkManager = NetworkManager()
+		startNetworkReachabilityObserver()
 		booksArray = [[Book]?](repeating: nil, count: queries.count)
-//		addSwipeGesturesForSwitchingTabs()
     }
 
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
 		loadSavedBooks(0)
+		
 	}
 
 	//MARK: - Data Fetching
@@ -90,7 +110,8 @@ class FeedTableViewController: UITableViewController {
 		if index == 0 {
 			cell.collectionViewOffset = 0
 		}
-		if booksArray[index] == nil {
+		guard reachabilityManager?.isReachable ?? true else {return}
+		if booksArray[index] == nil || (booksArray[index]?.isEmpty)! {
 			fetchBooks(ofIndex: index)
 		}
 	}

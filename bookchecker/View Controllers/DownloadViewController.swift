@@ -188,6 +188,7 @@ extension DownloadViewController: UITableViewDelegate {
 		print("File URL: \(fileURL)")
 		DownloadManager.shared.docController = UIDocumentInteractionController(url: fileURL)
 		let url = URL(string:"itms-books:");
+		//Get topmost controller
 		if var topController = UIApplication.shared.keyWindow?.rootViewController {
 			while let presentedViewController = topController.presentedViewController {
 				topController = presentedViewController

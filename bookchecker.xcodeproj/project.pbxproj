@@ -35,7 +35,6 @@
 		4E99956621290DF9007A7E09 /* UIColor + hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956521290DF9007A7E09 /* UIColor + hex.swift */; };
 		4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99956821297C72007A7E09 /* WebReaderViewController.swift */; };
 		4EA08773212AC8F60033A1B2 /* Navbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA08772212AC8F60033A1B2 /* Navbar.swift */; };
-		4EA35ABA212A705600B7DC3F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA35AB9212A705600B7DC3F /* NetworkManager.swift */; };
 		4EABBAE72128180000657D33 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EABBAE62128180000657D33 /* DetailViewController.swift */; };
 		4EAEB04821512E460059E9B4 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEB04721512E460059E9B4 /* DownloadManager.swift */; };
 		4EBB90282140E5910054C952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EBB90272140E5900054C952 /* GoogleService-Info.plist */; };
@@ -81,7 +80,6 @@
 		4E99956521290DF9007A7E09 /* UIColor + hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + hex.swift"; sourceTree = "<group>"; };
 		4E99956821297C72007A7E09 /* WebReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebReaderViewController.swift; sourceTree = "<group>"; };
 		4EA08772212AC8F60033A1B2 /* Navbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navbar.swift; sourceTree = "<group>"; };
-		4EA35AB9212A705600B7DC3F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4EABBAE62128180000657D33 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4EAEB04721512E460059E9B4 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		4EBB90272140E5900054C952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -201,7 +199,6 @@
 		4ED3DC9921311A33009EC21A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				4EA35AB9212A705600B7DC3F /* NetworkManager.swift */,
 				4E695BCE2121E8C100CFE856 /* Services.swift */,
 				4EAEB04721512E460059E9B4 /* DownloadManager.swift */,
 				4ED3DC9C21311BBA009EC21A /* Category.swift */,
@@ -395,7 +392,6 @@
 				4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */,
 				4E892BB2212FF59800FBB739 /* RealmBook.swift in Sources */,
 				4E99956921297C73007A7E09 /* WebReaderViewController.swift in Sources */,
-				4EA35ABA212A705600B7DC3F /* NetworkManager.swift in Sources */,
 				4E7D252B21210A88004FA408 /* FeedTableViewController.swift in Sources */,
 				4E558D5C212BE5A5007E7310 /* FavoriteCollectionViewController.swift in Sources */,
 				4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */,

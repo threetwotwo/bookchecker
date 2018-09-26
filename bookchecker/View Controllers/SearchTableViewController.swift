@@ -59,7 +59,6 @@ class SearchTableViewController: UIViewController, UIScrollViewDelegate {
 		searchTableView.tableFooterView = UIView()
 		searchTableView.delegate = self
 		addTapGestureRecognizerToDismissKeyboard()
-		addSwipeGesturesForSwitchingTabs()
     }
 
 	override func viewWillAppear(_ animated: Bool) {

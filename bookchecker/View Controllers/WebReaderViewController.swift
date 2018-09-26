@@ -84,7 +84,7 @@ extension WebReaderViewController: WKNavigationDelegate {
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		//Hides header and footer
 		self.webReaderView.evaluateJavaScript("document.getElementById('gb-mobile-appbar').remove();", completionHandler: nil)
-		self.webReaderView.evaluateJavaScript("document.getElementById('volume-center').style.marginTop = 0;", completionHandler: nil)
+//		self.webReaderView.evaluateJavaScript("document.getElementById('volume-center').style.marginTop = 0;", completionHandler: nil)
 		if let currentPage = savedBook?.currentPage {
 			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('overflow-scrolling')[0].scrollTop = \(currentPage);", completionHandler: nil)
 		}

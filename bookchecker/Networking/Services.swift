@@ -66,7 +66,7 @@ class Services {
 					book.categories = volumeInfo["categories"].arrayValue.map{$0.stringValue}.joined(separator: ", ")
 					book.averageRating = volumeInfo["averageRating"].stringValue
 					book.ratingsCount = volumeInfo["ratingsCount"].stringValue
-					book.readerLink = item["accessInfo"]["webReaderLink"].stringValue
+					book.readerLink = volumeInfo["previewLink"].stringValue
 					book.thumbnail = volumeInfo["imageLinks"]["thumbnail"].stringValue
 					book.infoLink = volumeInfo["infoLink"].stringValue
 

@@ -635,13 +635,13 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NgP-kU-v53">
+                                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="NgP-kU-v53">
                                                                 <rect key="frame" x="30" y="210" width="315" height="18.5"/>
                                                                 <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="14"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvV-76-qi9">
+                                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="yvV-76-qi9">
                                                                 <rect key="frame" x="30" y="233.5" width="315" height="23.5"/>
                                                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -962,65 +962,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pwm-rP-tJt">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <subviews>
-                                    <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Djh-OL-vTY">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                        <color key="barTintColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <items>
-                                            <navigationItem id="QNy-ps-5DB">
-                                                <barButtonItem key="leftBarButtonItem" title="Close" id="5Qr-5V-tka">
-                                                    <connections>
-                                                        <action selector="cancelButtonPressed:" destination="ccc-IO-QUF" id="eVl-OE-bcE"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                            </navigationItem>
-                                        </items>
-                                    </navigationBar>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sho-YE-em7">
-                                        <rect key="frame" x="0.0" y="44" width="375" height="2"/>
-                                    </progressView>
-                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thg-6G-QUA">
-                                        <rect key="frame" x="0.0" y="46" width="375" height="551"/>
-                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <wkWebViewConfiguration key="configuration">
-                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                            <wkPreferences key="preferences"/>
-                                        </wkWebViewConfiguration>
-                                    </wkWebView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bk4-D1-gGa" customClass="GADBannerView">
-                                        <rect key="frame" x="0.0" y="597" width="375" height="50"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="0hE-Nb-VqX"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Sho-YE-em7">
+                                <rect key="frame" x="0.0" y="20" width="375" height="2"/>
+                            </progressView>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c4d-xN-VtT">
+                                <rect key="frame" x="0.0" y="22" width="375" height="645"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="10z-CV-s2i" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="611" width="375" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="bk4-D1-gGa" secondAttribute="bottom" id="Jd8-p4-AFP"/>
-                                    <constraint firstAttribute="trailing" secondItem="bk4-D1-gGa" secondAttribute="trailing" id="QHP-6L-hTN"/>
-                                    <constraint firstItem="bk4-D1-gGa" firstAttribute="leading" secondItem="Pwm-rP-tJt" secondAttribute="leading" id="is0-AF-cyC"/>
+                                    <constraint firstAttribute="height" constant="56" id="maI-sr-0Td"/>
                                 </constraints>
-                            </stackView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.85882352939999995" green="0.85882352939999995" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Pwm-rP-tJt" firstAttribute="top" secondItem="8zM-tz-eB5" secondAttribute="top" id="He8-8y-9CE"/>
-                            <constraint firstItem="8zM-tz-eB5" firstAttribute="bottom" secondItem="Pwm-rP-tJt" secondAttribute="bottom" id="UQy-OC-Ots"/>
-                            <constraint firstItem="8zM-tz-eB5" firstAttribute="trailing" secondItem="Pwm-rP-tJt" secondAttribute="trailing" id="rPg-cj-YGh"/>
-                            <constraint firstItem="Pwm-rP-tJt" firstAttribute="leading" secondItem="8zM-tz-eB5" secondAttribute="leading" id="tXT-fd-DTk"/>
+                            <constraint firstItem="8zM-tz-eB5" firstAttribute="bottom" secondItem="10z-CV-s2i" secondAttribute="bottom" id="3la-Af-qjp"/>
+                            <constraint firstItem="8zM-tz-eB5" firstAttribute="trailing" secondItem="c4d-xN-VtT" secondAttribute="trailing" id="4Pe-xi-Sb3"/>
+                            <constraint firstItem="c4d-xN-VtT" firstAttribute="leading" secondItem="8zM-tz-eB5" secondAttribute="leading" id="8pP-YO-NDA"/>
+                            <constraint firstItem="8zM-tz-eB5" firstAttribute="trailing" secondItem="10z-CV-s2i" secondAttribute="trailing" id="BYr-He-tWH"/>
+                            <constraint firstAttribute="trailing" secondItem="Sho-YE-em7" secondAttribute="trailing" id="H95-hX-7hv"/>
+                            <constraint firstItem="Sho-YE-em7" firstAttribute="leading" secondItem="DgT-DT-1No" secondAttribute="leading" id="HrP-vl-eOK"/>
+                            <constraint firstItem="8zM-tz-eB5" firstAttribute="bottom" secondItem="c4d-xN-VtT" secondAttribute="bottom" id="R1S-hk-9ki"/>
+                            <constraint firstItem="10z-CV-s2i" firstAttribute="leading" secondItem="8zM-tz-eB5" secondAttribute="leading" id="iNc-38-gH5"/>
+                            <constraint firstItem="Sho-YE-em7" firstAttribute="top" secondItem="8zM-tz-eB5" secondAttribute="top" id="jmV-bb-9Zj"/>
+                            <constraint firstItem="c4d-xN-VtT" firstAttribute="top" secondItem="Sho-YE-em7" secondAttribute="bottom" id="p82-TW-Org"/>
+                            <constraint firstAttribute="trailing" secondItem="Sho-YE-em7" secondAttribute="trailing" id="qDf-D5-pwq"/>
+                            <constraint firstItem="Sho-YE-em7" firstAttribute="leading" secondItem="DgT-DT-1No" secondAttribute="leading" id="uQJ-gd-136"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8zM-tz-eB5"/>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="adBannerView" destination="bk4-D1-gGa" id="P56-Ci-OaL"/>
-                        <outlet property="bottomConstraint" destination="UQy-OC-Ots" id="Ixf-YC-FDR"/>
+                        <outlet property="adBannerView" destination="10z-CV-s2i" id="1MJ-5H-7Sb"/>
                         <outlet property="progressBar" destination="Sho-YE-em7" id="RcX-Zx-tXU"/>
-                        <outlet property="topConstraint" destination="He8-8y-9CE" id="Gy2-Pd-TuA"/>
-                        <outlet property="webReaderView" destination="thg-6G-QUA" id="oKl-gN-x6r"/>
+                        <outlet property="webReaderView" destination="c4d-xN-VtT" id="pk1-Ez-s0t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vx4-Jh-OiY" userLabel="First Responder" sceneMemberID="firstResponder"/>

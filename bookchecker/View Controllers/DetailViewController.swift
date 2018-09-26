@@ -63,14 +63,14 @@ class DetailViewController: UIViewController {
 		}
 		if book.readerLink != "" {
 			let vc = storyboard?.instantiateViewController(withIdentifier: "WebReaderVC") as! WebReaderViewController
-			guard let url = URL(string: book.readerLink) else {
+			guard let url = URL(string: book.readerLink.replacingOccurrences(of: "gbs_api", with: "kp_read_button")) else {
 				return
 			}
 			vc.bookID = book.id
 			vc.previewLink = url
 			//Turn reader to page 1 or the most current page
-			vc.previewLink.setValue(forKey: "pg", to: savedBook?.currentPage == "" ? "PA1" : savedBook?.currentPage ?? "PA1")
-			present(vc, animated: true)
+//			vc.previewLink.setValue(forKey: "pg", to: savedBook?.currentPage == "" ? "PA1" : savedBook?.currentPage ?? "PA1")
+			navigationController?.pushViewController(vc, animated: true)
 		} else {
 			let vc = storyboard?.instantiateViewController(withIdentifier: "DownloadVC") as! DownloadViewController
 			vc.book = book
@@ -219,7 +219,6 @@ class DetailViewController: UIViewController {
 			self.adjustImageHeight()
 			self.backgroundImage.image = image
 			self.book.image = (image ?? UIImage()).pngData()
-			self.view.layoutIfNeeded()
 		}
 	}
 }

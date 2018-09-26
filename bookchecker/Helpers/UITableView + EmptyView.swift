@@ -10,15 +10,15 @@ import UIKit
 
 extension UITableView {
 	func setEmptyMessage(_ message: String) {
-		let messageLabel = UILabel()
-		messageLabel.center = self.center
-		messageLabel.text = message
-		messageLabel.textColor = UIColor.lightGray
-		messageLabel.numberOfLines = 4
-		messageLabel.textAlignment = .center
-		messageLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
-		messageLabel.sizeToFit()
-		self.backgroundView = messageLabel
+		let label = UITextView()
+		label.center = self.center
+		label.text = message
+		label.textColor = UIColor.lightGray
+		label.textAlignment = .center
+		label.font = UIFont.systemFont(ofSize: 18, weight: .light)
+		label.textContainerInset = UIEdgeInsets(top: self.frame.height/2.3, left: 20, bottom: 0, right: 20)
+		label.isUserInteractionEnabled = false
+		self.backgroundView = label
 		self.separatorStyle = .none
 		self.isScrollEnabled = false
 
@@ -33,15 +33,15 @@ extension UITableView {
 
 extension UICollectionView {
 	func setEmptyMessage(_ message: String) {
-		let messageLabel = UILabel()
-		messageLabel.center = self.center
-		messageLabel.text = message
-		messageLabel.textColor = UIColor.lightGray
-		messageLabel.numberOfLines = 4
-		messageLabel.textAlignment = .center
-		messageLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
-		messageLabel.sizeToFit()
-		self.backgroundView = messageLabel
+		let label = UITextView()
+		label.center = self.center
+		label.text = message
+		label.textColor = UIColor.lightGray
+		label.textAlignment = .center
+		label.font = UIFont.systemFont(ofSize: 18, weight: .light)
+		label.textContainerInset = UIEdgeInsets(top: self.frame.height/2.3, left: 20, bottom: 0, right: 20)
+		label.isUserInteractionEnabled = false
+		self.backgroundView = label
 		self.isScrollEnabled = false
 
 	}

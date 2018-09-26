@@ -16,8 +16,7 @@ class WebReaderViewController: UIViewController {
 	//MARK: - IBOutlets
 	@IBOutlet weak var progressBar: UIProgressView!
 	@IBOutlet weak var webReaderView: WKWebView!
-	@IBOutlet weak var topConstraint: NSLayoutConstraint!
-	@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+
 	@IBOutlet weak var adBannerView: GADBannerView!
 
 	//MARK: - IBActions
@@ -29,6 +28,7 @@ class WebReaderViewController: UIViewController {
 	var bookID = ""
 	var previewLink: URL!
 	var timer: Timer?
+	var savedBook: RealmBook?
 
 
 	//MARK: - Life Cycle
@@ -42,7 +42,9 @@ class WebReaderViewController: UIViewController {
 
 	override func viewDidLoad() {
         super.viewDidLoad()
-
+		if let book = DBManager.shared.getBooks().filter("id == '\(bookID)'").first {
+			savedBook = book
+		}
 		setUpWebReaderView(url: previewLink)
 		adBannerView.adUnitID = "ca-app-pub-3632853954476836/8819168571"
 		adBannerView.rootViewController = self
@@ -51,10 +53,12 @@ class WebReaderViewController: UIViewController {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(true)
-		if let book = DBManager.shared.getBooks().filter("id == '\(bookID)'").first {
-			print(webReaderView.url?.absoluteURL)
+		guard let savedBook = savedBook else {return}
+		webReaderView.evaluateJavaScript("document.getElementsByClassName('overflow-scrolling')[0].scrollTop;") { (result, _) in
+			guard let result = result else {return}
+			let pageString = String(describing: result)
 			try! Realm().write {
-				book.currentPage = webReaderView.url?.absoluteURL.valueOf("pg") ?? ""
+				savedBook.currentPage = pageString
 			}
 		}
 	}
@@ -79,20 +83,11 @@ extension WebReaderViewController: WKNavigationDelegate {
 
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		//Hides header and footer
-		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-topbar-table')[0].style.visibility = 'hidden';", completionHandler: nil)
-		self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-statusbar-controls-table')[0].style.visibility = 'hidden';", completionHandler: nil)
-
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingTop = '10px';", completionHandler: nil)
-//			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingTop = '10pxpx';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingLeft = '0px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingLeft = '0px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[0].style.paddingRight = '0px';", completionHandler: nil)
-			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-page-wrapper-body')[1].style.paddingRight = '0px';", completionHandler: nil)
-//			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-segment')[0].style.fontSize = '24px';", completionHandler: nil)
-//			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('gb-segment')[1].style.fontSize = '24px';", completionHandler: nil)
+		self.webReaderView.evaluateJavaScript("document.getElementById('gb-mobile-appbar').remove();", completionHandler: nil)
+		self.webReaderView.evaluateJavaScript("document.getElementById('volume-center').style.marginTop = 0;", completionHandler: nil)
+		if let currentPage = savedBook?.currentPage {
+			self.webReaderView.evaluateJavaScript("document.getElementsByClassName('overflow-scrolling')[0].scrollTop = \(currentPage);", completionHandler: nil)
 		}
-
 
 		UIApplication.shared.isNetworkActivityIndicatorVisible = false
 

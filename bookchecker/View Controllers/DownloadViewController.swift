@@ -90,7 +90,7 @@ class DownloadViewController: UIViewController {
 //MARK: - UITableViewDataSource
 extension DownloadViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return fileNames.isEmpty ? "No files available" : "Select File"
+		return fileNames.isEmpty ? "No files available" : "SELECT FILE"
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

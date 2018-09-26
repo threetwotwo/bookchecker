@@ -39,10 +39,7 @@ class DetailViewController: UIViewController {
 	
 	@IBOutlet weak var imageHeight: NSLayoutConstraint!
 
-	//MARK: - IBActions
-	@IBAction func cancelButtonPressed(_ sender: Any) {
-		self.dismiss(animated: true, completion: nil)
-	}
+	//MARK: IBActions
 
 	@IBAction func apisourceButtonPressed(_ sender: Any) {
 		if book.infoLink != "" {
@@ -157,6 +154,7 @@ class DetailViewController: UIViewController {
 					self.book.downloadLinks = links
 
 					try! Realm().write {
+						self.savedBook?.downloadLinks.removeAll()
 						self.savedBook?.downloadLinks.append(objectsIn: links)
 					}
 					self.readOrDownloadButton.setTitle("DOWNLOAD", for: [])

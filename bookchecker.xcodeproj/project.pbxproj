@@ -40,7 +40,7 @@
 		4EAEB04821512E460059E9B4 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEB04721512E460059E9B4 /* DownloadManager.swift */; };
 		4EBB90282140E5910054C952 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EBB90272140E5900054C952 /* GoogleService-Info.plist */; };
 		4EC6454F21259C7F00E8ACE8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */; };
-		4ED3DC9D21311BBA009EC21A /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3DC9C21311BBA009EC21A /* Categories.swift */; };
+		4ED3DC9D21311BBA009EC21A /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3DC9C21311BBA009EC21A /* Category.swift */; };
 		4ED986962137950B0025C766 /* UIView + IBDesignable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED986952137950B0025C766 /* UIView + IBDesignable.swift */; };
 		4EED5FC0213AF4FA0019384B /* String + occurences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED5FBF213AF4FA0019384B /* String + occurences.swift */; };
 		4EED5FC2213AFF320019384B /* DownloadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED5FC1213AFF320019384B /* DownloadTableViewCell.swift */; };
@@ -86,7 +86,7 @@
 		4EAEB04721512E460059E9B4 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		4EBB90272140E5900054C952 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4EC6454E21259C7F00E8ACE8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
-		4ED3DC9C21311BBA009EC21A /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		4ED3DC9C21311BBA009EC21A /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4ED986952137950B0025C766 /* UIView + IBDesignable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + IBDesignable.swift"; sourceTree = "<group>"; };
 		4EED5FBF213AF4FA0019384B /* String + occurences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + occurences.swift"; sourceTree = "<group>"; };
 		4EED5FC1213AFF320019384B /* DownloadTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTableViewCell.swift; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 				4EA35AB9212A705600B7DC3F /* NetworkManager.swift */,
 				4E695BCE2121E8C100CFE856 /* Services.swift */,
 				4EAEB04721512E460059E9B4 /* DownloadManager.swift */,
-				4ED3DC9C21311BBA009EC21A /* Categories.swift */,
+				4ED3DC9C21311BBA009EC21A /* Category.swift */,
 				4E0D8C722136D2AF00447AD8 /* APISource.swift */,
 			);
 			path = Networking;
@@ -389,7 +389,7 @@
 				4E558D5E212BE648007E7310 /* FavoriteCollectionViewCell.swift in Sources */,
 				4E106ADB2152026100B4FC03 /* RealmDownload.swift in Sources */,
 				4E29D698213FEACA00E2FE90 /* String + contains.swift in Sources */,
-				4ED3DC9D21311BBA009EC21A /* Categories.swift in Sources */,
+				4ED3DC9D21311BBA009EC21A /* Category.swift in Sources */,
 				4E7D251921210919004FA408 /* AppDelegate.swift in Sources */,
 				4E2E6181213A358200AE6780 /* DownloadViewController.swift in Sources */,
 				4E7D252D2121245F004FA408 /* FeedTableViewCell.swift in Sources */,

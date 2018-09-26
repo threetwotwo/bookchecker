@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Categories {
+enum Category {
 	case savedCollection
 	case fiction
 	case romance
@@ -23,31 +23,53 @@ enum Categories {
 	case mystery
 
 
-	func parameterValue() -> String {
-		switch self {
-		case .fiction:
+	func parameterValue(apiSource: APISource) -> String {
+		switch (self, apiSource) {
+		case (.fiction, .google):
 			return "Fiction"
-		case .romance:
+		case (.fiction, .archive):
+			return "Fiction"
+		case (.romance, .google):
 			return "Romance"
-		case .historicalFiction:
+		case (.romance, .archive):
+			return "Romance"
+		case (.historicalFiction, .google):
 			return "Fiction Historical"
-		case .scifi:
+		case (.historicalFiction, .archive):
+			return "Fiction Historical"
+		case (.scifi, .google):
 			return "Fiction / Science Fiction / Space Opera"
-		case .horror:
+		case (.scifi, .archive):
+			return "Fiction / Science Fiction / Space Opera"
+		case (.horror, .google):
 			return "Fiction / Horror"
-		case .food:
+		case (.horror, .archive):
+			return "Fiction / Horror"
+		case (.food, .google):
 			return "Cooking / Individual Chefs & Restaurants"
-		case .kids:
+		case (.food, .archive):
+			return "Cooking / Individual Chefs & Restaurants"
+		case (.kids, .google):
 			return "Juvenile Fiction / Concepts"
-		case .fantasy:
+		case (.kids, .archive):
+			return "Juvenile Fiction / Concepts"
+		case (.fantasy, .google):
 			return "Fiction / Fantasy / Epic"
-		case .crime:
+		case (.fantasy, .archive):
+			return "Fiction / Fantasy / Epic"
+		case (.crime, .google):
 			return "Fiction / Crime"
-		case .business:
+		case (.crime, .archive):
+			return "Fiction / Crime"
+		case (.business, .google):
 			return "Business & Economics / Decision-Making & Problem Solving"
-		case .mystery:
+		case (.business, .archive):
+			return "Business & Economics / Decision-Making & Problem Solving"
+		case (.mystery, .google):
 			return "Fiction / Mystery & Detective / General"
-		case .savedCollection:
+		case (.mystery, .archive):
+			return "Fiction / Mystery & Detective / General"
+		case (.savedCollection,_):
 			return ""
 		}
 	}

@@ -14,7 +14,7 @@ class FeedTableViewController: UITableViewController {
 
 	//MARK: - Variables
 	var networkManager: NetworkManager!
-	var queries: [Int : Categories] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
+	var queries: [Int : Category] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
 	var savedBooks: Results<RealmBook>?
 	var booksArray: [[Book]?] = []
     var storedOffsets = [Int: CGFloat]()
@@ -51,8 +51,8 @@ class FeedTableViewController: UITableViewController {
 			loadSavedBooks(index)
 			return
 		}
-		Services.shared.getBooks(from: .google, searchParameter: "subject:\"\(category!.parameterValue())\"") { (books) in
-			print("Fetched books for category \(category?.parameterValue())!!!")
+		Services.shared.getBooksFromCategory(category: category ?? .fiction, from: .google) { (books) in
+			print("Fetched books for category \(category?.parameterValue(apiSource: .google))!!!")
 			self.booksArray[index] = books
 			let indexPath = IndexPath(row: 0, section: index)
 			// check if the row of news which we are calling API to retrieve is in the visible rows area in screen
@@ -101,7 +101,10 @@ class FeedTableViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return queries[section]?.headerDescription() ?? "books"
+		guard let header = queries[section]?.headerDescription() else {
+			return "Books"
+		}
+		return section == 0 ? header : "New in \(header)"
 	}
 
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

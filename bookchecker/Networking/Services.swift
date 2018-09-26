@@ -136,7 +136,7 @@ class Services {
 
 				parameters["q"] = subjectParameter
 				parameters["orderBy"] = "newest"
-
+				parameters["langRestrict"] = "en"
 				//only return books that have preview
 				parameters["filter"] = "partial"
 				//number of books
@@ -189,7 +189,10 @@ class Services {
 				}
 			}
 			dispatchGroup.notify(queue: .main) {
-				completion(books)
+				if books.isEmpty {
+				} else {
+					completion(books)
+				}
 			}
 		}
 	}

@@ -90,7 +90,7 @@ class DownloadViewController: UIViewController {
 //MARK: - UITableViewDataSource
 extension DownloadViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return fileNames.isEmpty ? "No files available" : "Select file to open"
+		return fileNames.isEmpty ? "No files available" : "Select File"
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -164,13 +164,12 @@ extension DownloadViewController: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		let header = view as! UITableViewHeaderFooterView
 		//Configure header view
-		header.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-		header.textLabel?.textColor = UIColor.black
+		header.textLabel?.font = UIFont(name: "Futura-Medium", size: 16)
+		header.textLabel?.textColor = UIColor.init(hexString: "10165E")
 		header.textLabel?.textAlignment = .center
-		let border = UIView(frame: CGRect(x: 0, y: 39, width: view.frame.width, height: 1))
-		border.backgroundColor = UIColor.lightGray
-
-		header.addSubview(border)
+//		let border = UIView(frame: CGRect(x: 0, y: 39, width: view.frame.width, height: 1))
+//		border.backgroundColor = UIColor.lightGray
+//		header.addSubview(border)
 	}
 
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

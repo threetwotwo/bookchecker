@@ -10,6 +10,11 @@ import Foundation
 
 enum Category {
 	case business
+	case classics
+	case comicshumor
+	case comicsmanga
+	case comicsscifi
+	case comicssuperheroes
 	case crime
 	case fantasy
 	case fiction
@@ -21,6 +26,8 @@ enum Category {
 	case romance
 	case savedCollection
 	case scifi
+	case selfhelp
+	case youngadult
 
 
 	func parameterValue(apiSource: APISource) -> String {
@@ -28,49 +35,77 @@ enum Category {
 		case (.business, .google):
 			return "Business & Economics / Decision-Making & Problem Solving"
 		case (.business, .archive):
-			return "Business & Economics / Decision-Making & Problem Solving"
+			return ""
+		case (.classics, .google):
+			return "Fiction / Classics"
+		case (.classics, .archive):
+			return ""
+		case (.comicshumor, .google):
+			return "Humor / Form / Comic Strips & Cartoons"
+		case (.comicshumor, .archive):
+			return ""
+		case (.comicsmanga, .google):
+			return "Comics & Graphic Novels / Manga / General"
+		case (.comicsmanga, .archive):
+			return ""
+		case (.comicsscifi, .google):
+			return "Comics & Graphic Novels / Science Fiction"
+		case (.comicsscifi, .archive):
+			return ""
+		case (.comicssuperheroes, .google):
+			return "Comics & Graphic Novels / Superheroes"
+		case (.comicssuperheroes, .archive):
+			return ""
 		case (.crime, .google):
 			return "Fiction / Crime"
 		case (.crime, .archive):
-			return "Fiction / Crime"
+			return ""
 		case (.fantasy, .google):
 			return "Fiction / Fantasy / Epic"
 		case (.fantasy, .archive):
-			return "Fiction / Fantasy / Epic"
+			return ""
 		case (.fiction, .google):
 			return "Fiction"
 		case (.fiction, .archive):
-			return "Fiction"
+			return ""
 		case (.food, .google):
-			return "Cooking / Individual Chefs & Restaurants"
+			return "Cooking / General"
 		case (.food, .archive):
-			return "Cooking / Individual Chefs & Restaurants"
+			return ""
 		case (.historicalFiction, .google):
-			return "Fiction Historical"
+			return "Fiction / Historical"
 		case (.historicalFiction, .archive):
-			return "Fiction Historical"
+			return ""
 		case (.horror, .google):
 			return "Fiction / Horror"
 		case (.horror, .archive):
-			return "Fiction / Horror"
+			return "horror"
 		case (.kids, .google):
 			return "Juvenile Fiction / Concepts"
 		case (.kids, .archive):
-			return "Juvenile Fiction / Concepts"
+			return ""
 		case (.mystery, .google):
 			return "Fiction / Mystery & Detective / General"
 		case (.mystery, .archive):
-			return "Fiction / Mystery & Detective / General"
+			return ""
 		case (.romance, .google):
-			return "Romance"
+			return "Fiction / Romance / General"
 		case (.romance, .archive):
-			return "Romance"
+			return ""
 		case (.savedCollection,_):
 			return ""
 		case (.scifi, .google):
 			return "Fiction / Science Fiction / Space Opera"
 		case (.scifi, .archive):
-			return "Fiction / Science Fiction / Space Opera"
+			return ""
+		case (.selfhelp, .google):
+			return "Self-Help / Personal Growth / General"
+		case (.selfhelp, .archive):
+			return ""
+		case (.youngadult, .google):
+			return "Young Adult Fiction"
+		case (.youngadult, .archive):
+			return ""
 		}
 	}
 
@@ -78,6 +113,16 @@ enum Category {
 		switch self {
 		case .business:
 			return "Business"
+		case .classics:
+			return "Classics"
+		case .comicshumor:
+			return "Fun Comics"
+		case .comicsmanga:
+			return "Manga"
+		case .comicsscifi:
+			return "Sci-fi Comics"
+		case .comicssuperheroes:
+			return "Superhero Comics"
 		case .crime:
 			return "Crime"
 		case .fantasy:
@@ -100,6 +145,10 @@ enum Category {
 			return "Continue Reading"
 		case .scifi:
 			return "Science Fiction"
+		case .selfhelp:
+			return "Self Help"
+		case .youngadult:
+			return "Young Adult"
 		}
 	}
 }

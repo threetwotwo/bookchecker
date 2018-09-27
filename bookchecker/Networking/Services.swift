@@ -123,9 +123,8 @@ class Services {
 		}
 	}
 
-	func getBooksFromCategory(category: Category, from apiSources: APISource..., matureContent: Bool = false, completion: @escaping ([Book]) -> ()) {
+	func getBooksFromCategory(category: Category, from apiSources: APISource..., completion: @escaping ([Book]) -> ()) {
 		var books: [Book] = []
-		let matureParameters = matureContent ? " OR collection:magazine_rack OR collection:mensmagazines OR collection:no-preview" : ""
 		for source in apiSources {
 			var parameters: [String : String] = [:]
 			let category = category.parameterValue(apiSource: source)
@@ -140,8 +139,8 @@ class Services {
 				//only return books that have preview
 				parameters["filter"] = "partial"
 				//number of books
-				parameters["maxResults"] = "10"
-//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
+				parameters["maxResults"] = "20"
+				//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					print("GBS request: \(response.request)")
@@ -166,7 +165,7 @@ class Services {
 				dispatchGroup.enter()
 
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
-				parameters["q"] = "\(subjectParameter) AND (format:epub OR format:pdf) AND (collection:opensource* OR collection:gutenberg OR collection:comics\(matureParameters)) AND (NOT subject:religion NOT subject:islam*  NOT subject:1* NOT subject:quran NOT subject:bible NOT subject:*jesus* NOT subject:*christ* NOT subject:*church*) AND mediatype:texts"
+				parameters["q"] = "\(subjectParameter) AND (format:epub) AND (collection:opensource* OR collection:gutenberg OR collection:comics)"
 				parameters["count"] = "300"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
@@ -189,10 +188,7 @@ class Services {
 				}
 			}
 			dispatchGroup.notify(queue: .main) {
-				if books.isEmpty {
-				} else {
-					completion(books)
-				}
+				completion(books)
 			}
 		}
 	}
@@ -212,7 +208,7 @@ class Services {
 				parameters["filter"] = "partial"
 				//number of books
 				parameters["maxResults"] = "40"
-//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
+				//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					print("GBS request: \(response.request)")
@@ -260,7 +256,7 @@ class Services {
 				}
 			}
 			dispatchGroup.notify(queue: .main) {
-//				completion(books)
+				//				completion(books)
 				completion(Services.sortedBooks(books, by: searchParameter))
 			}
 		}
@@ -305,7 +301,7 @@ class Services {
 	}
 
 	func hasEPUB(book:  Book) -> Bool {
-		
+
 		return false
 	}
 }

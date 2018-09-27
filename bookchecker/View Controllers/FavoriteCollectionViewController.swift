@@ -153,7 +153,7 @@ extension FavoriteCollectionViewController: UISearchBarDelegate {
 	fileprivate func setUpSearchbar() {
 		//remove borders
 		searchBar.backgroundImage = UIImage()
-		self.searchBar.setImage(#imageLiteral(resourceName: "searchglass"), for: .search, state: [])
+		self.searchBar.setImage(UIImage(named: "search"), for: .search, state: [])
 	}
 
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

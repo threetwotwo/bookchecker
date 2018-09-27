@@ -141,7 +141,7 @@ class Services {
 				parameters["filter"] = "partial"
 				//number of books
 				parameters["maxResults"] = "10"
-				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
+//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					print("GBS request: \(response.request)")
@@ -212,7 +212,7 @@ class Services {
 				parameters["filter"] = "partial"
 				//number of books
 				parameters["maxResults"] = "40"
-				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
+//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					print("GBS request: \(response.request)")

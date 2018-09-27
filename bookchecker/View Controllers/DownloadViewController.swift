@@ -80,9 +80,9 @@ class DownloadViewController: UIViewController {
 	fileprivate func updateDownloadIcon(_ name: String, _ cell: DownloadTableViewCell) {
 		if let encodedFileName = getEncodedFileName(from: name),
 			diskFileNames.contains(encodedFileName){
-			cell.downloadIcon.image = #imageLiteral(resourceName: "checkmark_green")
+			cell.downloadIcon.image = UIImage(named: "checkmark")
 		} else {
-			cell.downloadIcon.image = #imageLiteral(resourceName: "download")
+			cell.downloadIcon.image = UIImage(named: "download")
 		}
 	}
 }
@@ -124,7 +124,7 @@ extension DownloadViewController: UITableViewDataSource {
 		guard let encodedFileName = getEncodedFileName(from: fileName) else {return}
 		//If file exists in disk, show checkmark
 		guard !diskFileNames.contains(encodedFileName) else {
-			cell.downloadIcon.image = UIImage(named: "checkmark_green")
+			cell.downloadIcon.image = UIImage(named: "checkmark")
 			return
 		}
 

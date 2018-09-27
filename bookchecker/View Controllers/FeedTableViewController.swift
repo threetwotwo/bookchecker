@@ -17,12 +17,7 @@ class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 	var queries: [Int : Category] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
 	var savedBooks: Results<RealmBook>?
-	var booksArray: [[Book]?] = [] {
-		didSet {
-			fetchCount = booksArray.compactMap{$0}.count
-			print("fetchCount = \(fetchCount)")
-		}
-	}
+	var booksArray: [[Book]?] = []
 	var storedOffsets = [Int: CGFloat]()
 	var fetchCount: Int = 0
 	let reachabilityManager = NetworkReachabilityManager()
@@ -111,14 +106,12 @@ class FeedTableViewController: UITableViewController {
 			cell.collectionViewOffset = 0
 		}
 		guard reachabilityManager?.isReachable ?? true else {return cell}
-		if index == fetchCount + 1,
+		let fetchCount = booksArray.compactMap{$0}.count
+		print("index = \(index), fetchCount = \(fetchCount)")
+		if index == fetchCount,
 			booksArray[index] == nil {
-			//Batch fetch
-			let stopIndex = index + 3
-			let shortStopIndex = index + (booksArray.count - index)
-			for i in index..<min(stopIndex, shortStopIndex) {
-				fetchBooks(ofIndex: i)
-			}
+			booksArray[index] = []
+			fetchBooks(ofIndex: index)
 		}
 		return cell
 	}

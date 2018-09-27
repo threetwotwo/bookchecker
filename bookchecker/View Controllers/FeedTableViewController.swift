@@ -16,9 +16,14 @@ class FeedTableViewController: UITableViewController {
 	//MARK: - Variables
 	var queries: [Int : Category] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
 	var savedBooks: Results<RealmBook>?
-	var booksArray: [[Book]?] = []
-    var storedOffsets = [Int: CGFloat]()
-
+	var booksArray: [[Book]?] = [] {
+		didSet {
+			fetchCount = booksArray.compactMap{$0}.count
+			print("fetchCount = \(fetchCount)")
+		}
+	}
+	var storedOffsets = [Int: CGFloat]()
+	var fetchCount: Int = 0
 	let reachabilityManager = NetworkReachabilityManager()
 
 	func startNetworkReachabilityObserver() {
@@ -34,22 +39,21 @@ class FeedTableViewController: UITableViewController {
 				self.tableView.reloadData()
 			}
 		}
-
 		// start listening
 		reachabilityManager?.startListening()
 	}
 
 	override func viewDidLoad() {
-        super.viewDidLoad()
+		super.viewDidLoad()
 		startNetworkReachabilityObserver()
 		booksArray = [[Book]?](repeating: nil, count: queries.count)
-    }
+	}
 
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
 		loadSavedBooks(0)
-		
+
 	}
 
 	//MARK: - Data Fetching
@@ -72,7 +76,7 @@ class FeedTableViewController: UITableViewController {
 			return
 		}
 		Services.shared.getBooksFromCategory(category: category ?? .fiction, from: .google) { (books) in
-			print("Fetched books for category \(category?.parameterValue(apiSource: .google))!!!")
+			print("Fetched books for category \(category?.headerDescription())!!!")
 			self.booksArray[index] = books
 			let indexPath = IndexPath(row: 0, section: index)
 			// check if the row of news which we are calling API to retrieve is in the visible rows area in screen
@@ -80,7 +84,7 @@ class FeedTableViewController: UITableViewController {
 			// if the indexPathsForVisibleRows is nil, '?? false' will make it become false
 			if self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
 				// if the row is visible (means it is currently empty on screen, refresh it with the loaded data with fade animation
-//				self.tableView.reloadRows(at: [IndexPath(row: 0, section: index)], with: .automatic)
+				//				self.tableView.reloadRows(at: [IndexPath(row: 0, section: index)], with: .automatic)
 				self.tableView.reloadData()
 			}
 		}
@@ -88,7 +92,7 @@ class FeedTableViewController: UITableViewController {
 
 	//MARK: - UITableViewDataSource
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return booksArray.count
+		return queries.count
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -112,8 +116,12 @@ class FeedTableViewController: UITableViewController {
 			cell.collectionViewOffset = 0
 		}
 		guard reachabilityManager?.isReachable ?? true else {return}
-		if booksArray[index] == nil {
+		if index == fetchCount,
+			booksArray[index] == nil {
 			fetchBooks(ofIndex: index)
+			if fetchCount < booksArray.count {
+				fetchBooks(ofIndex: index + 1)
+			}
 		}
 	}
 
@@ -141,15 +149,6 @@ class FeedTableViewController: UITableViewController {
 			return 0
 		} else {
 			return tableView.rowHeight
-		}
-	}
-}
-
-//MARK: - UITableViewDataSourcePrefetching
-extension FeedTableViewController: UITableViewDataSourcePrefetching {
-	func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-		for indexPath in indexPaths {
-			fetchBooks(ofIndex: indexPath.section)
 		}
 	}
 }

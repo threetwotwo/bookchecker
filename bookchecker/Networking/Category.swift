@@ -17,6 +17,9 @@ enum Category {
 	case comicssuperheroes
 	case crime
 	case fantasy
+	case freecomics
+	case freemagazines
+	case freemanga
 	case fiction
 	case food
 	case historicalFiction
@@ -30,125 +33,102 @@ enum Category {
 	case youngadult
 
 
-	func parameterValue(apiSource: APISource) -> String {
-		switch (self, apiSource) {
-		case (.business, .google):
+	func parameterValue() -> String {
+		switch self {
+		case .business:
 			return "Business & Economics / Decision-Making & Problem Solving"
-		case (.business, .archive):
-			return ""
-		case (.classics, .google):
+		case .classics:
 			return "Fiction / Classics"
-		case (.classics, .archive):
-			return ""
-		case (.comicshumor, .google):
+		case .comicshumor:
 			return "Humor / Form / Comic Strips & Cartoons"
-		case (.comicshumor, .archive):
-			return ""
-		case (.comicsmanga, .google):
+		case .comicsmanga:
 			return "Comics & Graphic Novels / Manga / General"
-		case (.comicsmanga, .archive):
-			return ""
-		case (.comicsscifi, .google):
+		case .comicsscifi:
 			return "Comics & Graphic Novels / Science Fiction"
-		case (.comicsscifi, .archive):
-			return ""
-		case (.comicssuperheroes, .google):
+		case .comicssuperheroes:
 			return "Comics & Graphic Novels / Superheroes"
-		case (.comicssuperheroes, .archive):
-			return ""
-		case (.crime, .google):
+		case .crime:
 			return "Fiction / Crime"
-		case (.crime, .archive):
-			return ""
-		case (.fantasy, .google):
+		case .fantasy:
 			return "Fiction / Fantasy / Epic"
-		case (.fantasy, .archive):
-			return ""
-		case (.fiction, .google):
+		case .freecomics:
+			return "collection:comics AND NOT collection*manga*"
+		case .freemagazines:
+			return "collection:magazine_rack"
+		case .freemanga:
+			return "collection:*manga*"
+		case .fiction:
 			return "Fiction"
-		case (.fiction, .archive):
-			return ""
-		case (.food, .google):
+		case .food:
 			return "Cooking / General"
-		case (.food, .archive):
-			return ""
-		case (.historicalFiction, .google):
+		case .historicalFiction:
 			return "Fiction / Historical"
-		case (.historicalFiction, .archive):
-			return ""
-		case (.horror, .google):
+		case .horror:
 			return "Fiction / Horror"
-		case (.horror, .archive):
-			return "horror"
-		case (.kids, .google):
+		case .kids:
 			return "Juvenile Fiction / Concepts"
-		case (.kids, .archive):
-			return ""
-		case (.mystery, .google):
+		case .mystery:
 			return "Fiction / Mystery & Detective / General"
-		case (.mystery, .archive):
-			return ""
-		case (.romance, .google):
+		case .romance:
 			return "Fiction / Romance / General"
-		case (.romance, .archive):
+		case .savedCollection:
 			return ""
-		case (.savedCollection,_):
-			return ""
-		case (.scifi, .google):
+		case .scifi:
 			return "Fiction / Science Fiction / Space Opera"
-		case (.scifi, .archive):
-			return ""
-		case (.selfhelp, .google):
+		case .selfhelp:
 			return "Self-Help / Personal Growth / General"
-		case (.selfhelp, .archive):
-			return ""
-		case (.youngadult, .google):
+		case .youngadult:
 			return "Young Adult Fiction"
-		case (.youngadult, .archive):
-			return ""
+
 		}
 	}
 
 	func headerDescription() -> String {
 		switch self {
 		case .business:
-			return "Business"
+			return "New In Business"
 		case .classics:
-			return "Classics"
+			return "New In Classics"
 		case .comicshumor:
-			return "Fun Comics"
+			return "New In Comic Strips"
 		case .comicsmanga:
-			return "Manga"
+			return "New In Manga"
 		case .comicsscifi:
-			return "Sci-fi Comics"
+			return "New In Sci-fi Comics"
 		case .comicssuperheroes:
-			return "Superhero Comics"
+			return "New In Superhero Comics"
 		case .crime:
-			return "Crime"
+			return "New In Crime"
 		case .fantasy:
-			return "Fantasy epics"
+			return "New In Fantasy epics"
+		case .freecomics:
+			return "New Free Comics"
+		case .freemagazines:
+			return "New Free Magazines"
+		case .freemanga:
+			return "New Free Manga"
 		case .fiction:
-			return "Fiction"
+			return "New In Fiction"
 		case .food:
-			return "Food & Cooking"
+			return "New In Food & Cooking"
 		case .historicalFiction:
-			return "Historical Fiction"
+			return "New In Historical Fiction"
 		case .horror:
-			return "Horror"
+			return "New In Horror"
 		case .kids:
-			return "Kids"
+			return "New In Kids"
 		case .mystery:
-			return "Mystery"
+			return "New In Mystery"
 		case .romance:
-			return "Romance"
+			return "New In Romance"
 		case .savedCollection:
 			return "Continue Reading"
 		case .scifi:
-			return "Science Fiction"
+			return "New In Science Fiction"
 		case .selfhelp:
-			return "Self Help"
+			return "New In Self Help"
 		case .youngadult:
-			return "Young Adult"
+			return "New In Young Adult"
 		}
 	}
 }

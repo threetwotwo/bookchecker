@@ -18,17 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beebaby_isolated" translatesAutoresizingMaskIntoConstraints="NO" id="mQi-zK-sKo">
-                                <rect key="frame" x="-117.5" y="236.5" width="629" height="180"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beebaby_isolated" translatesAutoresizingMaskIntoConstraints="NO" id="7pF-l0-CeE">
+                                <rect key="frame" x="117" y="148" width="160" height="322"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="qqK-wY-T35"/>
+                                    <constraint firstAttribute="height" constant="322" id="GhP-fd-ejg"/>
+                                    <constraint firstAttribute="width" constant="160" id="q92-Xh-IH8"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.46274509803921571" green="0.83921568627450982" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="mQi-zK-sKo" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.95" id="BPR-zX-4UE"/>
-                            <constraint firstItem="mQi-zK-sKo" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.05" id="Qa8-cm-RVZ"/>
+                            <constraint firstItem="7pF-l0-CeE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.9" id="9Wp-Hv-bpE"/>
+                            <constraint firstItem="7pF-l0-CeE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.05" id="d6W-5M-ZBi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

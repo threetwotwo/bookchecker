@@ -15,7 +15,27 @@ import SVProgressHUD
 class FeedTableViewController: UITableViewController {
 
 	//MARK: - Variables
-	var queries: [Int : Category] = Services.createSubjectQueriesWithIndex(queries: .savedCollection, .scifi, .fantasy, .food, .crime, .business, .kids)
+	var queries: [Int : Category] = Services.createSubjectQueriesWithIndex(queries: .savedCollection,
+   .fiction,
+   .youngadult,
+   .fantasy,
+   .scifi,
+   .crime,
+   .romance,
+   .food,
+   .selfhelp,
+   .business,
+   .mystery,
+   .historicalFiction,
+   .kids,
+   .comicshumor,
+   .comicsmanga,
+   .freemanga,
+   .comicssuperheroes,
+   .freecomics,
+   .freemagazines,
+   .horror,
+   .classics)
 	var savedBooks: Results<RealmBook>?
 	var booksArray: [[Book]?] = []
 	var storedOffsets = [Int: CGFloat]()
@@ -43,8 +63,20 @@ class FeedTableViewController: UITableViewController {
 		super.viewDidLoad()
 		startNetworkReachabilityObserver()
 		booksArray = [[Book]?](repeating: nil, count: queries.count)
+		UserDefaults.standard.addObserver(self, forKeyPath: "matureContent", options: NSKeyValueObservingOptions.new, context: nil)
 	}
 
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+
+		//Refetch sections that has mature content
+		print("Changed mature setting")
+
+		let sectionsWithMatureContent = [15, 17, 18]
+		for section in sectionsWithMatureContent {
+			self.fetchBooks(ofIndex: section, from: .archive)
+			SVProgressHUD.dismiss()
+		}
+	}
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
@@ -63,7 +95,7 @@ class FeedTableViewController: UITableViewController {
 		self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
 	}
 
-	func fetchBooks(ofIndex index: Int) {
+	func fetchBooks(ofIndex index: Int, from apiSource: APISource = .google) {
 		let category = queries[index]
 
 		guard category != .savedCollection else {
@@ -71,7 +103,7 @@ class FeedTableViewController: UITableViewController {
 			return
 		}
 		SVProgressHUD.show()
-		Services.shared.getBooksFromCategory(category: category ?? .fiction, from: .google) { (books) in
+		Services.shared.getBooksFromCategory(category: category ?? .fiction, from: apiSource) { (books) in
 			print("Fetched books for category \(category?.headerDescription())!!!")
 			self.booksArray[index] = books
 			SVProgressHUD.dismiss()
@@ -107,20 +139,18 @@ class FeedTableViewController: UITableViewController {
 		}
 		guard reachabilityManager?.isReachable ?? true else {return cell}
 		let fetchCount = booksArray.compactMap{$0}.count
-		print("index = \(index), fetchCount = \(fetchCount)")
+//		print("index = \(index), fetchCount = \(fetchCount)")
 		if index == fetchCount,
 			booksArray[index] == nil {
 			booksArray[index] = []
-			fetchBooks(ofIndex: index)
+			if queries[index]?.headerDescription().contains("Free") ?? false {
+					fetchBooks(ofIndex: index, from: .archive)
+			} else {
+				fetchBooks(ofIndex: index)
+			}
 		}
 		return cell
 	}
-
-//	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//
-//		guard let cell = cell as? FeedTableViewCell else {return}
-//
-//	}
 
 	override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let cell = cell as! FeedTableViewCell
@@ -131,7 +161,7 @@ class FeedTableViewController: UITableViewController {
 		guard let header = queries[section]?.headerDescription() else {
 			return "Books"
 		}
-		return section == 0 ? header : "New in \(header)"
+		return header
 	}
 
 	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -191,7 +221,7 @@ extension FeedTableViewController {
 
 	//Footer Height
 	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return 20
+		return 0
 	}
 }
 

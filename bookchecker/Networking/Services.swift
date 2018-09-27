@@ -123,70 +123,68 @@ class Services {
 		}
 	}
 
-	func getBooksFromCategory(category: Category, from apiSources: APISource..., completion: @escaping ([Book]) -> ()) {
+	func getBooksFromCategory(category: Category, from apiSource: APISource, completion: @escaping ([Book]) -> ()) {
 		var books: [Book] = []
-		for source in apiSources {
-			var parameters: [String : String] = [:]
-			let category = category.parameterValue(apiSource: source)
-			let subjectParameter = "subject:\"\(category)\""
-			dispatchGroup.enter()
 
-			switch source {
-			case .google:
+		var parameters: [String : String] = [:]
+		let parameterValue = category.parameterValue()
 
-				parameters["q"] = subjectParameter
-				parameters["orderBy"] = "newest"
-				parameters["langRestrict"] = "en"
-				//only return books that have preview
-				parameters["filter"] = "partial"
-				//number of books
-				parameters["maxResults"] = "20"
-				//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
+		switch apiSource {
+		case .google:
 
-				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
-					print("GBS request: \(response.request)")
+			parameters["q"] = "subject:\"\(parameterValue)\""
+			parameters["orderBy"] = "newest"
+			parameters["langRestrict"] = "en"
+			//only return books that have preview
+			parameters["filter"] = "partial"
+			//number of books
+			parameters["maxResults"] = "40"
+			//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
-					switch response.result {
-					case .success:
-						print("GBS: Successful Request")
-						guard let json = response.result.value else {
-							print("GBS: Cannot get JSON object from result")
-							return
-						}
-						let bookJSON = JSON(json)
-						let totalItems = bookJSON["items"].arrayValue
-						books.append(contentsOf: self.extractBooks(from: [source:totalItems]))
-					case .failure:
-						print("GBS: BAD Request!")
+			Alamofire.request(apiSource.searchURL, parameters: parameters).responseJSON { (response) in
+				print("GBS request: \(response.request)")
+
+				switch response.result {
+				case .success:
+					print("GBS: Successful Request")
+					guard let json = response.result.value else {
+						print("GBS: Cannot get JSON object from result")
+						return
 					}
-					self.dispatchGroup.leave()
-				}
-			case .archive:
-
-				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
-				parameters["q"] = "\(subjectParameter) AND (format:epub) AND (collection:opensource* OR collection:gutenberg OR collection:comics)"
-				parameters["count"] = "300"
-
-				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
-					print("ARCHIVE.ORG request: \(response.request)")
-					switch response.result {
-					case .success:
-						print("ARCHIVE.ORG: Successful Request")
-						guard let json = response.result.value else {
-							print("ARCHIVE.ORG: Cannot get JSON object from result")
-							return
-						}
-						let bookJSON = JSON(json)
-						let totalItems = bookJSON["items"].arrayValue
-						books.append(contentsOf: self.extractBooks(from: [source:totalItems]))
-					case .failure:
-						print("Archive.org: BAD request!")
-					}
-					self.dispatchGroup.leave()
+					let bookJSON = JSON(json)
+					let totalItems = bookJSON["items"].arrayValue
+					books.append(contentsOf: self.extractBooks(from: [apiSource:totalItems]))
+					completion(books)
+				case .failure:
+					print("GBS: BAD Request!")
 				}
 			}
-			dispatchGroup.notify(queue: .main) {
-				completion(books)
+		case .archive:
+			let matureSetting: Bool = UserDefaults.standard.bool(forKey: "matureContent")
+			let subjectParameter = matureSetting ? parameterValue : "\(parameterValue) AND (NOT collection:no-preview NOT collection:manga_unsorted NOT collection:manga_dojinshi)"
+			print(subjectParameter)
+			parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
+			parameters["q"] = "\(subjectParameter) AND (format:epub OR format:pdf) AND language:eng*"
+			parameters["count"] = "100"
+
+			parameters["sorts"] = category == .freemagazines ? "date desc" : "addeddate desc"
+
+			Alamofire.request(apiSource.searchURL, parameters: parameters).responseJSON { (response) in
+				print("ARCHIVE.ORG request: \(response.request)")
+				switch response.result {
+				case .success:
+					print("ARCHIVE.ORG: Successful Request")
+					guard let json = response.result.value else {
+						print("ARCHIVE.ORG: Cannot get JSON object from result")
+						return
+					}
+					let bookJSON = JSON(json)
+					let totalItems = bookJSON["items"].arrayValue
+					books.append(contentsOf: self.extractBooks(from: [apiSource:totalItems]))
+					completion(books)
+				case .failure:
+					print("Archive.org: BAD request!")
+				}
 			}
 		}
 	}
@@ -231,7 +229,7 @@ class Services {
 				dispatchGroup.enter()
 
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
-				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf) AND (collection:opensource* OR collection:gutenberg OR collection:comics\(matureParameters)) AND (NOT subject:religion NOT subject:islam*  NOT subject:1* NOT subject:quran NOT subject:bible NOT subject:*jesus* NOT subject:*christ* NOT subject:*church*) AND mediatype:texts"
+				parameters["q"] = "\(searchParameter) AND (format:epub OR format:pdf) AND (collection:opensource* OR collection:gutenberg OR collection:comics\(matureParameters)) AND (NOT subject:religion NOT subject:islam*  NOT subject:1* NOT subject:quran NOT subject:bible NOT subject:*jesus* NOT subject:*christ* NOT subject:*church*)"
 				parameters["count"] = "300"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in

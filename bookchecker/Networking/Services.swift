@@ -129,9 +129,10 @@ class Services {
 			var parameters: [String : String] = [:]
 			let category = category.parameterValue(apiSource: source)
 			let subjectParameter = "subject:\"\(category)\""
+			dispatchGroup.enter()
+
 			switch source {
 			case .google:
-				dispatchGroup.enter()
 
 				parameters["q"] = subjectParameter
 				parameters["orderBy"] = "newest"
@@ -144,7 +145,6 @@ class Services {
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					print("GBS request: \(response.request)")
-					print("GBS response code: \(response.response?.statusCode)")
 
 					switch response.result {
 					case .success:
@@ -162,7 +162,6 @@ class Services {
 					self.dispatchGroup.leave()
 				}
 			case .archive:
-				dispatchGroup.enter()
 
 				parameters["fields"] = "title,creator,publisher,publicdate,description,rights,language,collection"
 				parameters["q"] = "\(subjectParameter) AND (format:epub) AND (collection:opensource* OR collection:gutenberg OR collection:comics)"
@@ -170,7 +169,6 @@ class Services {
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
 					print("ARCHIVE.ORG request: \(response.request)")
-					print("ARCHIVE.ORG response code: \(response.response?.statusCode)")
 					switch response.result {
 					case .success:
 						print("ARCHIVE.ORG: Successful Request")

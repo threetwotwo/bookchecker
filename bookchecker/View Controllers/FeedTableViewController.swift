@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 import RealmSwift
 import Alamofire
+import SVProgressHUD
 
 class FeedTableViewController: UITableViewController {
 
@@ -53,7 +54,6 @@ class FeedTableViewController: UITableViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(true)
 		loadSavedBooks(0)
-
 	}
 
 	//MARK: - Data Fetching
@@ -75,16 +75,17 @@ class FeedTableViewController: UITableViewController {
 			loadSavedBooks(index)
 			return
 		}
+		SVProgressHUD.show()
 		Services.shared.getBooksFromCategory(category: category ?? .fiction, from: .google) { (books) in
 			print("Fetched books for category \(category?.headerDescription())!!!")
 			self.booksArray[index] = books
+			SVProgressHUD.dismiss()
 			let indexPath = IndexPath(row: 0, section: index)
 			// check if the row of news which we are calling API to retrieve is in the visible rows area in screen
 			// the 'indexPathsForVisibleRows?' is because indexPathsForVisibleRows might return nil when there is no rows in visible area/screen
 			// if the indexPathsForVisibleRows is nil, '?? false' will make it become false
 			if self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false {
 				// if the row is visible (means it is currently empty on screen, refresh it with the loaded data with fade animation
-				//				self.tableView.reloadRows(at: [IndexPath(row: 0, section: index)], with: .automatic)
 				self.tableView.reloadData()
 			}
 		}
@@ -101,12 +102,6 @@ class FeedTableViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedTableViewCell
-		return cell
-	}
-
-	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-		guard let cell = cell as? FeedTableViewCell else {return}
 		let index = indexPath.section
 		cell.setCollectionViewDataSourceDelegate(self, forRow: index)
 		cell.collectionViewOffset = storedOffsets[index] ?? 0
@@ -115,15 +110,24 @@ class FeedTableViewController: UITableViewController {
 		if index == 0 {
 			cell.collectionViewOffset = 0
 		}
-		guard reachabilityManager?.isReachable ?? true else {return}
-		if index == fetchCount,
+		guard reachabilityManager?.isReachable ?? true else {return cell}
+		if index == fetchCount + 1,
 			booksArray[index] == nil {
-			fetchBooks(ofIndex: index)
-			if fetchCount < booksArray.count {
-				fetchBooks(ofIndex: index + 1)
+			//Batch fetch
+			let stopIndex = index + 3
+			let shortStopIndex = index + (booksArray.count - index)
+			for i in index..<min(stopIndex, shortStopIndex) {
+				fetchBooks(ofIndex: i)
 			}
 		}
+		return cell
 	}
+
+//	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//
+//		guard let cell = cell as? FeedTableViewCell else {return}
+//
+//	}
 
 	override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 		let cell = cell as! FeedTableViewCell
@@ -165,6 +169,8 @@ extension FeedTableViewController: UICollectionViewDataSource {
 		if let book = booksArray[collectionView.tag]?[indexPath.row] {
 			let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
 			cell.coverImage.sd_setImage(with: url)
+			cell.authorLabel.text = book.authors
+			cell.titleLabel.text = book.title
 		}
 		return cell
 	}

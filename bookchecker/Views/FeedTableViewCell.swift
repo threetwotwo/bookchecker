@@ -11,14 +11,9 @@ import UIKit
 class FeedTableViewCell: UITableViewCell {
 	//MARK: - IBOutlet
 	@IBOutlet weak var feedCollection: UICollectionView!
-	var books: [Book]?
 }
 
 extension FeedTableViewCell {
-
-	func configure(books: [Book]) {
-		self.books = books
-	}
 
 	func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(_ dataSourceDelegate: D, forRow row: Int) {
 		feedCollection.delegate = dataSourceDelegate

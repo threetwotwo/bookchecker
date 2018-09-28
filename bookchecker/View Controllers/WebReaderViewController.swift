@@ -56,10 +56,12 @@ class WebReaderViewController: UIViewController {
 		guard let savedBook = savedBook else {return}
 		webReaderView.evaluateJavaScript("document.getElementsByClassName('overflow-scrolling')[0].scrollTop;") { (result, _) in
 			guard let result = result else {return}
+
 			let pageString = String(describing: result)
 			try! Realm().write {
 				savedBook.currentPage = pageString
 			}
+			NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reload"), object: nil)
 		}
 	}
 

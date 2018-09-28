@@ -48,7 +48,7 @@ class DetailViewController: UIViewController {
 				return
 			}
 			vc.readerLink = url
-			present(vc, animated: true)
+			navigationController?.pushViewController(vc, animated: true)
 		}
 	}
 
@@ -104,7 +104,8 @@ class DetailViewController: UIViewController {
 
 	override func viewDidLoad() {
         super.viewDidLoad()
-		loadSavedBook()
+		NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name(rawValue: "reload"), object: nil)
+
 		let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
 		swipeRight.direction = .right
 		self.view.addGestureRecognizer(swipeRight)
@@ -175,7 +176,9 @@ class DetailViewController: UIViewController {
 		}
 	}
 
-	func updateUI() {
+	@objc func updateUI() {
+		loadSavedBook()
+
 		apiSourceButton.setTitle(book.apiSource, for: [])
 		titleLabel.text = book.title
 		authorLabel.text = book.authors

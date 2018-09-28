@@ -54,6 +54,11 @@ class DownloadViewController: UIViewController {
 		popupTableView.reloadData()
 	}
 
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(true)
+		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reload"), object: nil)
+	}
+
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		//table view content + button height

@@ -35,7 +35,6 @@ class WebReaderViewController: UIViewController {
 	fileprivate func setUpWebReaderView(url: URL) {
 		webReaderView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webReaderView.navigationDelegate = self
-
 		let urlRequest = URLRequest(url: readerLink)
 		webReaderView.load(urlRequest)
 	}
@@ -74,6 +73,15 @@ class WebReaderViewController: UIViewController {
 
 // MARK: - WKNavigationDelegate
 extension WebReaderViewController: WKNavigationDelegate {
+	//Disable links
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: ((WKNavigationActionPolicy) -> Void)) {
+		if (navigationAction.navigationType == .linkActivated){
+			decisionHandler(.cancel)
+		} else {
+			decisionHandler(.allow)
+		}
+	}
+
 	func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
 		UIApplication.shared.isNetworkActivityIndicatorVisible = true
 

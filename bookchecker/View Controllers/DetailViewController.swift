@@ -140,7 +140,7 @@ class DetailViewController: UIViewController {
 	fileprivate func updateButtons() {
 
 		if book.readerLink != "" {
-			savedBook?.currentPage == nil || savedBook?.currentPage == "" ? readOrDownloadButton.setTitle("GOOGLE PREVIEW", for: []) : readOrDownloadButton.setTitle("CONTINUE", for: [])
+			savedBook?.currentPage == nil || savedBook?.currentPage == "" ? readOrDownloadButton.setTitle("PREVIEW", for: []) : readOrDownloadButton.setTitle("CONTINUE", for: [])
 		} else {
 			print(book.downloadLinks.count)
 			//Make sure that user doesnt need to download links more than once
@@ -179,7 +179,7 @@ class DetailViewController: UIViewController {
 	@objc func updateUI() {
 		loadSavedBook()
 
-		apiSourceButton.setTitle(book.apiSource, for: [])
+		apiSourceButton.setTitle(book.apiSource == APISource.google.rawValue ? "LINK" : book.apiSource, for: [])
 		titleLabel.text = book.title
 		authorLabel.text = book.authors
 		publishedHeader.text = book.apiSource == "archive.org" ? "UPLOADED" : "PUBLISHED"

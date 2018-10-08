@@ -58,7 +58,7 @@ enum Category {
 		case .freemanga:
 			return "collection:*manga*"
 		case .fiction:
-			return "Fiction"
+			return "Fiction / General"
 		case .food:
 			return "Cooking / General"
 		case .historicalFiction:

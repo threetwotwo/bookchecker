@@ -104,7 +104,7 @@ class FeedTableViewController: UITableViewController {
 		}
 		SVProgressHUD.show()
 		Services.shared.getBooksFromCategory(category: category ?? .fiction, from: apiSource) { (books) in
-			print("Fetched books for category \(category?.headerDescription())!!!")
+//			print("Fetched books for category \(category?.headerDescription())!!!")
 			self.booksArray[index] = books
 			SVProgressHUD.dismiss()
 			let indexPath = IndexPath(row: 0, section: index)

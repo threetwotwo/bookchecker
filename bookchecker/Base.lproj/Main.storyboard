@@ -554,14 +554,14 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="api source" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="my6-oJ-4Zu">
-                                                    <rect key="frame" x="142.5" y="41.5" width="80" height="18"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="source" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="my6-oJ-4Zu">
+                                                    <rect key="frame" x="142.5" y="46.5" width="64" height="18"/>
                                                     <color key="backgroundColor" red="0.90980392156862744" green="0.95686274509803915" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="L6g-Ym-F7j"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="L6g-Ym-F7j"/>
                                                         <constraint firstAttribute="height" constant="18" id="yRT-7x-FKB"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="9"/>
+                                                    <fontDescription key="fontDescription" name="Futura-MediumItalic" family="Futura" pointSize="10"/>
                                                     <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
@@ -580,7 +580,7 @@
                                                     <rect key="frame" x="142.5" y="135.5" width="50" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="HaS-rn-NF9"/>
-                                                        <constraint firstAttribute="width" constant="50" id="dKB-Lz-QqW"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="dKB-Lz-QqW"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="10"/>
                                                     <color key="textColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -606,7 +606,7 @@
                                                 <constraint firstItem="PUu-hb-9Pi" firstAttribute="leading" secondItem="jzG-io-YYs" secondAttribute="trailing" constant="20" id="YTq-FA-ZwA"/>
                                                 <constraint firstAttribute="bottom" secondItem="jzG-io-YYs" secondAttribute="bottom" constant="20" id="ZR3-9k-1cd"/>
                                                 <constraint firstItem="jzG-io-YYs" firstAttribute="top" secondItem="VjR-C8-gD7" secondAttribute="top" constant="20" id="aD6-zf-Mfl"/>
-                                                <constraint firstItem="PUu-hb-9Pi" firstAttribute="top" secondItem="my6-oJ-4Zu" secondAttribute="bottom" constant="20" id="jio-Ov-Xrq"/>
+                                                <constraint firstItem="PUu-hb-9Pi" firstAttribute="top" secondItem="my6-oJ-4Zu" secondAttribute="bottom" constant="15" id="jio-Ov-Xrq"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="PUu-hb-9Pi" secondAttribute="trailing" constant="20" id="jxV-N9-XKE"/>
                                                 <constraint firstItem="my6-oJ-4Zu" firstAttribute="leading" secondItem="PUu-hb-9Pi" secondAttribute="leading" id="sPS-va-KFb"/>
                                             </constraints>
@@ -769,7 +769,7 @@
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
                                                                         <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
-                                                                        <state key="normal" title="READ ONLINE">
+                                                                        <state key="normal" title="PREVIEW">
                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         </state>
                                                                         <userDefinedRuntimeAttributes>

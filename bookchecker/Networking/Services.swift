@@ -43,7 +43,7 @@ class Services {
 	func extractBooks(from totalItems: [APISource:[JSON]]) -> [Book]{
 		var books: [Book] = []
 
-		for (key,value) in totalItems {
+		for (key,_) in totalItems {
 			let index = min(100, totalItems[key]!.count)
 			switch key {
 			case .google:
@@ -142,7 +142,7 @@ class Services {
 			//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
 			Alamofire.request(apiSource.searchURL, parameters: parameters).responseJSON { (response) in
-				print("GBS request: \(response.request)")
+//				print("GBS request: \(response.request)")
 
 				switch response.result {
 				case .success:
@@ -170,7 +170,7 @@ class Services {
 			parameters["sorts"] = category == .freemagazines ? "date desc" : "addeddate desc"
 
 			Alamofire.request(apiSource.searchURL, parameters: parameters).responseJSON { (response) in
-				print("ARCHIVE.ORG request: \(response.request)")
+//				print("ARCHIVE.ORG request: \(response.request)")
 				switch response.result {
 				case .success:
 					print("ARCHIVE.ORG: Successful Request")
@@ -207,8 +207,8 @@ class Services {
 				//				parameters["key"] = "AIzaSyCIkCqynRHXaZfRZ-u2NllyoXwi5vCKWOM"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
-					print("GBS request: \(response.request)")
-					print("GBS response code: \(response.response?.statusCode)")
+//					print("GBS request: \(response.request)")
+//					print("GBS response code: \(response.response?.statusCode)")
 
 					switch response.result {
 					case .success:
@@ -233,8 +233,8 @@ class Services {
 				parameters["count"] = "300"
 
 				Alamofire.request(source.searchURL, parameters: parameters).responseJSON { (response) in
-					print("ARCHIVE.ORG request: \(response.request)")
-					print("ARCHIVE.ORG response code: \(response.response?.statusCode)")
+//					print("ARCHIVE.ORG request: \(response.request)")
+//					print("ARCHIVE.ORG response code: \(response.response?.statusCode)")
 					switch response.result {
 					case .success:
 						print("ARCHIVE.ORG: Successful Request")

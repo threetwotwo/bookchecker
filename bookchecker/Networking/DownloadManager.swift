@@ -46,8 +46,8 @@ class DownloadManager {
 				fileURLCompletion(targetURL)
 			}
 			case .failure:
-				print("Failed with error: \(response.error)")
-				print(response.resumeData?.debugDescription)
+//				print("Failed with error: \(response.error)")
+//				print(response.resumeData?.debugDescription)
 				try! Realm().write {
 					download?.resumeData = self.resumeData
 				}

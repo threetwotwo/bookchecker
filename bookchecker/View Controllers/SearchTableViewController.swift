@@ -155,8 +155,7 @@ extension SearchTableViewController: UITableViewDataSource {
 				}
 			}
 		}
-
-		cell.apiSourceButton.text = book.apiSource
+		cell.apiSourceButton.text = book.apiSource == APISource.google.rawValue ? "preview" : "download"
 		cell.titleLabel.text = book.title
 		cell.authorLabel.text = book.authors
 		let url = Services.getBookImageURL(apiSource: book.apiSource, identifier: book.id)
